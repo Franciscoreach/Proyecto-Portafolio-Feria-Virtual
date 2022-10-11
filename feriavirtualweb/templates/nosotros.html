@@ -1,0 +1,142 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% load static %}
+
+    <!-- Web Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/LineIcons.2.0.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/tiny-slider.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/glightbox.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+
+</head>
+
+<body>
+    
+    <!-- Start About Us Area -->
+    <section class="about-us section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-12 d-flex align-items-center ">
+                    <div class="about-left">
+                        <div class="about-title align-left">
+                            <h2 class="wow fadeInUp" data-wow-delay=".4s">Feria Virtual para TÚ servicio.</h2>
+                            <p class="wow fadeInUp" data-wow-delay=".6s">Formados desde las raices de Los Ángeles, Región del Bio-Bío, somos una empresa chilena que comienza su travesía con un Red de profesionales en el área
+                                contando con las mayores tecnologias para nuestros usuarios.</p>
+                                <p class="wow fadeInUp" data-wow-delay=".6s">Principalmente nuestra empresa trabaja con usurios del territorio nacional pero tambien trabjamos con usuarios externos, de esta manera ampliamos nuestros horizontes
+                                    a nuevos paises para brindar nuestros servicios.
+                                </p>
+                            <p class="qote wow fadeInUp" data-wow-delay=".8s">Trabajada por 6 estudiantes de DuocUC, que buscan generar grandes cambios en la actualidad y en los procesos de distintas empresas, pero 
+                                siempre pensando del lado del cliente.
+                            </p>
+                            <div class="button wow fadeInUp" data-wow-delay="1s">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <div class="about-right wow fadeInRight" data-wow-delay=".4s">
+                        <img class="mb-3 p-0" src="{% static 'images/about/Subasta.jpeg' %}" alt="#">
+                        <img class="subastafoto" src="{% static 'images/about/subastas.jpg' %}" alt="#">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /End About Us Area -->
+    
+    <!-- Start Call To Action Area -->
+    <section class="call-action section overlay">
+        <div class="container">
+            <div class="row ">
+                <div class="col-lg-8 offset-lg-2 col-md-12 col-12">
+                    <div class="call-content">
+                        <h2>La red de ventas más amplia de productos agrícolas de todo Chile.</h2>
+                        <p>¿Que esperas para unirte a la comunidad y empezar tus ventas?</p>
+                        <div class="button">
+                            <a href="{% url 'contacto' %}" class="btn">Unirse</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /End Call To Action Area -->
+
+
+
+    <!-- ========================= JS here ========================= -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/count-up.min.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/tiny-slider.js' %}"></script>
+    <script src="{% static 'js/glightbox.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script type="text/javascript">
+        //========= Hero Slider 
+        tns({
+            container: '.hero-slider',
+            items: 1,
+            slideBy: 'page',
+            autoplay: false,
+            mouseDrag: true,
+            gutter: 0,
+            nav: true,
+            controls: false,
+            controlsText: ['<i class="lni lni-arrow-left"></i>', '<i class="lni lni-arrow-right"></i>'],
+        });
+        //====== Clients Logo Slider
+        tns({
+            container: '.client-logo-carousel',
+            slideBy: 'page',
+            autoplay: true,
+            autoplayButtonOutput: false,
+            mouseDrag: true,
+            gutter: 15,
+            nav: false,
+            controls: false,
+            responsive: {
+                0: {
+                    items: 1,
+                },
+                540: {
+                    items: 3,
+                },
+                768: {
+                    items: 4,
+                },
+                992: {
+                    items: 4,
+                },
+                1170: {
+                    items: 6,
+                }
+            }
+        });
+        //========= glightbox
+        GLightbox({
+            'href': 'https://www.youtube.com/watch?v=r44RKWyfcFw&fbclid=IwAR21beSJORalzmzokxDRcGfkZA1AtRTE__l5N4r09HcGS5Y6vOluyouM9EM',
+            'type': 'video',
+            'source': 'youtube', //vimeo, youtube or local
+            'width': 900,
+            'autoplayVideos': true,
+        });
+    </script>
+</body>
+</html>
+{% endblock %}

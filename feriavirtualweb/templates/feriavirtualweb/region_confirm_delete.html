@@ -1,0 +1,42 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    {% load static %}
+
+    <header class="masthead">
+        <div class="page-section portfolio container page-section-heading text-uppercase text-secondary mb-0 text-center ">
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Borrar Región</h2>
+            
+                <!-- Icon Divider -->
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <div class="divider-custom-line"></div>
+            </div>
+                
+            <br>
+            <center>
+            
+            <h3>¿Estás seguro de borrar esta Región?</h3>
+            <br>
+            <br>
+            <h4>Nombre de la Región: </h4> <p class="texto text-center"> {{ region.nombre }}</p>
+            <br>
+            <br>
+
+            <form action="" method="POST">
+                {% csrf_token %}
+             <div style="width: 50%;">
+                <a href="{% url 'region-detail' region.pk %}"class="btn btn-primary btn-xl" style="float: left;">Atras</a>
+                <button type="submit" class="save btn btn-primary btn-xl" style="float: right;">Borrar</button>
+             </div>
+             
+            </form>
+            
+            </center>
+        </div>
+                  
+    </header>
+{% endblock %}

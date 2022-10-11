@@ -1,0 +1,42 @@
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+
+
+<section class="page-section masthead" id="contact">
+     
+
+         <div class="container">
+                  <!-- Contact Section Heading -->
+          <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Región</h2>
+    
+          <!-- Icon Divider -->
+          <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <div class="divider-custom-line"></div>
+          </div>
+    
+          <!-- Contact Section Form -->
+    <div class="row">
+    <div class="col-lg-8 mx-auto">
+        
+    <p></p>
+    <form method="POST" class="post-form">{% csrf_token %}
+            <div style="font-size: 12px;">
+                {{ form.as_p }}
+            </div>
+        <button type="submit" class="save btn btn-primary btn-xl" style="float: right;   margin-top: 2%">Guardar</button>
+        <br>
+    </form>
+    <button onClick="javascript:history.go(-1)" class="btn btn-primary btn-xl" style="float:left;;">Atrás</button>
+    
+</div>
+</div>
+</div>    
+
+</section>
+{% endblock %}

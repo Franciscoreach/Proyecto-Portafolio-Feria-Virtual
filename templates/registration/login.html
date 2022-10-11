@@ -1,0 +1,41 @@
+{% extends 'base_generic.html' %}
+
+
+{% block content %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+<link href="{% static 'css/main.css' %}" rel="stylesheet">
+<div class="container">
+  <br>
+  <br>
+  <div class = "row">
+    <div class="col-12 col-md-6 offset-md-3">
+
+      <div class="card">
+        <div class="card-body">
+          <h3>Ingresa tus Credenciales</h3>
+          <br>
+          <form method="POST" action="{% url 'login' %}">
+            {% if form.errors %}
+            <p style="color: red; font-size: 10px;">Usuario y/o contraseña incorrecto. Inténtalo de nuevo.</p>
+            {% endif %}
+            {% csrf_token %}
+            <td>{{ form | crispy}}</td>
+            <br>
+            <div>
+              <button class="btn btn-primary" type="submit" value="login" > Ingresar</button>
+              <input type="hidden" name="next" value="{{ next }}" />
+            
+              <a href="{% url 'registro' %}" class="btn btn-primary">Registrarse</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,54 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<section class="page-section masthead" id="contact">
+          <!--===============================================================================================-->
+
+
+        
+          <!--=======aqui codigo=======-->
+          <div class="container">
+                  <!-- Contact Section Heading -->
+                  <br><br>
+          <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">-- Agregar Producto --</h2>
+    
+          <!-- Icon Divider -->
+          <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+              <i class="fas fa-film"></i>
+            </div>
+            <div class="divider-custom-line"></div>
+          </div>
+    
+          <!-- Contact Section Form -->
+    <div class="row">
+    <div class="col-lg-8 mx-auto">
+        
+    <p></p>
+    <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
+        
+        <div style="font-size: 12px;">
+        {{ form.as_p }}
+        </div>
+
+        
+        <button type="submit" class="save btn btn-primary btn-xl" style="float: right;   margin-top: 1.5%">Guardar</button>
+                  
+        <br>
+        
+    </form>
+
+    <button onClick="javascript:history.go(-1)" class="btn btn-primary btn-xl" style="float:left;;">Atrás</button>
+
+    <br><br><br><br><br>
+    </div>
+        
+        
+          
+          <!--===============================================================================================-->  
+          
+</section>
+
+{% endblock %}

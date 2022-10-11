@@ -1,0 +1,124 @@
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+
+{% load static %}
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+</style>
+
+
+
+<body id="page-top">
+
+  <!-- Start Courses Area -->
+  <section class="courses section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <div class="section-icon wow zoomIn" data-wow-delay=".4s">
+                        <i class="lni lni-plus"></i>
+                    </div>
+                    <h2 class="wow fadeInUp" data-wow-delay=".4s">Todos los Productos</h2>
+                    <p class="wow fadeInUp" data-wow-delay=".6s">En esta sección podras encontrar una amplia variedad de productos que los distintos Agricultores y/o Empresas hayan publicado para tí.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="masthead container d-flex align-items-center flex-column">
+        <!-- Icon Divider -->
+        <div class="divider-custom">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon">
+            <i class="fas fa-book-open"></i>
+          </div>
+          <div class="divider-custom-line"></div>
+        </div>
+
+        <div style="width: 60%; height: 50px;">
+
+          
+          <!--===============================================================================================-->
+          
+          
+          <!--===============================================================================================-->
+                
+        </div>
+    <br>
+
+    {% if producto_list %}
+    <div style="width: 60%;">
+        <table>
+                <tr>
+                    <th>Nombre del Producto</th>
+                    <th>Propietario del Producto</th>
+                    <th>Precio Producto</th>
+                </tr>
+
+                {% for producto in producto_list %}
+                    
+                        <tr>
+                            <td><a href="{{ producto.get_absolute_url }}"> {{ producto.nombre }} </a></td>
+                            <td>{{ producto.propietario }}</td>
+                            <td>${{ producto.precio }}</td>
+                            
+                        </tr>
+                
+                    
+                {% endfor %}
+
+        </table>
+
+        <br>
+
+        {% if is_paginated %}
+          <ul class="pagination">
+          {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+          {% endif %}
+
+          {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+              <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+              <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+          {% endif %}
+          </ul>
+        {% endif %}
+
+    </div>
+    {% else %}
+        <p>No hay Productos disponibles</p>
+
+    {% endif %}
+</div>
+</body>
+{% endblock %}

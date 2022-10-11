@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% load static %}
+
+<header class="masthead">
+    <div class="container d-flex flex-column">
+        <h1 class="page-section-heading text-uppercase text-secondary mb-0" > {{region.nombre}} 
+
+
+         <a class="btn btn-default" href="{% url 'region_update' pk=region.pk %}">Editar    <span class="glyphicon glyphicon-pencil"></span></a>
+            <a class="btn btn-default" href="{% url 'region_delete' pk=region.pk %}">Eliminar    <span class="glyphicon glyphicon-trash"></span></a>
+
+        </h1>
+    </div>
+</header>
+
+
+{% endblock %}

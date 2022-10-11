@@ -1,0 +1,64 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% load static %}
+  
+<header class="masthead">
+ <!--===============================================================================================-->
+          
+
+        
+          <!--=======aqui codigo=======--> 
+        <div class="page-section portfolio container page-section-heading text-uppercase text-secondary mb-0 ">
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Borrar Producto</h2>
+    
+        <!-- Icon Divider -->
+        <div class="divider-custom">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon">
+            <i class="fas fa-film"></i>
+          </div>
+          <div class="divider-custom-line"></div>
+        </div>
+<p></p>
+<br>
+<center><h3>¿Estás seguro de borrar este Producto?</h3>
+  
+    <br>
+    <h4>Producto: {{ producto.nombre }}</h4>
+    <br>
+    <form action="" method="POST">
+      {% csrf_token %}
+       <div style="width: 50%;">
+          <a href="{% url 'producto-detail' producto.pk %}"class="btn btn-primary btn-xl">Atras</a>
+          <button type="submit" class="save btn btn-primary btn-xl">Borrar</button>
+       </div>
+       
+      </form>
+      <br>
+      <br>
+    <div style="height: 300px; width: 500px;">
+        <img class="card-img-top card mb-2" src="{{ producto.image.url}}">
+    </div>
+
+</center>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+<br>
+</div>
+        
+        
+          
+          <!--===============================================================================================-->  
+          
+</header>
+{% endblock %}
