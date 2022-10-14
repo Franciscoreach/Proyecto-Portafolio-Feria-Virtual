@@ -4,10 +4,58 @@
 {% block content %}
 
 {% load static %}
+
+<script>
+	$( document ).ready(function() {
+    $('#ModalContrato').modal('toggle')
+});
+</script>
+
 {% load crispy_forms_tags %}
 <link href="{% static 'css/main.css' %}" rel="stylesheet">
 
+
+
 <div class="container">
+	
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalContrato" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Términos y condiciones</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Términos
+		Proveedor de servicios
+
+		Los servicios de Google los proporciona y se contratan con:
+
+		Google LLC
+		Empresa que se rige por las leyes del estado de Delaware (EE. UU.) y que opera bajo la legislación estadounidense
+
+		1600 Amphitheatre Parkway
+		Mountain View, California, 94043
+		EE. UU.
+		<br>
+		Requisitos de edad mínima
+
+		Si no tienes la edad mínima para poder gestionar tu propia cuenta de Google, debes contar con el permiso de tu padre, madre o tutor legal para utilizar una cuenta de Google. Pide a tu padre, madre o tutor legal que lea estos términos contigo.
+
+		Si eres padre, madre o tutor legal y permites a tu hijo/a que utilice los servicios, se te aplican estos términos y eres responsable de la actividad que realice en los servicios.
+
+		Algunos servicios de Google tienen requisitos de edad mínima adicionales, como se describe en sus términos y políticas adicionales específicos.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 	<br>
 	<br>
 	<div class = "row">
@@ -24,8 +72,16 @@
 			  {% csrf_token %}
 			  <td>{{ form | crispy}}</td>
 			  <br>
-			  <button type="submit" class="btn btn-primary" value="registrar">Registrarse</button>
+			  <div>
+				<button type="submit" class="btn btn-primary" value="registrar">Registrarse</button>
+				<!-- Button trigger modal -->
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalContrato">
+					Términos y condiciones
+				</button>
+			  </div>
 			</form>
+			<br>
+				
 		  </div>
 		</div>
 	  </div>

@@ -27,35 +27,26 @@
         </div>
         <div class="col-md-4">
           <br>
+          <h4 class="descripcion text-secondary">Categoria del Producto:</h4>
+          {% if producto.categoria %}
+            <p class="texto">{{producto.categoria.nombre}} </p>
+          {% else %}
+            <p class="texto">No hay una Categoria asociados a este Producto</p>
+
+          {% endif %}
+          <br>
           <h4 class="descripcion text-secondary">Descripción del Producto:</h4>
           <br>
           <p class="texto">{{producto.descripcion}}</p>
           <br>
-          <h4 class="descripcion text-secondary">Precio del Producto (CLP):</h4>
+          <h4 class="descripcion text-secondary">Precio del Producto (Kilos):</h4>
           <br>
-          <p class="texto">${{producto.precio}}</p>
+          <p class="texto">${{producto.precioKilo}}</p>
           <br>
-          <h4 class="descripcion text-secondary">Dueño del Producto:</h4>
-          <br>
-          <p class="texto">{{producto.propietario}}</p>
-          <br>
-          <h4 class="descripcion text-secondary">Región del Producto:</h4>
-          <br>
-
-          {% if producto.region %}
-            <p class="texto">{{producto.region.nombre}} </p>
-          {% else %}
-            <p class="texto">No hay una Región asociados a este Producto</p>
-
-          {% endif %}
-          <br>
-          <a class="btn btn-primary" href="{% url 'pago' %}">Comprar Producto</a>
+          <a class="btn btn-primary" href="">Comprar Producto</a>
           
         </div>
         <br>
-        <div class="embed-container"><br><br><br>
-          <iframe width="1350" height="450" src={{producto.url}} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-        </div>
         </div>
     
     </header>

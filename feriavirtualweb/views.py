@@ -1,8 +1,8 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from . models import Producto, Region
+from . models import Producto,Categoria
 from django.db.models import Q, query
-from . forms import RegionForm, ProductoForm, CustomUserCreationForm
+from . forms import ProductoForm, CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.contrib import messages
@@ -91,14 +91,6 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.views import generic
 
-
-class RegionDelete(DeleteView):
-    model = Region
-    success_url = reverse_lazy('index')
-
-
-class RegionDetailView(generic.DetailView):
-    model = Region
     
 class ProductoDelete(DeleteView):
     model = Producto
@@ -109,35 +101,10 @@ class ProductoDetailView(generic.DetailView):
 
 class ProductoListView(generic.ListView):
     model = Producto
-    template_name = 'templates/agrired/producto_list.html'
+    template_name = 'templates/feriavirtualweb/producto_list.html'
     queryset = Producto.objects.all()
 
     paginate_by = 10
-
-
-
-def region_new(request):
-    if request.method == "POST":
-        form = RegionForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.save()
-            return redirect('region-detail', pk=post.pk)
-    else:
-        form = RegionForm()
-        return render(request, 'agrired/region_form.html', {'form': form})
-
-def region_edit(request, pk):
-    post = get_object_or_404(Region, pk=pk)
-    if request.method == "POST":
-        form = RegionForm(request.POST, instance=post)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.save()
-            return redirect('region-detail', pk=post.pk)
-    else:
-        form = RegionForm(instance=post)
-    return render(request, 'agrired/region_form.html', {'form': form})
 
 def producto_new(request):
     if request.method == "POST":
@@ -149,7 +116,7 @@ def producto_new(request):
             return redirect('producto-detail', pk=post.pk)
     else:
         form = ProductoForm()
-        return render(request, 'agrired/producto_form.html', {'form': form})
+        return render(request, 'feriavirtualweb/producto_form.html', {'form': form})
 
 def producto_edit(request, pk):
     post = get_object_or_404(Producto, pk=pk)
@@ -161,4 +128,4 @@ def producto_edit(request, pk):
             return redirect('producto-detail', pk=post.pk)
     else:
         form = ProductoForm(instance=post)
-    return render(request, 'agrired/producto_form.html', {'form': form})
+    return render(request, 'feriavirtualweb/producto_form.html', {'form': form})

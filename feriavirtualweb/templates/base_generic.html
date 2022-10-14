@@ -196,16 +196,12 @@
                     <div class="col-lg-3 col-md-6 col-12">
                         <!-- Single Widget -->
                         <div class="single-footer footer-newsletter">
-                            <h3>Boletín Informativo</h3>
-                            <p>Suscríbete para estar siempre en contacto con nosotros y recibir las últimas novedades.</p>
-                            <form action="mail/mail.php" method="get" target="_blank" class="newsletter-form">
-                                <input name="EMAIL" placeholder="Ingrese su correo electrónico acá" class="common-input"
-                                    onfocus="this.placeholder = ''"
-                                    onblur="this.placeholder = 'Ingrese su correo electrónico'" required="" type="email">
+                            <h3>Soporte</h3>
+                            <p>¡Si requieres ayuda no dudes en contactarte con nosotros!</p>
+                            <br>
                                 <div class="button">
-                                    <button class="btn">¡Suscríbete Ahora!</button>
+                                    <a href="{% url 'contacto' %}" class="btn">Ir al Soporte</a>
                                 </div>
-                            </form>
                         </div>
                         <!-- End Single Widget -->
                     </div>

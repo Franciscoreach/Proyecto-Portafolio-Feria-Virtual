@@ -1,24 +1,15 @@
 from django import forms
-from . models import Region, Producto,User
+from . models import Producto,Categoria,User
 
 from django.contrib.auth.forms import UserCreationForm
+
 
 #Contenido de Formulario Para Registrarse en Sitio Web
 class CustomUserCreationForm(UserCreationForm):
     
     class Meta:
         model = User
-        fields = ['username',"first_name","last_name","tipo_usuario","email","password1","password2",]
-
-class RegionForm(forms.ModelForm):
-    nombre = forms.CharField(label='Nombre de la Región',max_length=200, widget=forms.TextInput(
-        attrs={
-            'class':'form-control'
-        }
-    ))
-    class Meta:
-        model = Region
-        fields = ('nombre',)
+        fields = ['username',"nombres","apellidos","pais_usuario","tipo_usuario","con_contrato","email","password1","password2",]
 
 class ProductoForm(forms.ModelForm):
     nombre = forms.CharField(label='Nombre del Producto',max_length=200, widget=forms.TextInput(
@@ -26,28 +17,18 @@ class ProductoForm(forms.ModelForm):
             'class':'form-control'
         }
     ))
-    descripcion = forms.CharField(label='Descripción del Producto', max_length=1000, widget=forms.Textarea(
-        attrs={
-            'class':'form-control'
-        }
-    ))
-    propietario = forms.CharField(label='Nombre del Propietario del Producto',max_length=200, widget=forms.TextInput(
-        attrs={
-            'class':'form-control'
-        }
-    ))
-    precio = forms.IntegerField(label='Precio del Producto', widget=forms.TextInput(
-        attrs={
-            'class':'form-control'
-        }
-    ))
-    region = forms.ModelChoiceField(queryset=Region.objects.all(), label='Region',
+    categoria = forms.ModelChoiceField(queryset=Categoria.objects.all(), label='Categoria',
             widget=forms.Select(
             attrs={
                 'class':'form-control' 
             }
-            ))
-    url = forms.URLField(label='URL', max_length=300,widget=forms.URLInput(
+    ))
+    precioKilo = forms.IntegerField(label='Precio por Kilo del Producto', widget=forms.TextInput(
+        attrs={
+            'class':'form-control'
+        }
+    ))
+    descripcion = forms.CharField(label='Descripción del Producto', max_length=1000, widget=forms.Textarea(
         attrs={
             'class':'form-control'
         }
@@ -61,6 +42,6 @@ class ProductoForm(forms.ModelForm):
 
     class Meta:
         model = Producto
-        fields = ('nombre','descripcion','propietario','precio','region', 'url', 'image',)
+        fields = ('nombre','categoria','precioKilo','descripcion', 'image',)
 
 

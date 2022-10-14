@@ -1,49 +1,76 @@
 from django.db import models
 from django.urls import reverse # Used to generate URLs by reversing the URL patterns
-import uuid # Required for unique book instances
+import uuid 
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
-
-
 # Create your models here.
-
 
 ROL_USUARIO = (
     ("COMPRADOR", "Comprador"),
     ("VENDEDOR", "Vendedor"),
-    ("DISTRIBUIDOR", "Distribuidor"),
+    ("TRANSPORTISTA", "Transportista"),
+)
+
+CONTRATO_USUARIO = (
+    ("SI", "Si"),
+    ("NO", "No"),
+) 
+
+PAIS_USUARIO = (
+    ("CHILE", "Chile"),
+    ("ARGENTINA", "Argentina"),
+    ("BRASIL", "Brasil"),
+    ("URUGUAY", "Uruguay"),
+    ("CHINA", "China"),
+    ("PARAGUAY", "Paraguay"),
+    ("ESTADOS UNIDOS", "Estados Unidos"),
+    ("JAPÓN", "Japón"),
+    ("ALEMANIA", "Alemania"),
+    ("ESPAÑA", "España"),
+    ("FRANCIA", "Francia"),
+    ("PORTUGAL", "Portugal"),
 )
 
 class User(AbstractUser):
-    tipo_usuario = models.CharField(max_length=12,choices=ROL_USUARIO,default="-")
+    idUsuario = models.AutoField(primary_key=True)
+    username = models.CharField('Nombre de Usuario',unique= True, max_length=100)
+    email = models.EmailField(max_length=254,unique = True)
+    nombres = models.CharField('Nombres', max_length= 200, blank = True, null = True)
+    apellidos = models.CharField('Apellidos', max_length= 200, blank = True, null = True)
+    pais_usuario = models.CharField(max_length=15,choices=PAIS_USUARIO,default=" ")
+    tipo_usuario = models.CharField(max_length=15,choices=ROL_USUARIO,default=" ")
+    con_contrato = models.CharField(max_length=2,choices=CONTRATO_USUARIO,default=" ")
 
-class Region(models.Model):
-	"""Model representing a Region."""
-	nombre = models.CharField(max_length=100)
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
+
+    def __str__(self):
+        return f'{self.nombres},{self.apellidos}'
+
+class Categoria(models.Model):
+	"""Model representing a Categoria."""
+	nombre = models.CharField(max_length=50)
 
 	class Meta:
 		ordering = ['nombre']
 
 	def get_absolute_url(self):
-		return reverse('region-detail', args=[str(self.id)])
+		return reverse('Categoria-detail', args=[str(self.id)])
 
 	def __str__(self):
 		"""String for representing the Model object."""
 		return self.nombre
-		
 
-
-        
-class Producto(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    nombre = models.CharField(max_length=200)
-    descripcion = models.TextField(max_length=1000)
-    propietario = models.CharField(max_length=200)
-    precio = models.IntegerField(null=True)
-    region = models.ForeignKey('Region', on_delete=models.SET_NULL, null=True, blank=False)
-    url = models.URLField(max_length=300, default='')
-    image = models.ImageField(upload_to='images/', null=True, blank=True)
     
+
+    
+class Producto(models.Model):
+    idProducto = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=50)
+    categoria = models.ForeignKey('Categoria', on_delete=models.SET_NULL, null=True, blank=False)
+    precioKilo = models.DecimalField(max_digits = 5, decimal_places = 2)
+    descripcion = models.TextField(max_length=1000)
+    image = models.ImageField(upload_to='images/', null=True, blank=True)
 
     class Meta:
         ordering=['nombre']
@@ -54,4 +81,16 @@ class Producto(models.Model):
     
     def get_absolute_url(self):
         """Returns the url to access a detail record for this Producto."""
-        return reverse('producto-detail', args=[str(self.id)])
+        return reverse('producto-detail', args=[str(self.idProducto)])    
+
+
+
+class Pedido(models.Model):
+    idPedido = models.AutoField(primary_key=True)
+    id_Usuario = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, blank=False)
+    idProducto = models.ForeignKey('Producto', on_delete=models.SET_NULL, null=True, blank=False)
+    precioKilo = models.DecimalField(max_digits = 5, decimal_places = 2)
+    peso = models.DecimalField(max_digits = 5, decimal_places = 2)
+    fecha = models.DateTimeField(null=True)
+
+

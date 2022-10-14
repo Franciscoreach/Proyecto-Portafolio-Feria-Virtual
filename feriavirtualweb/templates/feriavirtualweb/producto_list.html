@@ -70,20 +70,17 @@ tr:nth-child(even) {
         <table>
                 <tr>
                     <th>Nombre del Producto</th>
-                    <th>Propietario del Producto</th>
-                    <th>Precio Producto</th>
+                    <th>Precio por Kilo del Producto</th>
+                    <th>Categoria del Producto</th>
                 </tr>
 
                 {% for producto in producto_list %}
                     
                         <tr>
                             <td><a href="{{ producto.get_absolute_url }}"> {{ producto.nombre }} </a></td>
-                            <td>{{ producto.propietario }}</td>
-                            <td>${{ producto.precio }}</td>
-                            
+                            <td>${{ producto.precioKilo }}</td>
+                            <td>{{ producto.categoria }}</td>
                         </tr>
-                
-                    
                 {% endfor %}
 
         </table>
