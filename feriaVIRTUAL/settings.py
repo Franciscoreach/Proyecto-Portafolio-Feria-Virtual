@@ -140,3 +140,11 @@ LOGOUT_REDIRECT_URL = 'index'
 
 AUTH_USER_MODEL = 'feriavirtualweb.User'
 
+#Envió Correo -Pedro Márquez
+from decouple import config
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'virtual.feria.empresa@gmail.com'
+EMAIL_HOST_PASSWORD = 'pkfzmfmvsxsgblwi'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

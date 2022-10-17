@@ -22,6 +22,18 @@ Index Of css
 ========================================*/
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+@media screen and (max-width: 980px){
+  #contenedor{
+      width: 90%;
+  }
+  #contenido{
+      width: 60%;
+  }
+  #barra_lateral{
+      width:30%;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -2497,6 +2509,7 @@ ol {
 
 .about-us .about-right img {
   width: 100%;
+  height: 500px;
   border-radius: 0;
   overflow: hidden;
 }
@@ -2918,10 +2931,7 @@ ol {
 }
 
 .footer .recent-blog ul li {
-  margin-bottom: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #eee;
-  min-height: 95px;
 }
 
 .footer .recent-blog ul li:last-child {
@@ -2932,9 +2942,7 @@ ol {
 
 .footer .recent-blog ul li a {
   position: relative;
-  padding-left: 90px;
   color: #888;
-  font-weight: 500;
   font-size: 14px;
 }
 

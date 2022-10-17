@@ -40,18 +40,19 @@
                     </div>
                     <!-- Start Newsletter Form -->
                     <div class="subscribe-text wow fadeInUp" data-wow-delay=".2s">
-                        <form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-                            <input name="EMAIL" placeholder="Dirección Correo Electrónico" class="common-input"
+                        <form action="#" method="post" target="_blank" class="newsletter-inner">
+                            {% csrf_token %}
+                            <input name="mail" placeholder="Dirección Correo Electrónico" class="common-input"
                                 onfocus="this.placeholder = ''" onblur="this.placeholder = 'Dirección Correo Electrónico'"
                                 required="" type="email">
-                            <div class="button">
-                                <button class="btn">Enviar</button>
-                            </div>
+                                <div class="button">
+                                    <button class="btn">Contactar Soporte</button>
+                                </div>
                         </form>
                         <ul class="newsletter-social">
-                            <li><a href="javascript:void(0)"><i class="lni lni-facebook-original"></i></a></li>
-                            <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
-                            <li><a href="javascript:void(0)"><i class="lni lni-instagram"></i></a></li>
+                            <li><a href="https://web.facebook.com/profile.php?id=100086647506740"><i class="lni lni-facebook-original"></i></a></li>
+                            <li><a href="https://twitter.com/Feria_Virtual1"><i class="lni lni-twitter-original"></i></a></li>
+                            <li><a href="https://www.instagram.com/feriaa_virtuaal/"><i class="lni lni-instagram"></i></a></li>
                         </ul>
                     </div>
                     <!-- End Newsletter Form -->

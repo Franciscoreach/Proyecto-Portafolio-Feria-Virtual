@@ -6,6 +6,10 @@ from . forms import ProductoForm, CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.contrib import messages
+#Importaciones Correo
+from django.template.loader import get_template
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
 import json
 
 # Create your views here.
@@ -19,22 +23,11 @@ def index(request):
 
 def productos(request):
 
-    busqueda = request.GET.get("buscar")
-    productos = Producto.objects.all()
-
-    if busqueda:
-        productos = Producto.objects.filter(
-            Q(nombre__icontains == busqueda) |
-            Q(propietario_icontains == busqueda)
-        ).distinct()
-
-
     return render(
         request,
         'productos.html',
         context={},
     )
-
 
 def conversaciones(request):
 
@@ -59,12 +52,35 @@ def nosotros(request):
         context={},
     )
 
-def contacto(request):
-    return render(
-        request,
-        'contacto.html',
-        context={},
+#Vista Creada para Correo
+def send_email(mail):
+    context = {'mail': mail}
+
+
+    template = get_template('correo.html')
+    content = template.render(context)
+
+    email = EmailMultiAlternatives(
+        'Solicitud Contacto Soporte Feria Virtual',
+        'CodigoFacilito',
+        settings.EMAIL_HOST_USER,
+        [mail]
+        # , cc = ['virtual.feria.empresa@gmail.com']
+
     )
+
+    email.attach_alternative(content, 'text/html')
+    email.send()    
+
+def contacto(request): 
+    if request.method == 'POST':
+        mail = request.POST.get('mail')
+
+        send_email(mail)
+        messages.success(request, "Correo enviado correctamente")
+        #Redirigir al Home
+        return redirect(to="index")
+    return render( request, 'contacto.html',context={},)
 
 def registro(request):
     data = {
