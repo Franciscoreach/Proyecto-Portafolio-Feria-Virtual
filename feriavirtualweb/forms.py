@@ -39,9 +39,14 @@ class ProductoForm(forms.ModelForm):
                 'class':'form-control' 
             }
             ))
+    url = forms.URLField(label='URL de Imagen del Producto', max_length=300,widget=forms.URLInput(
+        attrs={
+            'class':'form-control'
+        }
+    ))
 
     class Meta:
         model = Producto
-        fields = ('nombre','categoria','precioKilo','descripcion', 'image',)
+        fields = ('nombre','categoria','precioKilo','descripcion', 'image','url')
 
 

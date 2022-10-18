@@ -27,13 +27,13 @@
     <div class="col-lg-8 mx-auto">
         
     <p></p>
-    <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
-        
+    <form method="POST" class="post-form" enctype="multipart/form-data"
+    
+    >{% csrf_token %}
         <div style="font-size: 12px;">
         {{ form.as_p }}
         </div>
 
-        
         <button type="submit" class="save btn btn-primary btn-xl" style="float: right;   margin-top: 1.5%">Guardar</button>
                   
         <br>

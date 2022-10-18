@@ -22,11 +22,11 @@ def index(request):
     )
 
 def productos(request):
-
+    num_productos=Producto.objects.all()
     return render(
         request,
         'productos.html',
-        context={},
+        context={'num_productos':num_productos},
     )
 
 def conversaciones(request):

@@ -55,7 +55,7 @@ class Categoria(models.Model):
 		ordering = ['nombre']
 
 	def get_absolute_url(self):
-		return reverse('Categoria-detail', args=[str(self.id)])
+		return reverse('categoria-detail', args=[str(self.id)])
 
 	def __str__(self):
 		"""String for representing the Model object."""
@@ -71,6 +71,7 @@ class Producto(models.Model):
     precioKilo = models.DecimalField(max_digits = 5, decimal_places = 2)
     descripcion = models.TextField(max_length=1000)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
+    url = models.URLField('URL de Imagen',max_length=300, default='',null=True, blank=True)
 
     class Meta:
         ordering=['nombre']

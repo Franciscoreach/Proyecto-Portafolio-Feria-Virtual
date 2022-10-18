@@ -28,109 +28,7 @@
 
 <body>
 
-    <!-- Start Destacados Area -->
-    <section class="courses section">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-title">
-                        <div class="section-icon wow zoomIn" data-wow-delay=".4s">
-                            <i class="lni lni-star"></i>
-                        </div>
-                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Productos Destacados</h2>
-                        <p class="wow fadeInUp" data-wow-delay=".6s">En esta sección te encontrarás con los productos mas comprados y que han tenido la mejor recepción por parte de nuestro clientes en el Mes.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="single-head">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Single Course -->
-                        <div class="single-course wow fadeInUp" data-wow-delay=".2s">
-                            <div class="course-image">
-                                <a href=""><img src="{% static 'images/courses/productotop1.jpg' %}"
-                                        alt="#"></a>
-                                <p class="price">$550 x Unidad</p>
-                            </div>
-                            <div class="content">
-                                <h3><a href="">Zanahorias Don Gregorio</a></h3>
-                                <p>Rica Selección de Zanahorias entregadas por la mejor selección del mismisimo Don Gregorio.</p>
-                            </div>
-                            <div class="bottom-content">
-                                <ul class="review">
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li>160 Reviews</li>
-                                </ul>
-                                <span class="tag">
-                                </span>
-                            </div>
-                        </div>
-                        <!-- End Single Course -->
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Single Course -->
-                        <div class="single-course wow fadeInUp" data-wow-delay=".4s">
-                            <div class="course-image">
-                                <a href=""><img src="{% static 'images/courses/productotop2.jpg' %}"
-                                        alt="#"></a>
-                                <p class="price">$1000 x Kilo</p>
-                            </div>
-                            <div class="content">
-                                <h3><a href="">Papas La Angustia</a></h3>
-                                <p>Selección de las mejores papas de la Zona traidas por empresas La Angustia.</p>
-                            </div>
-                            <div class="bottom-content">
-                                <ul class="review">
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li>140 Reviews</li>
-                                </ul>
-                                <span class="tag">
-                                </span>
-                            </div>
-                        </div>
-                        <!-- End Single Course -->
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Single Course -->
-                        <div class="single-course wow fadeInUp" data-wow-delay=".6s">
-                            <div class="course-image">
-                                <a href=""><img src="{% static 'images/courses/productotop3.jpg' %}"
-                                        alt="#"></a>
-                                <p class="price">$1200 x Kilo</p>
-                            </div>
-                            <div class="content">
-                                <h3><a href="">Tomate La Rojita</a></h3>
-                                <p>Deliciosos Tomates, bien rojitos traidos por la Famosa agrícultora La Rojita.</p>
-                            </div>
-                            <div class="bottom-content">
-                                <ul class="review">
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li>100 Reviews</li>
-                                </ul>
-                                <span class="tag">
-                                </span>
-                            </div>
-                        </div>
-                        <!-- End Single Course -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Courses Area -->
-     <!-- Start Courses Area -->
+     <!-- Start Agregar Producto Area -->
      <section class="courses section">
         <div class="container">
             <div class="row">
@@ -152,8 +50,27 @@
             </div>
         </div>
     </section>
-    <!-- End Courses Area -->
+    <!--Trabajo para Ignacio Gonzalez- Editar Cajas de Producto --> 
+    <div class="row">
+        {% for producto in num_productos %}
+            <div class="col-md-2">
+                <div class="card mb-2">
+                    <img class="course-image" src="{{ producto.url}}">
+                    <div class="card-body">
+                        <h4 class="card-title text-uppercase">{{ producto.nombre }}</h5>
+                        <h5 class="card-title text-uppercase">{{producto.categoria.nombre}}</h5>
+                        <h4 class="card-title text-uppercase">${{ producto.precioKilo }}</h5>
+                        <a href="{% url 'producto-detail' producto.pk %}"
+                           class="btn btn-primary" style="float: right;">
+                            Ver más
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
 
+    
 
 
     <!-- ========================= JS here ========================= -->

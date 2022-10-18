@@ -2,54 +2,52 @@
 
 {% block content %}
 {% load static %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <header class="masthead">
     <div class="container d-flex flex-column">
-<h1 class="page-section-heading text-uppercase text-secondary mb-0" > <b>{{producto.nombre}}</b>
-  <br>
+<h1 class="page-section-heading text-uppercase text-secondary mb-0" > {{producto.nombre}}
   
-          <!--===============================================================================================-->
-          {% if user.is_authenticated  %}{% if user.is_staff %}
-          
-         <a class="btn btn-primary" href="{% url 'producto_update' pk=producto.pk %}">Editar</a>
-         <a class="btn btn-primary" href="{% url 'producto_delete' pk=producto.pk %}">Eliminar</a>
-          <!--=======aqui codigo=======-->
-        
-          {% else %}{% endif %}{% else %}{% endif %}
-          <!--===============================================================================================-->    
   
   </h1>
     
    
     <div class="row">
-        <div class="col-md-4">
-          <div class="embed-container">
-              <iframe width="560" height="315" src={{producto.image.url}} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-        </div>
+    <!--Lo ayuda Miguel Parra Gerente de BD y Python -->
+    <!--Trabajo para Ignacio Gonzalez- Editar Cajas de Producto -->
+        <div class="col-md-8">
+            <div class="embed-container">
+                <iframe width="560" height="315" src={{producto.image.url}} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          </div>
         <div class="col-md-4">
           <br>
-          <h4 class="descripcion text-secondary">Categoria del Producto:</h4>
+          <h3 class="descripcion text-secondary">Categoria</h3>
+          <br>
           {% if producto.categoria %}
-            <p class="texto">{{producto.categoria.nombre}} </p>
+            <p>{{producto.categoria.nombre}} </p>
+
           {% else %}
-            <p class="texto">No hay una Categoria asociados a este Producto</p>
+            <p>No hay Categorias asociadas a este Producto</p>
 
           {% endif %}
           <br>
-          <h4 class="descripcion text-secondary">Descripción del Producto:</h4>
+          <h3 class="descripcion text-secondary">Descripción</h3>
           <br>
           <p class="texto">{{producto.descripcion}}</p>
           <br>
-          <h4 class="descripcion text-secondary">Precio del Producto (Kilos):</h4>
+          <h3 class="descripcion text-secondary">Precio</h3>
           <br>
           <p class="texto">${{producto.precioKilo}}</p>
-          <br>
-          <a class="btn btn-primary" href="">Comprar Producto</a>
-          
-        </div>
+          <br>  
+          <!--===============================================================================================-->
+
+          <a class="btn btn-info" href="{% url 'producto_update' pk=producto.pk %}"> Editar <span class="glyphicon glyphicon-pencil"></span></a>
+          <a class="btn btn-danger" href="{% url 'producto_delete' pk=producto.pk %}"> Eliminar<span class="glyphicon glyphicon-trash"></span></a>    
+          <!--=======aqui codigo=======-->
+        
+          <!--===============================================================================================-->    
         <br>
-        </div>
-    
-    </header>
+      </header>
 
 
 {% endblock %}
