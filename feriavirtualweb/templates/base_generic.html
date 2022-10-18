@@ -16,6 +16,7 @@
     {% endfor %}
     {% endif %}
 
+
     <!-- Web Font -->
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
@@ -64,9 +65,10 @@
                         <div class="toolbar-login">
                             <div class="button">
                                 {% if user.is_authenticated  %}
-                                <a href="{% url 'logout' %}">Cerrar Sesión</a>
+                                <a><i class="lni lni-user"></i> Hola {{ user.nombres }} ({{ user.username}})</a><a href="{% url 'logout' %}" class="btn">Cerrar Sesión</a>
                                 {% else %}
                                 <a href="{% url 'login' %}" class="btn">Ingresar</a>
+                                <a href="{% url 'registro' %}" class="btn">Registrarse</a>
                                 {% endif %}
                             </div>
                         </div>
@@ -93,18 +95,18 @@
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                             <ul id="nav" class="navbar-nav ms-auto">
                                 <li class="nav-item"><a href="{% url 'index' %}">Inicio</a></li>
+                                {% if user.is_authenticated  %}
                                 <li class="nav-item">
                                     <a class="page-scroll dd-menu collapsed" href="javascript:void(0)"
                                         data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
                                         aria-controls="navbarSupportedContent" aria-expanded="false"
                                         aria-label="Toggle navigation">Productos</a>
                                     <ul class="sub-menu collapse" id="submenu-1-4">
-                                        {% if user.is_authenticated  %}
                                         <li class="nav-item"><a href="{% url 'productos' %}">Todos los Productos</a></li>
-                                        {% endif %}
-                                        <li class="nav-item"><a href="{% url 'productoslista' %}">Tabla de Productos</a></li>
-                                    </ul>
+                                        <li class="nav-item"><a href="{% url 'productoslista' %}">Tabla de Productos</a></li>                      
+                                    </ul>                    
                                 </li>
+                                {% endif %}
                                 <li class="nav-item">
                                     <a class="page-scroll dd-menu collapsed" href="javascript:void(0)"
                                         data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
@@ -125,7 +127,6 @@
         </div> <!-- container -->
     </header>
     <!-- End Header Area -->
-
 
     {% block content %}{% endblock %}
 

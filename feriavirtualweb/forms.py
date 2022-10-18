@@ -44,9 +44,14 @@ class ProductoForm(forms.ModelForm):
             'class':'form-control'
         }
     ))
+    stock = forms.IntegerField(label='Stock del Producto', widget=forms.TextInput(
+        attrs={
+            'class':'form-control'
+        }
+    ))
 
     class Meta:
         model = Producto
-        fields = ('nombre','categoria','precioKilo','descripcion', 'image','url')
+        fields = ('nombre','categoria','precioKilo','descripcion', 'image','url','stock')
 
 

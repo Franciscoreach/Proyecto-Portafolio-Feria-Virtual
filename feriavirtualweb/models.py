@@ -72,6 +72,7 @@ class Producto(models.Model):
     descripcion = models.TextField(max_length=1000)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     url = models.URLField('URL de Imagen',max_length=300, default='',null=True, blank=True)
+    stock = models.IntegerField(default=0,verbose_name = 'Stock')
 
     class Meta:
         ordering=['nombre']

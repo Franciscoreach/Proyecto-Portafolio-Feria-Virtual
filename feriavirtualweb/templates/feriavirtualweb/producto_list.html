@@ -67,6 +67,7 @@ tr:nth-child(even) {
                     <th>Nombre del Producto</th>
                     <th>Precio por Kilo del Producto</th>
                     <th>Categoria del Producto</th>
+                    <th>Stock del Producto</th>
                 </tr>
 
                 {% for producto in producto_list %}
@@ -75,6 +76,7 @@ tr:nth-child(even) {
                             <td><a href="{{ producto.get_absolute_url }}"> {{ producto.nombre }} </a></td>
                             <td>${{ producto.precioKilo }}</td>
                             <td>{{ producto.categoria }}</td>
+                            <td>{{ producto.stock }}</td>
                         </tr>
                 {% endfor %}
 

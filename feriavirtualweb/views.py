@@ -1,10 +1,11 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from . models import Producto,Categoria
+from . models import Producto,Categoria,User
 from django.db.models import Q, query
 from . forms import ProductoForm, CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
+#Importación de Mensajes
 from django.contrib import messages
 #Importaciones Correo
 from django.template.loader import get_template
@@ -14,7 +15,6 @@ import json
 
 # Create your views here.
 def index(request):
-
     return render(
         request,
         'index.html',

@@ -5,49 +5,53 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <header class="masthead">
-    <div class="container d-flex flex-column">
-<h1 class="page-section-heading text-uppercase text-secondary mb-0" > {{producto.nombre}}
-  
-  
-  </h1>
-    
-   
-    <div class="row">
-    <!--Lo ayuda Miguel Parra Gerente de BD y Python -->
-    <!--Trabajo para Ignacio Gonzalez- Editar Cajas de Producto -->
-        <div class="col-md-8">
-            <div class="embed-container">
-                <iframe width="560" height="315" src={{producto.image.url}} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-          </div>
-        <div class="col-md-4">
-          <br>
-          <h3 class="descripcion text-secondary">Categoria</h3>
-          <br>
-          {% if producto.categoria %}
-            <p>{{producto.categoria.nombre}} </p>
-
-          {% else %}
-            <p>No hay Categorias asociadas a este Producto</p>
-
-          {% endif %}
-          <br>
-          <h3 class="descripcion text-secondary">Descripción</h3>
-          <br>
-          <p class="texto">{{producto.descripcion}}</p>
-          <br>
-          <h3 class="descripcion text-secondary">Precio</h3>
-          <br>
-          <p class="texto">${{producto.precioKilo}}</p>
-          <br>  
-          <!--===============================================================================================-->
-
-          <a class="btn btn-info" href="{% url 'producto_update' pk=producto.pk %}"> Editar <span class="glyphicon glyphicon-pencil"></span></a>
-          <a class="btn btn-danger" href="{% url 'producto_delete' pk=producto.pk %}"> Eliminar<span class="glyphicon glyphicon-trash"></span></a>    
-          <!--=======aqui codigo=======-->
-        
-          <!--===============================================================================================-->    
         <br>
-      </header>
+        <div class="container">
+        <div class = "row">
+          <div class="col-12 col-md-6 offset-md-3">
+        
+          <div class="card">
+            <div class="card-body">
+            <h1 class="page-section-heading text-primary" > Nombre Producto</h1><h2 class="page-section-heading text-secondary" > {{producto.nombre}}</h2>
+            <br>
+            <iframe width="550" height="350" src={{producto.image.url}} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <br>
+            <h4 class="descripcion text-secondary">Categoria del Producto:</h3>
+              <br>
+              {% if producto.categoria %}
+                <p>{{producto.categoria.nombre}} </p>
+    
+              {% else %}
+                <p>No hay Categorias asociadas a este Producto</p>
+    
+              {% endif %}
+              <br>
+              <h4 class="descripcion text-secondary">Descripción del Producto:</h3>
+              <br>
+              <p class="texto">{{producto.descripcion}}</p>
+              <br>
+              <h4 class="descripcion text-secondary">Precio:</h3>
+              <br>
+              <p class="texto">${{producto.precioKilo}}</p>
+              <br>
+              <h4 class="descripcion text-secondary">Stock del Producto:</h3>
+              <br>
+              <p class="texto">{{producto.stock}} Sacos</p>
+              <br>
+              <br>
+              <div>
+                <a class="btn btn-info" href="{% url 'producto_update' pk=producto.pk %}"> Editar <span class="glyphicon glyphicon-pencil"></span></a>
+                <a class="btn btn-danger" href="{% url 'producto_delete' pk=producto.pk %}"> Eliminar<span class="glyphicon glyphicon-trash"></span></a>  
+              </div>
+            <br>
+              
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+</header>
 
 
 {% endblock %}
