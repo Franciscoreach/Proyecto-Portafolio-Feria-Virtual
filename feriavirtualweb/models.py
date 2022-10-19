@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.urls import reverse # Used to generate URLs by reversing the URL patterns
 import uuid 
 from django.contrib.auth.models import AbstractUser, BaseUserManager
@@ -45,7 +46,11 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['email']
 
     def __str__(self):
-        return f'{self.nombres},{self.apellidos}'
+        return f'{self.idUsuario},{self.nombres},{self.apellidos}'
+
+    def get_absolute_url(self):
+        """Returns the url to access a detail record for this Producto."""
+        return reverse('usuer-detail', args=[str(self.idUsuario)]) 
 
 class Categoria(models.Model):
 	"""Model representing a Categoria."""
@@ -68,11 +73,12 @@ class Producto(models.Model):
     idProducto = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
     categoria = models.ForeignKey('Categoria', on_delete=models.SET_NULL, null=True, blank=False)
-    precioKilo = models.DecimalField(max_digits = 5, decimal_places = 2)
+    precioKilo = models.DecimalField(max_digits = 6, decimal_places = 2)
     descripcion = models.TextField(max_length=1000)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     url = models.URLField('URL de Imagen',max_length=300, default='',null=True, blank=True)
     stock = models.IntegerField(default=0,verbose_name = 'Stock')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default="1")
 
     class Meta:
         ordering=['nombre']
@@ -85,7 +91,7 @@ class Producto(models.Model):
         """Returns the url to access a detail record for this Producto."""
         return reverse('producto-detail', args=[str(self.idProducto)])    
 
-
+    
 
 class Pedido(models.Model):
     idPedido = models.AutoField(primary_key=True)

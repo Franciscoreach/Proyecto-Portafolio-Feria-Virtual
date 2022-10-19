@@ -1,0 +1,91 @@
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+
+{% load static %}
+
+<body>
+
+  <!-- Start Courses Area -->
+  
+<div class="masthead container d-flex align-items-center flex-column">
+        <!-- Icon Divider -->
+        <div class="divider-custom">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon">
+            <i class="fas fa-book-open"></i>
+          </div>
+          <div class="divider-custom-line"></div>
+        </div>
+        <div style="width: 60%; height: 50px;"> </div>
+
+    
+    <div class="card">
+        <div class="card-header">
+            <div class="row" style="margin: 30px;">
+                <div class="col-md-12 text-center">
+                    <strong class="card-title">
+                        <section class="courses section">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="section-title">
+                                            <div class="section-icon wow zoomIn" data-wow-delay=".4s">
+                                                <i class="lni lni-plus"></i>
+                                            </div>
+                                            <h2 class="wow fadeInUp" data-wow-delay=".4s">Productos Disponibles</h2>
+                                            <p class="wow fadeInUp" data-wow-delay=".6s">En esta sección podras encontrar una amplia variedad de productos disponibles que los distintos Agricultores y/o Empresas hayan publicado para tí.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </strong>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div class="row">
+                {% for producto in producto_list %}
+                <div class="col-md-4">
+                    <a href="{% url 'detalle_producto_disponible' producto.pk %} ">
+                        <div class="card">
+                            <img class="card-img-top" src="{{ producto.image.url }}" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title mb-3">{{producto.nombre}}</h4>
+                                <h5 class="card-text mb-3">${{producto.precioKilo}}</h4>
+                    </a> 
+                                <p class="card-text">{{ producto.descripcion}}</p>
+                            </div>
+                        </div>       
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; Primera</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                {% endif %}
+            
+            <span class="current">
+                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+            </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+                {% endif %}
+            </span>    
+        </div>
+
+    </div>    
+
+</div>
+<br>
+</body>
+{% endblock %}

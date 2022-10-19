@@ -63,6 +63,7 @@
                     <div class="card-body">
                         <h4 class="card-title text-uppercase">{{ producto.nombre }}</h5>
                         <h5 class="card-title text-uppercase">{{producto.categoria.nombre}}</h5>
+                        <h6 class="card-title text-uppercase">{{producto.user.nombres}} {{producto.user.apellidos}}</h6>
                         <h4 class="card-title text-uppercase">${{ producto.precioKilo }}</h5>
                         <a href="{% url 'producto-detail' producto.pk %}"
                            class="btn btn-primary" style="float: right;">

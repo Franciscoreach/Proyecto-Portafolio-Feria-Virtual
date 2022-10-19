@@ -11,6 +11,9 @@ urlpatterns = [
     path('productoslista/', views.ProductoListView.as_view(), name='productoslista'),
     path('producto/<str:pk>', views.ProductoDetailView.as_view(), name='producto-detail'),
     path('registro/',views.registro,name="registro"),
+    #URL Disponibilidad Producto
+    path('listado-productos-disponibles/',views.ListadoProductoDisponible.as_view(),name="listado_productos_disponibles"),
+    path('detalle-producto-disponible/<str:pk>',views.DetalleProductoDisponible.as_view(),name="detalle_producto_disponible"),
 ]
 
 urlpatterns += [

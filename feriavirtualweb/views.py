@@ -122,11 +122,28 @@ class ProductoListView(generic.ListView):
 
     paginate_by = 10
 
+class ListadoProductoDisponible(generic.ListView):
+    model = Producto
+    paginate_by = 9
+    template_name = 'disponible_producto_list.html'
+    
+
+    def get_queryset(self):
+        queryset = self.model.objects.filter(stock__gte = 1)
+        return queryset
+
+class DetalleProductoDisponible(generic.DetailView):
+    model = Producto
+    template_name = 'detalle_disponible_producto.html'
+
+
 def producto_new(request):
     if request.method == "POST":
         form = ProductoForm(request.POST,request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
+            #Conseguir ID Usuario Logeado
+            post.user = request.user
             post.save()
             #form.save_m2m()
             return redirect('producto-detail', pk=post.pk)
@@ -145,3 +162,4 @@ def producto_edit(request, pk):
     else:
         form = ProductoForm(instance=post)
     return render(request, 'feriavirtualweb/producto_form.html', {'form': form})
+

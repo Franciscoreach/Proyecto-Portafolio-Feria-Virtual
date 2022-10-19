@@ -1,0 +1,50 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-header">
+        <div class="row" style="margin: 30px;">
+            <div class="col-md-12 text-center ">
+                <strong class="card-title">
+                    <h2>{{object}}</h2>
+                </strong>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="card">
+                    <img class="card-img-top" src="{{ object.image.url }}" alt="Card image cap">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="card-text">Precio Producto:  ${{object.precioKilo}}</p>             
+                            </div>
+                            <div class="col-md-6">
+                                <p class="card-text">Categoria del Producto: {{object.categoria}} </p>             
+                            </div>
+                            <div class="col-md-12">
+                                <p class="card-text">Descripción del Producto:  </p>             
+                            </div>
+                            <div class="col-md-12">
+                                <p class="card-text">{{object.descripcion}}  </p>             
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-primary" type="button" onclick="registrarReserva();">Registrar Reserva Producto</button>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+</div>
+
+{% endblock %}
