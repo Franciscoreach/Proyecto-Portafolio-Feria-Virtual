@@ -16,7 +16,7 @@
     {% endfor %}
     {% endif %}
 
-
+    
     <!-- Web Font -->
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
@@ -102,9 +102,12 @@
                                         aria-controls="navbarSupportedContent" aria-expanded="false"
                                         aria-label="Toggle navigation">Productos</a>
                                     <ul class="sub-menu collapse" id="submenu-1-4">
-                                        <li class="nav-item"><a href="{% url 'listado_productos_disponibles' %}">Productos Disponibles</a></li>  
-                                        <li class="nav-item"><a href="{% url 'productos' %}">Todos los Productos</a></li>
-                                        <li class="nav-item"><a href="{% url 'productoslista' %}">Tabla de Productos</a></li>                      
+                                        <li class="nav-item"><a href="{% url 'productos' %}">Agregar Productos</a></li>
+                                        <li class="nav-item"><a href="{% url 'productoslista' %}">Tabla de Productos</a></li> 
+                                        <li class="nav-item"><a href="{% url 'solicitudes' %}">Crear Solicitud</a></li>
+                                        <li class="nav-item"><a href="{% url 'solicitudlista' %}">Tabla Solicitud</a></li>
+                                        <li class="nav-item"><a href="{% url 'subastas' %}">Crear Solicitud para Subasta</a></li>
+                                        <li class="nav-item"><a href="{% url 'subastalista' %}">Tabla de Solicitudes para Subasta</a></li>                       
                                     </ul>                    
                                 </li>
                                 {% endif %}
@@ -210,12 +213,16 @@
     <!--/ End Footer Area -->
 
     <!-- ========================= JS here ========================= -->
+    <script src="{% static 'js/jquery-3.6.1.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/count-up.min.js' %}"></script>
     <script src="{% static 'js/wow.min.js' %}"></script>
     <script src="{% static 'js/tiny-slider.js' %}"></script>
     <script src="{% static 'js/glightbox.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <!-- ========================= JQUERY ========================= -->
+    
     <script type="text/javascript">
         //========= Hero Slider 
         tns({

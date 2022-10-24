@@ -1,10 +1,10 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from . models import Producto,Categoria,User
+from . models import Producto,Categoria,User,SolicitudProducto,SubastaProducto
 from django.db.models import Q, query
-from . forms import ProductoForm, CustomUserCreationForm
+from . forms import ProductoForm, CustomUserCreationForm,SolicitudForm,SubastaForm
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 #Importación de Mensajes
 from django.contrib import messages
 #Importaciones Correo
@@ -50,6 +50,22 @@ def nosotros(request):
         request,
         'nosotros.html',
         context={},
+    )
+
+def solicitudes(request):
+    num_solicitudes=SolicitudProducto.objects.all()
+    return render(
+        request,
+        'solicitudes.html',
+        context={'num_solicitudes':num_solicitudes},
+    )
+
+def subastas(request):
+    num_subastas=SubastaProducto.objects.all()
+    return render(
+        request,
+        'subastas.html',
+        context={'num_subastas':num_subastas},
     )
 
 #Vista Creada para Correo
@@ -107,7 +123,9 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.views import generic
 
-    
+
+#Crud de Producto
+
 class ProductoDelete(DeleteView):
     model = Producto
     success_url = reverse_lazy('index')
@@ -122,19 +140,93 @@ class ProductoListView(generic.ListView):
 
     paginate_by = 10
 
-class ListadoProductoDisponible(generic.ListView):
-    model = Producto
-    paginate_by = 9
-    template_name = 'disponible_producto_list.html'
+#-------------------Compra de Productos/ Working ----------------------
+
+# class ListadoProductoDisponible(generic.ListView):
+#     model = Producto
+#     paginate_by = 9
+#     template_name = 'disponible_producto_list.html'
     
 
-    def get_queryset(self):
-        queryset = self.model.objects.filter(stock__gte = 1)
-        return queryset
+#     def get_queryset(self):
+#         queryset = self.model.objects.filter(stock__gte = 1)
+#         return queryset
 
-class DetalleProductoDisponible(generic.DetailView):
-    model = Producto
-    template_name = 'detalle_disponible_producto.html'
+# class DetalleProductoDisponible(generic.DetailView):
+#     model = Producto
+#     template_name = 'detalle_disponible_producto.html'
+
+
+# class RegistrarCompra(CreateView):
+#     model = Reserva
+#     success_url = reverse_lazy('producto:listar_productos_disponibles')
+    
+#     #ERROR EN REQUEST AJAX
+
+#     def post (self, request, *args, **kwargs):
+#         if request.is_ajax():
+#             print(request.POST)
+#         return HttpResponse('')
+
+
+#-------------------Fin Compra de Productos -----------------------------
+
+#Crear y Listar Solicitudes
+class SolicitudDetailView(generic.DetailView):
+    model = SolicitudProducto
+
+class SolicitudListView(generic.ListView):
+    model = SolicitudProducto
+    template_name = 'templates/feriavirtualweb/solicitudproducto_list.html'
+    queryset = SolicitudProducto.objects.all()
+
+    paginate_by = 10
+
+def solicitud_new(request):
+    if request.method == "POST":
+        form = SolicitudForm(request.POST,request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            #Conseguir ID Usuario Logeado
+            post.user = request.user
+            post.save()
+            #form.save_m2m()
+            messages.success(request, "¡Tú solicitud se ha ingresado correctamente!")
+            #Redirigir a la Solicitud
+            return redirect('solicitud-detail', pk=post.pk)
+    else:
+        form = SolicitudForm()
+        return render(request, 'feriavirtualweb/solicitud_form.html', {'form': form})
+
+#Crear y Listar Subastas
+
+class SubastaDetailView(generic.DetailView):
+    model = SubastaProducto
+
+class SubastaListView(generic.ListView):
+    model = SubastaProducto
+    template_name = 'templates/feriavirtualweb/subastaproducto_list.html'
+    queryset = SubastaProducto.objects.all()
+
+    paginate_by = 10
+
+def subasta_new(request):
+    if request.method == "POST":
+        form = SubastaForm(request.POST,request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            #Conseguir ID Usuario Logeado
+            post.user = request.user
+            post.save()
+            #form.save_m2m()
+            messages.success(request, "¡Tú solicitud para Subar un Producto se ha ingresado correctamente!")
+            #Redirigir al detalle de la Subasta
+            return redirect('subasta-detail', pk=post.pk)
+    else:
+        form = SubastaForm()
+        return render(request, 'feriavirtualweb/subasta_form.html', {'form': form})
+
+
 
 
 def producto_new(request):

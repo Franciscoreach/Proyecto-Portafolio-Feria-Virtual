@@ -1,0 +1,56 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% load static %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<header class="masthead">
+        <br>
+        <div class="container">
+        <div class = "row">
+          <div class="col-12 col-md-6 offset-md-3">
+        
+          <div class="card">
+            <div class="card-body">
+            <h1 class="page-section-heading text-primary" > Nombre Producto</h1><h2 class="page-section-heading text-secondary" > {{subastaproducto.nombreProducto}}</h2>
+            <br>
+            <h4 class="descripcion text-secondary">Categoria del Producto:</h3>
+              <br>
+              {% if subastaproducto.categoria %}
+                <p>{{subastaproducto.categoria.nombre}} </p>
+    
+              {% else %}
+                <p>No hay Categorias asociadas a este Producto</p>
+    
+              {% endif %}
+              <br>
+              <h4 class="descripcion text-secondary">Cantidad de Kilos Ofrecidos:</h3>
+              <br>
+              <p class="texto">{{subastaproducto.cantidadKG}}</p>
+              <br>
+              <h4 class="descripcion text-secondary">Precio Ofrecido para la Subasta:</h3>
+              <br>
+              <p class="texto">{{subastaproducto.precioSubasta}}</p>
+              <br>
+              <h4 class="descripcion text-secondary">Estado Actual de la Solicitud:</h3>
+              <br>
+              <p class="texto">{{subastaproducto.estadoSubasta}}</p>
+              <br>
+              <h4 class="descripcion text-secondary">Propietario de la Solicitud de Subasta:</h3>
+              <br>
+              <p class="texto">{{subastaproducto.user.nombres}}</p>
+              <br>
+              <br>
+            <br>
+              
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <br>
+
+</header>
+
+
+{% endblock %}
