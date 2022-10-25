@@ -2,63 +2,94 @@
 
 {% block content %}
 {% load static %}
-  
-<header class="masthead">
- <!--===============================================================================================-->
-          
 
-        
-          <!--=======aqui codigo=======--> 
-        <div class="page-section portfolio container page-section-heading text-uppercase text-secondary mb-0 ">
-        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Borrar Producto</h2>
-    
-        <!-- Icon Divider -->
-        <div class="divider-custom">
-          <div class="divider-custom-line"></div>
-          <div class="divider-custom-icon">
-            <i class="fas fa-film"></i>
-          </div>
-          <div class="divider-custom-line"></div>
-        </div>
-<p></p>
-<br>
-<center><h3>¿Estás seguro de borrar este Producto?</h3>
-  
+<header class="masthead">
+  <!--===============================================================================================-->
+
+
+
+  <!--=======aqui codigo=======-->
+  <div class="page-section portfolio container page-section-heading text-uppercase text-secondary mb-0 ">
+    <!-- <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Borrar Producto</h2> -->
+    <div class="section-title">
+      <div class="section-icon wow zoomIn" data-wow-delay=".4s">
+        <i class="lni lni-trash"></i>
+      </div>
+      <h2 class="mt-4 mb-5 wow fadeInUp data-wow-delay=.4s">Borrar Producto</h2>
+    </div>
+
+    <!-- Icon Divider -->
+    <div class="divider-custom">
+      <div class="divider-custom-line"></div>
+      <div class="divider-custom-icon">
+        <i class="fas fa-film"></i>
+      </div>
+      <div class="divider-custom-line"></div>
+    </div>
+    <p></p>
     <br>
-    <h4>Producto: {{ producto.nombre }}</h4>
-    <br>
-    <form action="" method="POST">
-      {% csrf_token %}
-       <div style="width: 50%;">
-          <a href="{% url 'producto-detail' producto.pk %}"class="btn btn-primary btn-xl">Atras</a>
+    <!-- <center>
+      <h3>¿Estás seguro de borrar este Producto?</h3>
+
+      <br>
+      <h4>Producto: {{ producto.nombre }}</h4>
+      <br>
+      <form action="" method="POST">
+        {% csrf_token %}
+        <div style="width: 50%;">
+          <a href="{% url 'producto-detail' producto.pk %}" class="btn btn-primary btn-xl">Atras</a>
           <button type="submit" class="save btn btn-primary btn-xl">Borrar</button>
-       </div>
-       
+        </div>
+
       </form>
       <br>
       <br>
-    <div style="height: 300px; width: 500px;">
+      <div style="height: 300px; width: 500px;">
         <img class="card-img-top card mb-2" src="{{ producto.image.url}}">
-    </div>
+      </div>
 
-</center>
+    </center> -->
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+    <center>
+      <div class="card mb-3 wow fadeInUp data-wow-delay=.4s" style="max-width: 1240px;">
+        <div class="card-header wow fadeInUp data-wow-delay=.4s">
+          ¿Estás seguro de borrar este Producto?
+        </div>
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ producto.image.url}}" class="img-fluid rounded-start wow fadeInUp data-wow-delay=.4s"
+              alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h4 class="wow fadeInUp data-wow-delay=.4s">Producto:</h4>
+              <span class="text-danger h2 wow fadeInUp data-wow-delay=.4s">{{ producto.nombre }}</span>
+              <br>
+              <br>
+              <p class="wow fadeInUp data-wow-delay=.4s">Al borrar este producto sera de forma permanente y no podra
+                recuperarlo.</p>
+              <br>
+              <br>
+              <br>
+              <form action="" method="POST">
+                {% csrf_token %}
+                <div>
+                  <a href="{% url 'producto-detail' producto.pk %}" class="btn btn-primary btn-xl">Atras</a>
+                  <button type="submit" class="save btn btn-danger btn-xl">Borrar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </center>
+    <br>
+    <br>
+  </div>
 
-<br>
-<br>
-<br>
-<br>
-</div>
-        
-        
-          
-          <!--===============================================================================================-->  
-          
+
+
+  <!--===============================================================================================-->
+
 </header>
 {% endblock %}

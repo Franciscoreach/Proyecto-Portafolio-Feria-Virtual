@@ -4,7 +4,7 @@
 {% load static %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<header class="masthead">
+<!-- <header class="masthead">
         <br>
         <div class="container">
         <div class = "row">
@@ -51,7 +51,55 @@
         </div>
       </div>
 
-</header>
+</header> -->
+
+<section>
+  <div class="section-title">
+    <div class="section-icon wow zoomIn" data-wow-delay=".4s">
+      <i class="lni lni-tag"></i>
+    </div>
+    <h2 class="mt-4 mb-5 wow fadeInUp data-wow-delay=.4s">Detalles del Producto</h2>
+  </div>
+  <div class="container">
+    <div class="detail-container rounded my-4 row wow fadeInUp data-wow-delay=.4s">
+      <div class="col-md-12 ">
+        <div class="row wow fadeInUp data-wow-delay=.4s">
+          <div class="rounded-left col-md-6 product bg-white">
+            <img class="mt-5 wow fadeInUp data-wow-delay=.4s" src="{{producto.image.url}}" width="100%" height="80%" alt="">
+          </div>
+          <div class="rounded-right col-md-6 detail bg-dange pb-5">
+            <div class="logo text-black text-center pt-2 mt-5">
+              <h1>{{producto.nombre}}</h1>
+              <span class="text-success h4">{{producto.categoria.nombre}}</span>
+            </div>
+            <div class="py-4 px-4">
+              <h5>Descripción:</h5>
+              <br>
+              <p class="text-justify">{{producto.descripcion}}</p>
+            </div>
+            <div class="text-center price">
+              <h2 class="list-inline-item">${{producto.precioKilo}}</h2><span class="text-warning h4 list-inline-item">x
+                kilo</span>
+              <p>Cantidad: <span class="text-warning">{{producto.cantidadKG}}</span> kg</p>
+            </div>
+            <div class="text-center pt-15 mt-4">
+              <a class="btn btn-warning text-center" href="{% url 'producto_update' pk=producto.pk %}">Editar<span
+                  class="glyphicon glyphicon-pencil"></span></a>
+              <a class="btn btn-danger text-center" href="{% url 'producto_delete' pk=producto.pk %}">Eliminar<span
+                  class="glyphicon glyphicon-trash"></span></a>
+            </div>
+            <br>
+            <div class="text-center">
+              <a class="btn btn-success text-center" href="#">Comprar<span
+                class="glyphicon glyphicon-trash"></span></a>
+            </div>
+            <i class="fa fa-share-square-o" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 {% endblock %}

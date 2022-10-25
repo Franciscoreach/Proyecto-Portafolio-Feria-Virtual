@@ -51,11 +51,6 @@ class ProductoForm(forms.ModelForm):
                 'class':'form-control' 
             }
             ))
-    url = forms.URLField(label='URL de Imagen del Producto', max_length=300,widget=forms.URLInput(
-        attrs={
-            'class':'form-control'
-        }
-    ))
     cantidadKG = forms.IntegerField(label='Cantidad de Kilos del Producto', widget=forms.TextInput(
         attrs={
             'class':'form-control'
@@ -64,7 +59,7 @@ class ProductoForm(forms.ModelForm):
 
     class Meta:
         model = Producto
-        fields = ('nombre','idProductor','idCliente','categoria','precioKilo','descripcion', 'image','url','cantidadKG')
+        fields = ('nombre','idProductor','idCliente','categoria','precioKilo','descripcion', 'image','cantidadKG')
 
 
 class SolicitudForm(forms.ModelForm):

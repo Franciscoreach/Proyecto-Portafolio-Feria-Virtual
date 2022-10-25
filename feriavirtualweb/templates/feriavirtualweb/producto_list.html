@@ -4,120 +4,118 @@
 {% block content %}
 
 {% load static %}
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  font-size: 14px;
-}
+<head>
+  <style>
+    .container1 {
+      text-align: center;
+    }
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
+    .table-hover tbody tr:hover {
+      background-color: #101c2c;
+      color: white;
+    }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-
-</style>
-
-
+    .thead-green {
+      background-color: #10dc8c;
+      color: white;
+    }
+  </style>
+</head>
 
 <body id="page-top">
 
   <!-- Start Courses Area -->
   <section class="courses section">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <div class="section-icon wow zoomIn" data-wow-delay=".4s">
-                        <i class="lni lni-plus"></i>
-                    </div>
-                    <h2 class="wow fadeInUp" data-wow-delay=".4s">Tablón de Productos Ganadores</h2>
-                    <p class="wow fadeInUp" data-wow-delay=".6s">En esta sección podras encontrar una amplia variedad de productos que los distintos Agricultores y/o Empresas hayan publicado para tí.</p>
-                </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="section-title">
+            <div class="section-icon wow zoomIn" data-wow-delay=".4s">
+              <i class="lni lni-plus"></i>
             </div>
-        </div>
-    </div>
-</section>
-<div class="masthead container d-flex align-items-center flex-column">
-        <!-- Icon Divider -->
-        <div class="divider-custom">
-          <div class="divider-custom-line"></div>
-          <div class="divider-custom-icon">
-            <i class="fas fa-book-open"></i>
+            <h2 class="wow fadeInUp" data-wow-delay=".4s">Tabla de productos</h2>
+            <p class="wow fadeInUp" data-wow-delay=".6s">En esta sección podras encontrar una amplia variedad de
+              productos que los distintos Agricultores y/o Empresas hayan publicado para tí.</p>
           </div>
-          <div class="divider-custom-line"></div>
         </div>
-
-        <div style="width: 60%; height: 50px;">
-
-          
-                
-        </div>
+      </div>
+    </div>
+  </section>
+  <div class="masthead container d-flex align-items-center flex-column table-responsive">
+    <!-- Icon Divider -->
+    <div class="divider-custom">
+      <div class="divider-custom-line"></div>
+      <div class="divider-custom-icon">
+        <i class="fas fa-book-open"></i>
+      </div>
+      <div class="divider-custom-line"></div>
+    </div>
 
     {% if producto_list %}
-    <div style="width: 60%;">
-        <table>
-                <tr>
-                    <th>Nombre del Producto</th>
-                    <th>Categoria del Producto</th>
-                    <th>Cantidad del Producto</th>
-                    <th>Precio del Producto (Dolares)</th>
-                    <th>Nombre Propietario del Producto</th>
-                    <th>Nombre Cliente del Producto</th>
-                </tr>
+    <div class="container1" style="width: 90%;">
+      <table class="table table-bordered table-hover table-responsive table-striped wow fadeInUp data-wow-delay=.4s">
+        <thead class="thead-green">
+          <tr>
+            <th class="align-middle text-center" scope="col">Nombre del Producto</th>
+            <th class="align-middle text-center" scope="col">Categoria del Producto</th>
+            <th class="align-middle text-center" scope="col">Cantidad del Producto</th>
+            <th class="align-middle text-center" scope="col">Precio del Producto (Dolares)</th>
+            <th class="align-middle text-center" scope="col">Nombre Propietario del Producto</th>
+            <th class="align-middle text-center" scope="col">Nombre Cliente del Producto</th>
+            <th class="align-middle text-center" scope="col">Producto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {% for producto in producto_list %}
 
-                {% for producto in producto_list %}
-                    
-                        <tr>
-                            <td><a href="{{ producto.get_absolute_url }}"> {{ producto.nombre }} </a></td>
-                            <td>{{ producto.categoria }}</td>
-                            <td>{{ producto.cantidadKG }} KG</td>
-                            <td>${{ producto.precioKilo }}</td>
-                            <td>{{ producto.idProductor.nombres }} {{ producto.idProductor.apellidos }}</td>
-                            <td>{{ producto.idCliente.nombres }} {{ producto.idCliente.apellidos }}</td>
-                            <td>{{ producto.stock }}</td>
-                        </tr>
-                {% endfor %}
-
-        </table>
-
-        <br>
-
-        {% if is_paginated %}
-          <ul class="pagination">
-          {% if page_obj.has_previous %}
-            <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-          {% else %}
-            <li class="disabled"><span>&laquo;</span></li>
-          {% endif %}
-
-          {% for i in paginator.page_range %}
-            {% if page_obj.number == i %}
-              <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-            {% else %}
-              <li><a href="?page={{ i }}">{{ i }}</a></li>
-            {% endif %}
+          <tr>
+            <td class="align-middle text-center">{{ producto.nombre }}</td>
+            <td class="align-middle text-center">{{ producto.categoria }}</td>
+            <td class="align-middle text-center">{{ producto.cantidadKG }} KG</td>
+            <td class="align-middle text-center">${{ producto.precioKilo }}</td>
+            <td class="align-middle text-center">{{ producto.idProductor.nombres }} {{ producto.idProductor.apellidos }}
+            </td>
+            <td class="align-middle text-center">{{ producto.idCliente.nombres }} {{ producto.idCliente.apellidos }}
+            </td>
+            <td class="align-middle text-center"><a class="btn btn-primary btn-sm"
+                href="{{ producto.get_absolute_url }}">Ver Producto</a></td>
+          </tr>
           {% endfor %}
+        </tbody>
+      </table>
 
-          {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-          {% else %}
-            <li class="disabled"><span>&raquo;</span></li>
-          {% endif %}
-          </ul>
+      <br>
+
+      {% if is_paginated %}
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
         {% endif %}
+
+        {% for i in paginator.page_range %}
+        {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+      </ul>
+      {% endif %}
 
     </div>
     {% else %}
-        <p>No hay Productos disponibles</p>
+    <p>No hay Productos disponibles</p>
 
     {% endif %}
-</div>
+  </div>
 </body>
 {% endblock %}

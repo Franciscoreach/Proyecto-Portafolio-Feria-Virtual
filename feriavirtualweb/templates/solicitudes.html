@@ -44,10 +44,6 @@
                         {% if user.is_authenticated %}
                         <a class="btn btn-primary" href="{% url 'solicitud_create' %}">Ingresar Solicitud </a>
                         {% endif %}
-
-                        {% if user.is_staff %}
-                        <a class="btn btn-primary" href="{% url 'solicitud_create' %}">Ingresar Solicitud  </a>
-                        {% endif %}
                         <!--===============================================================================================--> 
                     </div>
                 </div>

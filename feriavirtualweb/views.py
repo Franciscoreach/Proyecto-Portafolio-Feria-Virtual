@@ -29,6 +29,16 @@ def productos(request):
         context={'num_productos':num_productos},
     )
 
+
+def todolosproductos(request):
+    num_productos=Producto.objects.all()
+    return render(
+        request,
+        'allproductos.html',
+        context={'num_productos':num_productos},
+    )
+
+
 def conversaciones(request):
 
     return render(

@@ -5,48 +5,46 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <header class="masthead">
-        <br>
-        <div class="container">
-        <div class = "row">
-          <div class="col-12 col-md-6 offset-md-3">
-        
-          <div class="card">
-            <div class="card-body">
-            <h1 class="page-section-heading text-primary" > Nombre Producto</h1><h2 class="page-section-heading text-secondary" > {{solicitudproducto.nombreProducto}}</h2>
-            <br>
-            <h4 class="descripcion text-secondary">Categoria del Producto:</h3>
-              <br>
-              {% if solicitudproducto.categoria %}
-                <p>{{solicitudproducto.categoria.nombre}} </p>
-    
-              {% else %}
-                <p>No hay Categorias asociadas a este Producto</p>
-    
-              {% endif %}
-              <br>
-              <h4 class="descripcion text-secondary">Cantidad de Kilos Solicitados:</h3>
-              <br>
-              <p class="texto">{{solicitudproducto.cantidadKG}}</p>
-              <br>
-              <h4 class="descripcion text-secondary">Estado Actual de la Solicitud:</h3>
-              <br>
-              <p class="texto">{{solicitudproducto.estadoSolicitud}}</p>
-              <br>
-              <h4 class="descripcion text-secondary">Propietario de la Solicitud:</h3>
-              <br>
-              <p class="texto">{{solicitudproducto.user.nombres}}</p>
-              <br>
-              <br>
-            <br>
-              
-            </div>
-          </div>
-          </div>
+  <div class="container">
+    <div class="section-title">
+      <div class="section-icon wow zoomIn" data-wow-delay=".4s">
+        <i class="lni lni-postcard"></i>
+      </div>
+      <h2 class="mt-4 mb-5 wow fadeInUp data-wow-delay=.4s">Detalle de Solicitud de Productos</h2>
+    </div>
+    <div class="row">
+      <div class="card border-success mb-3" style="max-width:120rem;">
+        <div class="card-header text-center">Solicitud</div>
+        <div class="card-body text-success">
+          <h5 class="text-center">Nombre Producto</h5>
+          <h3 class="text-center text-success">{{solicitudproducto.nombreProducto}}</h3>
+          <br>
+          <h6>Categoria del producto:</h6>
+          {% if solicitudproducto.categoria %}
+          <span class="h4">{{solicitudproducto.categoria.nombre}} </span>
+          {% else %}
+          <span class="h4">No hay Categorias asociadas a este Producto</span>
+          {% endif %}
+          <br>
+          <h6>Cantidad de Kilos Solicitados:</h6>
+          <span class="h4">{{solicitudproducto.cantidadKG}} kg</span>
+          <br>
+          <h6>Estado Actual de la Solicitud:</h6>
+          <span class="h4">{{solicitudproducto.estadoSolicitud}}</span>
+          <br>
+          <h6>Propietario de la Solicitud:</h6>
+          <span class="h4">{{solicitudproducto.user.nombres}}</span>
+          <hr>
+          <h6 class="text-center">{{ solicitudproducto.fechaSolicitud }}</h6>
         </div>
       </div>
-      <br>
+    </div>
+  </div>
+  <br>
 
 </header>
+
+
 
 
 {% endblock %}

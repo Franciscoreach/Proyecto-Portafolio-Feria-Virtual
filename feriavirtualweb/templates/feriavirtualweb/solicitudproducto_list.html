@@ -4,25 +4,23 @@
 {% block content %}
 
 {% load static %}
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  font-size: 14px;
-}
+<head>
+  <style>
+    .container1 {
+      text-align: center;
+    }
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
+    .table-hover tbody tr:hover {
+      background-color: #101c2c;
+      color: white;
+    }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-
-</style>
+    .thead-green {
+      background-color: #10dc8c;
+      color: white;
+    }
+  </style>
+</head>
 
 
 
@@ -31,90 +29,92 @@ tr:nth-child(even) {
   <!-- Start Courses Area -->
   <section class="courses section">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <div class="section-icon wow zoomIn" data-wow-delay=".4s">
-                        <i class="lni lni-plus"></i>
-                    </div>
-                    <h2 class="wow fadeInUp" data-wow-delay=".4s">Tablón de Solicitudes</h2>
-                    <p class="wow fadeInUp" data-wow-delay=".6s">En esta sección podras encontrar una amplia variedad de productos que los distintos Agricultores y/o Empresas hayan publicado para tí.</p>
-                </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="section-title">
+            <div class="section-icon wow zoomIn" data-wow-delay=".4s">
+              <i class="lni lni-plus"></i>
             </div>
-        </div>
-    </div>
-</section>
-<div class="masthead container d-flex align-items-center flex-column">
-        <!-- Icon Divider -->
-        <div class="divider-custom">
-          <div class="divider-custom-line"></div>
-          <div class="divider-custom-icon">
-            <i class="fas fa-book-open"></i>
+            <h2 class="wow fadeInUp" data-wow-delay=".4s">Tabla de Solicitudes</h2>
+            <p class="wow fadeInUp" data-wow-delay=".6s">En esta sección podras encontrar una amplia variedad de
+              solicitudes que los distintos Agricultores y/o Empresas hayan publicado para tí.</p>
           </div>
-          <div class="divider-custom-line"></div>
         </div>
-
-        <div style="width: 60%; height: 50px;">
-
-          
-                
-        </div>
+      </div>
+    </div>
+  </section>
+  <div class="masthead container d-flex align-items-center flex-column">
+    <!-- Icon Divider -->
+    <div class="divider-custom">
+      <div class="divider-custom-line"></div>
+      <div class="divider-custom-icon">
+        <i class="fas fa-book-open"></i>
+      </div>
+      <div class="divider-custom-line"></div>
+    </div>
 
     {% if solicitudproducto_list %}
-    <div style="width: 60%;">
-        <table>
-                <tr>
-                    <th>Nombre del Producto</th>
-                    <th>Categoria del Producto</th>
-                    <th>Cantidad Solicitada</th>
-                    <th>Propietario Solicitud</th>
-                    <th>Estado Solicitud</th>
-                </tr>
+    <div class="container1" style="width: 90%">
+      <table class="table table-bordered table-hover table-responsive table-striped wow fadeInUp data-wow-delay=.4s">
+        <thead class="thead-green">
+          <tr>
+            <th class="align-middle text-center" scope="col">Nombre del Producto</th>
+            <th class="align-middle text-center" scope="col">Categoria del Producto</th>
+            <th class="align-middle text-center" scope="col">Cantidad del Producto</th>
+            <th class="align-middle text-center" scope="col">Propietario Solicitud</th>
+            <th class="align-middle text-center" scope="col">Fecha Solicitud</th>
+            <th class="align-middle text-center" scope="col">Estado Solicitud</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {% for solicitud in solicitudproducto_list %}
 
-                {% for solicitud in solicitudproducto_list %}
-                    
-                        <tr>
-                            <td>{{ solicitud.nombreProducto }} </td>
-                            <td>{{ solicitud.categoria }}</td>
-                            <td>{{ solicitud.cantidadKG }} Kilos</td>
-                            <td>{{ solicitud.user.nombres }} {{ solicitud.user.apellidos }}</td>
-                            <td>{{ solicitud.estadoSolicitud }}</td>
-                        </tr>
-                {% endfor %}
-
-        </table>
-
-        <br>
-
-        {% if is_paginated %}
-          <ul class="pagination">
-          {% if page_obj.has_previous %}
-            <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-          {% else %}
-            <li class="disabled"><span>&laquo;</span></li>
-          {% endif %}
-
-          {% for i in paginator.page_range %}
-            {% if page_obj.number == i %}
-              <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-            {% else %}
-              <li><a href="?page={{ i }}">{{ i }}</a></li>
-            {% endif %}
+          <tr>
+            <td class="align-middle text-center">{{ solicitud.nombreProducto }}</td>
+            <td class="align-middle text-center">{{ solicitud.categoria }}</td>
+            <td class="align-middle text-center">{{ solicitud.cantidadKG }} Kilos</td>
+            <td class="align-middle text-center">{{ solicitud.user.nombres }} {{ solicitud.user.apellidos }}
+            </td>
+            <td class="align-middle text-center">{{ solicitud.fechaSolicitud }}</td>
+            <td class="align-middle text-center">{{ solicitud.estadoSolicitud }}
+            </td>
+          </tr>
           {% endfor %}
+        </tbody>
+      </table>
 
-          {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-          {% else %}
-            <li class="disabled"><span>&raquo;</span></li>
-          {% endif %}
-          </ul>
+      <br>
+
+      {% if is_paginated %}
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
         {% endif %}
+
+        {% for i in paginator.page_range %}
+        {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+      </ul>
+      {% endif %}
 
     </div>
     {% else %}
-        <p>No hay Solicitudes de Productos Actualmente</p>
+    <p>No hay Solicitudes de Productos Actualmente</p>
 
     {% endif %}
-</div>
+  </div>
 </body>
 {% endblock %}

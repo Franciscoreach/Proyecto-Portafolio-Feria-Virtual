@@ -49,7 +49,7 @@ class User(AbstractUser):
         return f'{self.nombres} {self.apellidos}'
 
     def get_absolute_url(self):
-        """Returns the url to access a detail record for this Producto."""
+        """Returns the url to access a detail record for this User."""
         return reverse('usuer-detail', args=[str(self.idUsuario)]) 
 
 class Categoria(models.Model):
@@ -139,7 +139,6 @@ class Producto(models.Model):
     precioKilo = models.DecimalField(max_digits = 6, decimal_places = 2)
     descripcion = models.TextField(max_length=1000)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
-    url = models.URLField('URL de Imagen',max_length=300, default='',null=True, blank=True)
     cantidadKG = models.IntegerField(default=0,verbose_name = 'Cantidad de Kilos')
     fechaPublicacion = models.DateField('Fecha Publicacion', auto_now= True, auto_now_add= False)
 
