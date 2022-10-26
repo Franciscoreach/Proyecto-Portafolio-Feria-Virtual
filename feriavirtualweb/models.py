@@ -130,6 +130,13 @@ class SubastaProducto(models.Model):
 #Adición Campos idProductor/idCliente/fechaPublicacion/cantidadKG
 # 
 
+
+ESTADO_PAGO = (
+    ("PENDIENTE", "Pendiente"),
+    ("PAGADO", "Pagado"),
+    ("EXPIRADO", "Expirado"),
+)
+
 class Producto(models.Model):
     idProducto = models.AutoField(primary_key=True)
     idProductor = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, blank=False,related_name='ID_Productor')
@@ -141,6 +148,7 @@ class Producto(models.Model):
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     cantidadKG = models.IntegerField(default=0,verbose_name = 'Cantidad de Kilos')
     fechaPublicacion = models.DateField('Fecha Publicacion', auto_now= True, auto_now_add= False)
+    estadoPago = models.CharField(max_length=15,choices=ESTADO_PAGO,default="PENDIENTE")
 
     class Meta:
         ordering=['nombre']

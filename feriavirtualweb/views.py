@@ -78,6 +78,15 @@ def subastas(request):
         context={'num_subastas':num_subastas},
     )
 
+def perfilUsuario(request):
+    num_subastas=SubastaProducto.objects.all()
+    num_solicitudes=SolicitudProducto.objects.all()
+    return render(
+        request,
+        'perfilusuario.html',
+        context={'num_subastas':num_subastas,'num_solicitudes':num_solicitudes},
+    )    
+
 #Vista Creada para Correo
 def send_email(mail):
     context = {'mail': mail}

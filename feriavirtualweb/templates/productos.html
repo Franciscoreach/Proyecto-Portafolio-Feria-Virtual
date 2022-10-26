@@ -27,9 +27,8 @@
 </head>
 
 <body>
-
-     <!-- Start Agregar Producto Area -->
-     <section class="courses section">
+    <!-- Start Agregar Producto Area -->
+    <section class="courses section">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -38,41 +37,20 @@
                             <i class="lni lni-plus"></i>
                         </div>
                         <h2 class="wow fadeInUp" data-wow-delay=".4s">Nuevos Productos</h2>
-                        <p class="wow fadeInUp" data-wow-delay=".6s">Acá podras agregar nuevos productos para la comunidad(Te recordamos que esta opción esta disponible solamente con tu cuenta ingresada).</p>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">Acá podras agregar nuevos productos para la
+                            comunidad (Te recordamos que esta opción esta disponible solamente con tu cuenta ingresada).
+                        </p>
                         <br>
                         <!--===============================================================================================-->
                         {% if user.is_staff %}
                         <a class="btn btn-primary" href="{% url 'producto_create' %}">Agregar Producto </a>
                         {% endif %}
-                        <!--===============================================================================================--> 
+                        <!--===============================================================================================-->
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!--Trabajo para Ignacio Gonzalez- Editar Cajas de Producto --> 
-    <div class="row">
-        {% for producto in num_productos %}
-            <div class="col-md-2">
-                <div class="card mb-2">
-                    <img class="course-image" src="{{ producto.url}}">
-                    <div class="card-body">
-                        <h4 class="card-title text-uppercase">{{ producto.nombre }}</h5>
-                        <h5 class="card-title text-uppercase">{{producto.categoria.nombre}}</h5>
-                        <h6 class="card-title text-uppercase">{{producto.user.nombres}} {{producto.user.apellidos}}</h6>
-                        <h4 class="card-title text-uppercase">${{ producto.precioKilo }}</h5>
-                        <a href="{% url 'producto-detail' producto.pk %}"
-                           class="btn btn-primary" style="float: right;">
-                            Ver más
-                        </a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-
-    
-
 
     <!-- ========================= JS here ========================= -->
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -132,5 +110,6 @@
         });
     </script>
 </body>
+
 </html>
 {% endblock %}

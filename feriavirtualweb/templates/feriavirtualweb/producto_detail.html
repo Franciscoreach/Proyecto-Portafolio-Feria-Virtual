@@ -82,12 +82,14 @@
                 kilo</span>
               <p>Cantidad: <span class="text-warning">{{producto.cantidadKG}}</span> kg</p>
             </div>
+            {% if user.is_staff %} 
             <div class="text-center pt-15 mt-4">
               <a class="btn btn-warning text-center" href="{% url 'producto_update' pk=producto.pk %}">Editar<span
                   class="glyphicon glyphicon-pencil"></span></a>
               <a class="btn btn-danger text-center" href="{% url 'producto_delete' pk=producto.pk %}">Eliminar<span
                   class="glyphicon glyphicon-trash"></span></a>
             </div>
+            {% endif  %}
             <br>
             <div class="text-center">
               <a class="btn btn-success text-center" href="#">Comprar<span

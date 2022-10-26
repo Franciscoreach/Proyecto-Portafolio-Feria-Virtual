@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    {% block title %}<title>AgriculRED - La Red de los Agricultores</title>{% endblock %}
+    {% block title %}<title>FeriaVirtual - La Red de los Agricultores</title>{% endblock %}
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     {% load static %}
@@ -65,7 +65,7 @@
                         <div class="toolbar-login">
                             <div class="button">
                                 {% if user.is_authenticated  %}
-                                <a><i class="lni lni-user"></i> Hola {{ user.nombres }} ({{ user.username}}) </a><a href="{% url 'logout' %}" class="btn">Cerrar Sesión</a>
+                                <a href="{% url 'miperfil' %}"><i class="lni lni-user"></i> Hola {{ user.nombres }} ({{ user.username}}) </a><a href="{% url 'logout' %}" class="btn">Cerrar Sesión</a>
                                 {% else %}
                                 <a href="{% url 'login' %}" class="btn">Ingresar</a>
                                 <a href="{% url 'registro' %}" class="btn">Registrarse</a>
@@ -102,12 +102,21 @@
                                         aria-controls="navbarSupportedContent" aria-expanded="false"
                                         aria-label="Toggle navigation">Productos</a>
                                     <ul class="sub-menu collapse" id="submenu-1-4">
+                                        {% if user.is_staff %}             
                                         <li class="nav-item"><a href="{% url 'productos' %}">Agregar Productos</a></li>
-                                        <li class="nav-item"><a href="{% url 'productoslista' %}">Tabla de Productos</a></li> 
+                                        <li class="nav-item"><a href="{% url 'todolosproductos' %}">Todos los Productos</a></li>
+                                        <li class="nav-item"><a href="{% url 'productoslista' %}">Tabla de Productos</a></li>
+                                        <li class="nav-item"><a href="{% url 'subastalista' %}">Solicitudes para Subasta</a></li>
+                                        <li class="nav-item"><a href="{% url 'solicitudlista' %}">Solicitudes de Compra</a></li>
+                                        {% endif %}
+                                        {% if "CLIENTE" == user.tipo_usuario  %}
                                         <li class="nav-item"><a href="{% url 'solicitudes' %}">Crear Solicitud</a></li>
-                                        <li class="nav-item"><a href="{% url 'solicitudlista' %}">Tabla Solicitud</a></li>
+                                        <li class="nav-item"><a href="{% url 'todolosproductos' %}">Todo los Productos</a></li>
+                                        {% endif %}
+                                        {% if "PRODUCTOR" == user.tipo_usuario  %}
+                                        <li class="nav-item"><a href="{% url 'solicitudlista' %}">Tabla de Solicitudes</a></li>
                                         <li class="nav-item"><a href="{% url 'subastas' %}">Crear Solicitud para Subasta</a></li>
-                                        <li class="nav-item"><a href="{% url 'subastalista' %}">Tabla de Solicitudes para Subasta</a></li>                       
+                                        {% endif %}                       
                                     </ul>                    
                                 </li>
                                 {% endif %}
@@ -122,6 +131,9 @@
                                 </li>
                                 <li class="nav-item"><a href="{% url 'nosotros' %}">Nosotros</a></li>
                                 <li class="nav-item"><a href="{% url 'contacto' %}">Contáctanos</a></li>
+                                {% if user.is_authenticated  %}
+                                <li class="nav-item"><a href="{% url 'miperfil' %}">Mi Perfil</a></li>
+                                {% endif %}
                             </ul>
                         </div> <!-- navbar collapse -->
                     </nav> <!-- navbar -->

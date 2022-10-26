@@ -68,8 +68,9 @@
         </thead>
         <tbody>
           <tr>
+            {% if "PRODUCTOR" == user.tipo_usuario%}
             {% for solicitud in solicitudproducto_list %}
-
+              {% if "ACEPTADA" == solicitud.estadoSolicitud %}
           <tr>
             <td class="align-middle text-center">{{ solicitud.nombreProducto }}</td>
             <td class="align-middle text-center">{{ solicitud.categoria }}</td>
@@ -80,7 +81,24 @@
             <td class="align-middle text-center">{{ solicitud.estadoSolicitud }}
             </td>
           </tr>
-          {% endfor %}
+              {% endif %}
+            {% endfor %}
+            {% endif %}
+            <tr>
+              {% if user.is_staff %}
+              {% for solicitud in solicitudproducto_list %}
+            <tr>
+              <td class="align-middle text-center">{{ solicitud.nombreProducto }}</td>
+              <td class="align-middle text-center">{{ solicitud.categoria }}</td>
+              <td class="align-middle text-center">{{ solicitud.cantidadKG }} Kilos</td>
+              <td class="align-middle text-center">{{ solicitud.user.nombres }} {{ solicitud.user.apellidos }}
+              </td>
+              <td class="align-middle text-center">{{ solicitud.fechaSolicitud }}</td>
+              <td class="align-middle text-center">{{ solicitud.estadoSolicitud }}
+              </td>
+            </tr>
+              {% endfor %}
+              {% endif %}
         </tbody>
       </table>
 
