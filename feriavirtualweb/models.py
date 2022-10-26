@@ -81,7 +81,7 @@ class SolicitudProducto(models.Model):
     nombreProducto = models.CharField(max_length=50)
     categoria = models.ForeignKey('Categoria', on_delete=models.SET_NULL, null=True, blank=False)
     cantidadKG = models.IntegerField(default=0,verbose_name = 'Cantidad de Kilos')
-    estadoSolicitud = models.CharField(max_length=15,choices=ESTADO_SOLICITUD,default="En Proceso")
+    estadoSolicitud = models.CharField(max_length=15,choices=ESTADO_SOLICITUD,default="EN PROCESO")
     fechaSolicitud = models.DateField('Fecha Publicacion', auto_now= True, auto_now_add= False) 
 
     
@@ -112,7 +112,7 @@ class SubastaProducto(models.Model):
     categoria = models.ForeignKey('Categoria', on_delete=models.SET_NULL, null=True, blank=False)
     cantidadKG = models.IntegerField(default=0,verbose_name = 'Cantidad de Kilos')
     precioSubasta = models.DecimalField(max_digits = 6, decimal_places = 2)
-    estadoSubasta = models.CharField(max_length=15,choices=ESTADO_SUBASTA,default="En Proceso")
+    estadoSubasta = models.CharField(max_length=15,choices=ESTADO_SUBASTA,default="EN PROCESO")
     fechaSubasta = models.DateField('Fecha Publicacion', auto_now= True, auto_now_add= False) 
 
     
