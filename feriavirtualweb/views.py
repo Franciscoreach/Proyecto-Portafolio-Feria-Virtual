@@ -81,10 +81,21 @@ def subastas(request):
 def perfilUsuario(request):
     num_subastas=SubastaProducto.objects.all()
     num_solicitudes=SolicitudProducto.objects.all()
+    total_solicitudes = SolicitudProducto.objects.count()
+    total_subastas = SubastaProducto.objects.count()
+    total_productos = Producto.objects.count()
+    total_usuarios = User.objects.count()
+
+
     return render(
         request,
         'perfilusuario.html',
-        context={'num_subastas':num_subastas,'num_solicitudes':num_solicitudes},
+        context={'num_subastas':num_subastas,
+        'num_solicitudes':num_solicitudes,
+        'total_solicitudes':total_solicitudes,
+        'total_subastas':total_subastas,
+        'total_productos':total_productos,
+        'total_usuarios':total_usuarios},
     )    
 
 #Vista Creada para Correo

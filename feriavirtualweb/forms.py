@@ -63,6 +63,7 @@ class ProductoForm(forms.ModelForm):
 
 
 class SolicitudForm(forms.ModelForm):
+
     nombreProducto = forms.CharField(label='Nombre del Producto',max_length=200, widget=forms.TextInput(
         attrs={
             'class':'form-control'

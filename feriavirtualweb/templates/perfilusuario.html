@@ -5,160 +5,266 @@
 <html class="no-js" lang="zxx">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {% load static %}
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+  {% load static %}
 
-    <!-- Web Font -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+  <!-- Web Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
 
-    <!-- ========================= CSS here ========================= -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/LineIcons.2.0.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/animate.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/tiny-slider.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/glightbox.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+  <!-- ========================= CSS here ========================= -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/LineIcons.2.0.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/animate.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/tiny-slider.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/glightbox.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
 
 
-    <style>
-        .container1 {
-          text-align: center;
-        }
-    
-        .table-hover tbody tr:hover {
-          background-color: #101c2c;
-          color: white;
-        }
-    
-        .thead-green {
-          background-color: #10dc8c;
-          color: white;
-        }
-      </style>
+  <style>
+    .container1 {
+      text-align: center;
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: #101c2c;
+      color: white;
+    }
+
+    .thead-green {
+      background-color: #10dc8c;
+      color: white;
+    }
+  </style>
 
 </head>
 
 <body>
-    
-    <div class="container">
-        <div class="main-body">
-            <br>    
-              <div class="row gutters-sm">
-                <div class="col-md-4 mb-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex flex-column align-items-center text-center">
-                        <img src="{% static 'images/profile/avatar.png' %}" alt="Admin" class="rounded-circle" width="150">
-                        <div class="mt-3">
-                          <h4>{{ user.username }}</h4>
-                          <p class="text-secondary mb-1">{{ user.tipo_usuario }}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-8">
-                  <div class="card mb-3">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0">Nombres</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                          {{ user.nombres }}
-                        </div>
-                      </div>
-                      <hr>
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0">Apellidos</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{ user.apellidos }}
-                        </div>
-                      </div>
-                      <hr>
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0">País Residencia</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{ user.pais_usuario }}
-                        </div>
-                      </div>
-                      <hr>
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0">Contrato</h6>
-                        </div>
-                        {% if "SI" == user.con_contrato  %}
-                        <div class="col-sm-9 text-secondary">
-                          Actualmente con contrato.
-                        </div>
-                        {% endif %}
-                        {% if "NO" == user.con_contrato  %}
-                        <div class="col-sm-9 text-secondary">
-                          No hay vinculación con contrato.
-                        </div>
-                        {% endif %}
-                      </div>
-                      <hr>
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0">Correo Electrónico</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {{ user.email }}
-                        </div>
-                      </div>
-                      <hr>
-                    </div>
-                  </div>
-    
-                  <div class="row gutters-sm">
-                    <div class="col-sm-12 mb-3">
-                      <div class="card h-100">
-                        <div class="card-body">
-                            
-                            {% for solicitud in num_solicitudes %}
-                                    {% if solicitud.user.idUsuario == user.idUsuario %}
-                                        <p>{{ solicitud.nombreProducto }} - {{ solicitud.categoria.nombre }} - {{ solicitud.cantidadKG }}KG - {{ solicitud.fechaSolicitud}} - {{ solicitud.estadoSolicitud}}</p>
-                                        <a href="{% url 'solicitud-detail' solicitud.pk %}"
-                                        class="btn btn-primary" style="float: right;">
-                                        Ver más
-                                        </a>
-                                    {% endif %}
-                            {% endfor %}
-
-                            {% for subasta in num_subastas %}
-                                    {% if subasta.user.idUsuario == user.idUsuario %}
-                                        <p>{{ subasta.nombreProducto }} - {{ subasta.categoria.nombre }} - {{ subasta.cantidadKG }}KG - {{ subasta.precioSubasta}} - {{ subasta.fechaSubasta}} - {{ subasta.estadoSubasta}}</p>
-                                        <a href="{% url 'subasta-detail' subasta.pk %}"
-                                        class="btn btn-primary" style="float: right;">
-                                        Ver más
-                                        </a>
-                                    {% endif %}
-                            {% endfor %}
-
-                            
-                        </div>
-                      </div>
-                    </div>
-                    
-                  </div>
-    
-    
-    
+  
+  <div class="container">
+    <div class="main-body">
+      <br>
+      <!-- ========================= Perfil de Usuario ========================= -->
+      <div class="row gutters-sm">
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex flex-column align-items-center text-center">
+                <img src="{% static 'images/profile/avatar.png' %}" alt="Admin" class="rounded-circle" width="150">
+                <div class="mt-3">
+                  <h4>{{ user.username }}</h4>
+                  <p class="text-secondary mb-1">{{ user.tipo_usuario }}</p>
                 </div>
               </div>
-    
             </div>
+          </div>
+
+          <!-- ========================= Estadisticas de Consultor ========================= -->
+
+          <div class="card mt-3">
+            <div class="col-md-12">
+              <div class="card mb">
+                <img class="card-img-top" src="{% static 'images/profile/usuariosinfo.png' %}" alt="Card image cap">
+                <div class="card-body mb">
+                  <h4 class="card-title" style="text-align:center">Usuarios Registrados Actualmente</h4>
+                  <p class="card-text" style="text-align:center">
+                  <h2 style="text-align:center; color: #f82b2b;">{{ total_usuarios }}</h2>
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+          </div>
         </div>
+
+        <!-- ========================= Fin Estadisticas de Consultor ========================= -->
+  
+        <div class="col-md-8">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Nombres</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{ user.nombres }}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Apellidos</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{ user.apellidos }}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">País Residencia</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{ user.pais_usuario }}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Contrato</h6>
+                </div>
+                {% if "SI" == user.con_contrato %}
+                <div class="col-sm-9 text-secondary">
+                  Actualmente con contrato.
+                </div>
+                {% endif %}
+                {% if "NO" == user.con_contrato %}
+                <div class="col-sm-9 text-secondary">
+                  No hay vinculación con contrato.
+                </div>
+                {% endif %}
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Correo Electrónico</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{ user.email }}
+                </div>
+              </div>
+              <hr>
+            </div>
+          </div>
+          
+          <!-- ========================= Estadisticas de Consultor ========================= -->
+          
+
+
+          <div class="col-md-12">
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="card mb">
+                      <img class="card-img-top" src="{% static 'images/profile/solicitud.png' %}" alt="Card image cap">
+                      <div class="card-body mb">
+                        <h4 class="card-title" style="text-align:center">Total de Solicitudes para Productos</h4>
+                        <p class="card-text" style="text-align:center">
+                        <h2 style="text-align:center; color: #fffb26;">{{ total_solicitudes }}</h2>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card mb">
+                      <img class="card-img-top" src="{% static 'images/profile/solicitudsubastainfo.png' %}"
+                        alt="Card image cap">
+                      <div class="card-body mb">
+                        <h4 class="card-title" style="text-align:center">Total de Solicitudes de Subastas</h4>
+                        <p class="card-text" style="text-align:center">
+                        <h2 style="text-align:center; color: #365afc;">{{ total_subastas }}</h2>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card mb">
+                      <img class="card-img-top" src="{% static 'images/profile/productosinfo.png' %}"
+                        alt="Card image cap">
+                      <div class="card-body mb">
+                        <h4 class="card-title" style="text-align:center">Total de Productos Disponibles</h4>
+                        <p class="card-text" style="text-align:center">
+                        <h2 style="text-align:center; color: #10dc8c;">{{ total_productos }}</h2>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+              <div class="col-md-12">
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <div class="container">
+                      <div>
+                        <canvas id="myChart1" height="100"></canvas>
+                        <script>
+                          var ctx = document.getElementById("myChart1").getContext('2d');
+                          var myChart = new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                              labels: ["Solicitudes", "Subastas", "Productos"],
+                              datasets: [{
+                                backgroundColor: [
+                                  "#fffb26",
+                                  "#365afc",
+                                  "#10dc8c"
+                                ],
+                                data: ["{{ total_solicitudes }}", "{{ total_subastas }}", "{{ total_productos }}"]
+                              }]
+                            }
+                          });
+                        </script>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+            
+
+
+            <!-- ========================= Fin Estadisticas de Consultor ========================= -->
+
+            <div class="row gutters-sm">
+              <div class="col-sm-12 mb-3">
+                <div class="card h-100">
+                  <div class="card-body">
+
+                    {% for solicitud in num_solicitudes %}
+                    {% if solicitud.user.idUsuario == user.idUsuario %}
+                    <p>{{ solicitud.nombreProducto }} - {{ solicitud.categoria.nombre }} - {{ solicitud.cantidadKG }}KG
+                      - {{ solicitud.fechaSolicitud}} - {{ solicitud.estadoSolicitud}}</p>
+                    <a href="{% url 'solicitud-detail' solicitud.pk %}" class="btn btn-primary" style="float: right;">
+                      Ver más
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% for subasta in num_subastas %}
+                    {% if subasta.user.idUsuario == user.idUsuario %}
+                    <p>{{ subasta.nombreProducto }} - {{ subasta.categoria.nombre }} - {{ subasta.cantidadKG }}KG - {{
+                      subasta.precioSubasta}} - {{ subasta.fechaSubasta}} - {{ subasta.estadoSubasta}}</p>
+                    <a href="{% url 'subasta-detail' subasta.pk %}" class="btn btn-primary" style="float: right;">
+                      Ver más
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
 
 
 
@@ -170,47 +276,51 @@
     <script src="{% static 'js/glightbox.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
     <script type="text/javascript">
-        //========= Hero Slider 
-        tns({
-            container: '.hero-slider',
+      //========= Hero Slider 
+      tns({
+        container: '.hero-slider',
+        items: 1,
+        slideBy: 'page',
+        autoplay: false,
+        mouseDrag: true,
+        gutter: 0,
+        nav: true,
+        controls: false,
+        controlsText: ['<i class="lni lni-arrow-left"></i>', '<i class="lni lni-arrow-right"></i>'],
+      });
+      //====== Clients Logo Slider
+      tns({
+        container: '.client-logo-carousel',
+        slideBy: 'page',
+        autoplay: true,
+        autoplayButtonOutput: false,
+        mouseDrag: true,
+        gutter: 15,
+        nav: false,
+        controls: false,
+        responsive: {
+          0: {
             items: 1,
-            slideBy: 'page',
-            autoplay: false,
-            mouseDrag: true,
-            gutter: 0,
-            nav: true,
-            controls: false,
-            controlsText: ['<i class="lni lni-arrow-left"></i>', '<i class="lni lni-arrow-right"></i>'],
-        });
-        //====== Clients Logo Slider
-        tns({
-            container: '.client-logo-carousel',
-            slideBy: 'page',
-            autoplay: true,
-            autoplayButtonOutput: false,
-            mouseDrag: true,
-            gutter: 15,
-            nav: false,
-            controls: false,
-            responsive: {
-                0: {
-                    items: 1,
-                },
-                540: {
-                    items: 3,
-                },
-                768: {
-                    items: 4,
-                },
-                992: {
-                    items: 4,
-                },
-                1170: {
-                    items: 6,
-                }
-            }
-        });
+          },
+          540: {
+            items: 3,
+          },
+          768: {
+            items: 4,
+          },
+          992: {
+            items: 4,
+          },
+          1170: {
+            items: 6,
+          }
+        }
+      });
     </script>
+
+
+
 </body>
+
 </html>
 {% endblock %}
