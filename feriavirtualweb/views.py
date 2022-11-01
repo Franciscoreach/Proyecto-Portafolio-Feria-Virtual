@@ -78,6 +78,26 @@ def subastas(request):
         context={'num_subastas':num_subastas},
     )
 
+#Vista Creada para Avisar Pago de Producto
+def send_email_pago(mail_pago):
+    context = {'mail_pago': mail_pago}
+
+
+    template = get_template('correo_pago.html')
+    content = template.render(context)
+
+    email = EmailMultiAlternatives(
+        '[FeriaVirtual] Pago de producto solicitado ya disponible.',
+        'CodigoFacilito',
+        settings.EMAIL_HOST_USER,
+        [mail_pago]
+        # , cc = ['virtual.feria.empresa@gmail.com']
+
+    )
+
+    email.attach_alternative(content, 'text/html')
+    email.send()  
+
 def perfilUsuario(request):
     num_subastas=SubastaProducto.objects.all()
     num_solicitudes=SolicitudProducto.objects.all()
@@ -86,6 +106,14 @@ def perfilUsuario(request):
     total_productos = Producto.objects.count()
     total_usuarios = User.objects.count()
 
+    #Aviso Pago de Producto por Correo
+    if request.method == 'POST':
+        mail_pago = request.POST.get('mail_pago')
+
+        send_email_pago(mail_pago)
+        messages.success(request, "¡Correo de aviso enviado correctamente!")
+        #Redirigir al Home
+        return redirect(to="miperfil")
 
     return render(
         request,
@@ -98,7 +126,7 @@ def perfilUsuario(request):
         'total_usuarios':total_usuarios},
     )    
 
-#Vista Creada para Correo
+#Vista Creada para Correo de Contacto
 def send_email(mail):
     context = {'mail': mail}
 
@@ -107,7 +135,7 @@ def send_email(mail):
     content = template.render(context)
 
     email = EmailMultiAlternatives(
-        'Solicitud Contacto Soporte Feria Virtual',
+        '[Feria Virtual] Solicitud de Contacto Soporte.',
         'CodigoFacilito',
         settings.EMAIL_HOST_USER,
         [mail]

@@ -45,7 +45,7 @@
 </head>
 
 <body>
-  
+
   <div class="container">
     <div class="main-body">
       <br>
@@ -61,8 +61,21 @@
                   <p class="text-secondary mb-1">{{ user.tipo_usuario }}</p>
                 </div>
               </div>
+
+              <form action="#" method="post" target="_blank">
+                {% csrf_token %}
+                <input name="mail_pago" placeholder="Dirección Correo Electrónico" class="common-input"
+                  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Dirección Correo Electrónico'" required=""
+                  type="mail_pago">
+                <div class="button">
+                  <button class="btn">Enviar Aviso de Pago</button>
+                </div>
+              </form>
+
             </div>
           </div>
+
+          <!-- ========================= Fin mini Perfil ========================= -->
 
           <!-- ========================= Estadisticas de Consultor ========================= -->
 
@@ -78,12 +91,12 @@
                 </div>
               </div>
             </div>
-            
+
           </div>
         </div>
 
         <!-- ========================= Fin Estadisticas de Consultor ========================= -->
-  
+
         <div class="col-md-8">
           <div class="card mb-3">
             <div class="card-body">
@@ -141,9 +154,9 @@
               <hr>
             </div>
           </div>
-          
+
           <!-- ========================= Estadisticas de Consultor ========================= -->
-          
+
 
 
           <div class="col-md-12">
@@ -186,7 +199,7 @@
                     </div>
                   </div>
                 </div>
-                
+
               </div>
               <div class="col-md-12">
                 <div class="card mb-3">
@@ -221,102 +234,102 @@
 
 
 
-            
 
 
-            <!-- ========================= Fin Estadisticas de Consultor ========================= -->
 
-            <div class="row gutters-sm">
-              <div class="col-sm-12 mb-3">
-                <div class="card h-100">
-                  <div class="card-body">
+          <!-- ========================= Fin Estadisticas de Consultor ========================= -->
 
-                    {% for solicitud in num_solicitudes %}
-                    {% if solicitud.user.idUsuario == user.idUsuario %}
-                    <p>{{ solicitud.nombreProducto }} - {{ solicitud.categoria.nombre }} - {{ solicitud.cantidadKG }}KG
-                      - {{ solicitud.fechaSolicitud}} - {{ solicitud.estadoSolicitud}}</p>
-                    <a href="{% url 'solicitud-detail' solicitud.pk %}" class="btn btn-primary" style="float: right;">
-                      Ver más
-                    </a>
-                    {% endif %}
-                    {% endfor %}
+          <div class="row gutters-sm">
+            <div class="col-sm-12 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
 
-                    {% for subasta in num_subastas %}
-                    {% if subasta.user.idUsuario == user.idUsuario %}
-                    <p>{{ subasta.nombreProducto }} - {{ subasta.categoria.nombre }} - {{ subasta.cantidadKG }}KG - {{
-                      subasta.precioSubasta}} - {{ subasta.fechaSubasta}} - {{ subasta.estadoSubasta}}</p>
-                    <a href="{% url 'subasta-detail' subasta.pk %}" class="btn btn-primary" style="float: right;">
-                      Ver más
-                    </a>
-                    {% endif %}
-                    {% endfor %}
+                  {% for solicitud in num_solicitudes %}
+                  {% if solicitud.user.idUsuario == user.idUsuario %}
+                  <p>{{ solicitud.nombreProducto }} - {{ solicitud.categoria.nombre }} - {{ solicitud.cantidadKG }}KG
+                    - {{ solicitud.fechaSolicitud}} - {{ solicitud.estadoSolicitud}}</p>
+                  <a href="{% url 'solicitud-detail' solicitud.pk %}" class="btn btn-primary" style="float: right;">
+                    Ver más
+                  </a>
+                  {% endif %}
+                  {% endfor %}
+
+                  {% for subasta in num_subastas %}
+                  {% if subasta.user.idUsuario == user.idUsuario %}
+                  <p>{{ subasta.nombreProducto }} - {{ subasta.categoria.nombre }} - {{ subasta.cantidadKG }}KG - {{
+                    subasta.precioSubasta}} - {{ subasta.fechaSubasta}} - {{ subasta.estadoSubasta}}</p>
+                  <a href="{% url 'subasta-detail' subasta.pk %}" class="btn btn-primary" style="float: right;">
+                    Ver más
+                  </a>
+                  {% endif %}
+                  {% endfor %}
 
 
-                  </div>
                 </div>
               </div>
-
             </div>
 
-
-
           </div>
+
+
+
         </div>
-
       </div>
+
     </div>
+  </div>
 
 
 
-    <!-- ========================= JS here ========================= -->
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/count-up.min.js' %}"></script>
-    <script src="{% static 'js/wow.min.js' %}"></script>
-    <script src="{% static 'js/tiny-slider.js' %}"></script>
-    <script src="{% static 'js/glightbox.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
-    <script type="text/javascript">
-      //========= Hero Slider 
-      tns({
-        container: '.hero-slider',
-        items: 1,
-        slideBy: 'page',
-        autoplay: false,
-        mouseDrag: true,
-        gutter: 0,
-        nav: true,
-        controls: false,
-        controlsText: ['<i class="lni lni-arrow-left"></i>', '<i class="lni lni-arrow-right"></i>'],
-      });
-      //====== Clients Logo Slider
-      tns({
-        container: '.client-logo-carousel',
-        slideBy: 'page',
-        autoplay: true,
-        autoplayButtonOutput: false,
-        mouseDrag: true,
-        gutter: 15,
-        nav: false,
-        controls: false,
-        responsive: {
-          0: {
-            items: 1,
-          },
-          540: {
-            items: 3,
-          },
-          768: {
-            items: 4,
-          },
-          992: {
-            items: 4,
-          },
-          1170: {
-            items: 6,
-          }
+  <!-- ========================= JS here ========================= -->
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/count-up.min.js' %}"></script>
+  <script src="{% static 'js/wow.min.js' %}"></script>
+  <script src="{% static 'js/tiny-slider.js' %}"></script>
+  <script src="{% static 'js/glightbox.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script type="text/javascript">
+    //========= Hero Slider 
+    tns({
+      container: '.hero-slider',
+      items: 1,
+      slideBy: 'page',
+      autoplay: false,
+      mouseDrag: true,
+      gutter: 0,
+      nav: true,
+      controls: false,
+      controlsText: ['<i class="lni lni-arrow-left"></i>', '<i class="lni lni-arrow-right"></i>'],
+    });
+    //====== Clients Logo Slider
+    tns({
+      container: '.client-logo-carousel',
+      slideBy: 'page',
+      autoplay: true,
+      autoplayButtonOutput: false,
+      mouseDrag: true,
+      gutter: 15,
+      nav: false,
+      controls: false,
+      responsive: {
+        0: {
+          items: 1,
+        },
+        540: {
+          items: 3,
+        },
+        768: {
+          items: 4,
+        },
+        992: {
+          items: 4,
+        },
+        1170: {
+          items: 6,
         }
-      });
-    </script>
+      }
+    });
+  </script>
 
 
 
