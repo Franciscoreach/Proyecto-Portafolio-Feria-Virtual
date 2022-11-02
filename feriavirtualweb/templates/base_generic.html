@@ -106,8 +106,8 @@
                                         <li class="nav-item"><a href="{% url 'productos' %}">Agregar Productos</a></li>
                                         <li class="nav-item"><a href="{% url 'todolosproductos' %}">Todos los Productos</a></li>
                                         <li class="nav-item"><a href="{% url 'productoslista' %}">Tabla de Productos</a></li>
-                                        <li class="nav-item"><a href="{% url 'subastalista' %}">Solicitudes para Subasta</a></li>
                                         <li class="nav-item"><a href="{% url 'solicitudlista' %}">Solicitudes de Compra</a></li>
+                                        <li class="nav-item"><a href="{% url 'subastalista' %}">Solicitudes para Subasta</a></li>
                                         {% endif %}
                                         {% if "CLIENTE" == user.tipo_usuario  %}
                                         <li class="nav-item"><a href="{% url 'solicitudes' %}">Crear Solicitud</a></li>

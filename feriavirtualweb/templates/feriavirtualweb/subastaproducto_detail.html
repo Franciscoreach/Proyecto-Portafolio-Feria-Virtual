@@ -16,9 +16,9 @@
     <div class="row">
       <div class="card border-success mb-3" style="max-width:120rem;">
         <div class="card-header text-center">Subasta</div>
-        <div class="card-body text-success">
+        <div class="card-body text-primary">
           <h5 class="text-center">Nombre Producto</h5>
-          <h3 class="text-center text-success">{{subastaproducto.nombreProducto}}</h3>
+          <h3 class="text-center text-primary">{{subastaproducto.nombreProducto}}</h3>
           <br>
           <h6>Categoria del producto:</h6>
           {% if subastaproducto.categoria %}
@@ -34,10 +34,18 @@
           <span class="h4">$ {{subastaproducto.precioSubasta}}</span>
           <br>
           <h6>Estado Actual de la Subasta:</h6>
-          <span class="h4">{{subastaproducto.estadoSubasta}}</span>
+          {% if subastaproducto.estadoSubasta == "EN PROCESO" %}
+          <span class="text-warning h4">{{subastaproducto.estadoSubasta}}</span>
+          {% endif %}
+          {% if subastaproducto.estadoSubasta == "ACEPTADA" %}
+          <span class="text-success h4">{{subastaproducto.estadoSubasta}}</span>
+          {% endif %}
+          {% if subastaproducto.estadoSubasta == "RECHAZADA" %}
+          <span class="text-danger h4">{{subastaproducto.estadoSubasta}}</span>
+          {% endif %}
           <br>
           <h6>Propietario de la Subasta:</h6>
-          <span class="h4">{{subastaproducto.user.nombres}}</span>
+          <span class="h4">{{subastaproducto.user.nombres}} {{subastaproducto.user.apellidos}}</span>
           <hr>
           <h6 class="text-center">{{ subastaproducto.fechaSubasta }}</h6>
         </div>

@@ -15,9 +15,9 @@
     <div class="row">
       <div class="card border-success mb-3" style="max-width:120rem;">
         <div class="card-header text-center">Solicitud</div>
-        <div class="card-body text-success">
+        <div class="card-body text-primary">
           <h5 class="text-center">Nombre Producto</h5>
-          <h3 class="text-center text-success">{{solicitudproducto.nombreProducto}}</h3>
+          <h3 class="text-center text-primary">{{solicitudproducto.nombreProducto}}</h3>
           <br>
           <h6>Categoria del producto:</h6>
           {% if solicitudproducto.categoria %}
@@ -30,10 +30,18 @@
           <span class="h4">{{solicitudproducto.cantidadKG}} kg</span>
           <br>
           <h6>Estado Actual de la Solicitud:</h6>
-          <span class="h4">{{solicitudproducto.estadoSolicitud}}</span>
+          {% if solicitudproducto.estadoSolicitud == "EN PROCESO" %}
+          <span class="text-warning h4">{{solicitudproducto.estadoSolicitud}}</span>
+          {% endif %}
+          {% if solicitudproducto.estadoSolicitud == "ACEPTADA" %}
+          <span class="text-success h4">{{solicitudproducto.estadoSolicitud}}</span>
+          {% endif %}
+          {% if solicitudproducto.estadoSolicitud == "RECHAZADA" %}
+          <span class="text-danger h4">{{solicitudproducto.estadoSolicitud}}</span>
+          {% endif %}
           <br>
           <h6>Propietario de la Solicitud:</h6>
-          <span class="h4">{{solicitudproducto.user.nombres}}</span>
+          <span class="h4">{{solicitudproducto.user.nombres}} {{solicitudproducto.user.apellidos}}</span>
           <hr>
           <h6 class="text-center">{{ solicitudproducto.fechaSolicitud }}</h6>
         </div>

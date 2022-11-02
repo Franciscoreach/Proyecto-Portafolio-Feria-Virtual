@@ -6,9 +6,9 @@
 {% load static %}
 
 <script>
-	$( document ).ready(function() {
-    $('#ModalContrato').modal('toggle')
-});
+	$(document).ready(function () {
+		$('#ModalContrato').modal('toggle')
+	});
 </script>
 
 {% load crispy_forms_tags %}
@@ -17,76 +17,107 @@
 
 
 <div class="container">
-	
 
 
-<!-- Modal -->
-<div class="modal fade" id="ModalContrato" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Términos y condiciones</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Términos
-		Proveedor de servicios
 
-		Los servicios de Google los proporciona y se contratan con:
-
-		Google LLC
-		Empresa que se rige por las leyes del estado de Delaware (EE. UU.) y que opera bajo la legislación estadounidense
-
-		1600 Amphitheatre Parkway
-		Mountain View, California, 94043
-		EE. UU.
-		<br>
-		Requisitos de edad mínima
-
-		Si no tienes la edad mínima para poder gestionar tu propia cuenta de Google, debes contar con el permiso de tu padre, madre o tutor legal para utilizar una cuenta de Google. Pide a tu padre, madre o tutor legal que lea estos términos contigo.
-
-		Si eres padre, madre o tutor legal y permites a tu hijo/a que utilice los servicios, se te aplican estos términos y eres responsable de la actividad que realice en los servicios.
-
-		Algunos servicios de Google tienen requisitos de edad mínima adicionales, como se describe en sus términos y políticas adicionales específicos.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-	<br>
-	<br>
-	<div class = "row">
-	  <div class="col-12 col-md-6 offset-md-3">
-  
-		<div class="card">
-		  <div class="card-body">
-			<h3 class="dark-grey">Registro de Usuario</h3>
-			<br>
-			<form method="POST" action="">
-			  {% if form.errors %}
-			  <p style="color: red; font-size: 10px;">Usuario y/o contraseña incorrecto. Inténtalo de nuevo.</p>
-			  {% endif %}
-			  {% csrf_token %}
-			  <td>{{ form | crispy}}</td>
-			  <br>
-			  <div>
-				<button type="submit" class="btn btn-primary" value="registrar">Registrarse</button>
-				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalContrato">
-					Términos y condiciones
-				</button>
-			  </div>
-			</form>
-			<br>
-				
-		  </div>
+	<!-- Modal -->
+	<div class="modal fade" id="ModalContrato" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Términos y condiciones</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body text-justify">
+					Bienvenido a Feria Virtual, estos términos y condiciones describen las reglas y regulaciones para el
+					uso del presente sitio web.
+					<br /><br />
+					Feria Virtual se encuentra en www.feriavitual.cl
+					<br /><br />
+					Al registrarse con el rol de productor en “Feria Virtual”, estarás asumiendo los términos y
+					condiciones establecidos en esta página. *En caso de no aceptar los términos de contrato en el
+					registro de usuarios de productor, su cuenta de ingreso será eliminada por un administrador del
+					sitio en un plazo de 24 horas*
+					<br /><br />
+						1. Al aceptar nuestras políticas, usted está afiliando a USTED y a su EMPRESA a FERIA VIRTUAL, para
+					su respectivo rubro y comercio.<br />
+						2. Su empresa estará participando en subastas de productos según nuestros clientes lo requieran, es
+					decir, FERIA VIRTUAL se encargará de comercializar su producto con clientes asociados a nosotros.<br />
+						3. Una vez finalizado el procedimiento de venta, el dinero manejado de por medio se repartirá entre
+					USTED, FERIA VIRTUAL y su respectivo TRANSPORTADOR.<br />
+						4. FERIA VIRTUAL se encargará de proteger su seguridad y privacidad en el sitio web y en el
+					comercio.
+					<br /><br />
+					<strong>Licencia</strong><br />
+					A menos que se indique lo contrario, Feria Virtual y/o sus licenciatarios les pertenecen los
+					derechos de propiedad intelectual de todo el material en Feria Virtual.
+					Todos los derechos de propiedad intelectual están reservados. Puedes ver y/o imprimir páginas desde
+					www.feriavitual.cl para tu uso personal sujeto a las restricciones establecidas en estos términos y
+					condiciones.
+					<br /><br />
+					<strong>Aviso legal:</strong><br />
+					En la medida máxima permitida por la ley aplicable, excluimos todas las representaciones, garantías
+					y condiciones relacionadas con nuestro sitio web y el uso de este sitio web (incluyendo, sin
+					limitación, cualquier garantía implícita por la ley con respecto a la calidad satisfactoria,
+					idoneidad para el propósito y/o el uso de cuidado y habilidad razonables).<br />
+					Todos los términos se refieren a la oferta, aceptación y consideración del pago necesario para
+					efectuar el proceso de nuestra asistencia al Cliente de la manera más adecuada, ya sea mediante
+					reuniones formales de una duración fija, o por cualquier otro medio, con el propósito expreso de
+					conocer las necesidades del Cliente con respecto a la provisión de los servicios/productos
+					declarados de la Compañía, de acuerdo con y sujeto a la ley vigente de www.feriavitual.cl.
+					Cualquier uso de la terminología anterior u otras palabras en singular, plural, mayúsculas y/o,
+					él/ella o ellos, se consideran intercambiables y, por lo tanto, se refieren a lo mismo.
+					<br /><br />
+					<strong>Nada en este aviso legal:</strong><br />
+					Limita o excluye nuestra o su responsabilidad por fraude o tergiversación fraudulenta.<br />
+					Limita cualquiera de nuestras o sus responsabilidades de cualquier manera que no esté permitida por
+					la ley aplicable.<br />
+					Excluye cualquiera de nuestras o sus responsabilidades que no pueden ser excluidas bajo la ley
+					aplicable.<br />
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
 		</div>
-	  </div>
+	</div>
+
+	<br>
+	<br>
+	<div class="section-title">
+		<div class="section-icon wow zoomIn" data-wow-delay=".4s">
+			<i class="lni lni-users"></i>
+		</div>
+		<h2 class="mt-4 wow fadeInUp data-wow-delay=.4s">Registro de Usuario</h2>
+	</div>
+	<div class="row">
+		<div class="col-12 col-md-6 offset-md-3">
+
+			<div class="card">
+				<div class="card-body">
+					<form method="POST" action="">
+						{% if form.errors %}
+						<p style="color: red; font-size: 10px;">Usuario y/o contraseña incorrecto. Inténtalo de nuevo.
+						</p>
+						{% endif %}
+						{% csrf_token %}
+						<td>{{ form | crispy}}</td>
+						<br>
+						<div class="button text-center">
+							<button type="submit" class="btn btn-primary" value="registrar">Registrarse</button>
+							<!-- Button trigger modal -->
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+								data-bs-target="#ModalContrato">
+								Términos y condiciones
+							</button>
+						</div>
+					</form>
+					<br>
+
+				</div>
+			</div>
+		</div>
 	</div>
 	<br>
-  </div>
+</div>
 {% endblock %}
-

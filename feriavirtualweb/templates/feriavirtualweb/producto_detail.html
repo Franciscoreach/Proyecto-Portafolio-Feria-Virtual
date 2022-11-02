@@ -4,55 +4,6 @@
 {% load static %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!-- <header class="masthead">
-        <br>
-        <div class="container">
-        <div class = "row">
-          <div class="col-12 col-md-6 offset-md-3">
-        
-          <div class="card">
-            <div class="card-body">
-            <h1 class="page-section-heading text-primary" > Nombre Producto</h1><h2 class="page-section-heading text-secondary" > {{producto.nombre}}</h2>
-            <br>
-            <iframe width="550" height="350" src={{producto.image.url}} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-            <br>
-            <h4 class="descripcion text-secondary">Categoria del Producto:</h3>
-              <br>
-              {% if producto.categoria %}
-                <p>{{producto.categoria.nombre}} </p>
-    
-              {% else %}
-                <p>No hay Categorias asociadas a este Producto</p>
-    
-              {% endif %}
-              <br>
-              <h4 class="descripcion text-secondary">Descripción del Producto:</h3>
-              <br>
-              <p class="texto">{{producto.descripcion}}</p>
-              <br>
-              <h4 class="descripcion text-secondary">Precio:</h3>
-              <br>
-              <p class="texto">${{producto.precioKilo}}</p>
-              <br>
-              <h4 class="descripcion text-secondary">Cantidad del Producto:</h3>
-              <br>
-              <p class="texto">{{producto.cantidadKG}} KG</p>
-              <br>
-              <br>
-              <div>
-                <a class="btn btn-info" href="{% url 'producto_update' pk=producto.pk %}"> Editar <span class="glyphicon glyphicon-pencil"></span></a>
-                <a class="btn btn-danger" href="{% url 'producto_delete' pk=producto.pk %}"> Eliminar<span class="glyphicon glyphicon-trash"></span></a>  
-              </div>
-            <br>
-              
-            </div>
-          </div>
-          </div>
-        </div>
-      </div>
-
-</header> -->
-
 <section>
   <div class="section-title">
     <div class="section-icon wow zoomIn" data-wow-delay=".4s">
@@ -65,36 +16,59 @@
       <div class="col-md-12 ">
         <div class="row wow fadeInUp data-wow-delay=.4s">
           <div class="rounded-left col-md-6 product bg-white">
-            <img class="mt-5 wow fadeInUp data-wow-delay=.4s" src="{{producto.image.url}}" width="100%" height="80%" alt="">
+            <img class="mt-5 wow fadeInUp data-wow-delay=.4s" src="{{producto.image.url}}" width="100%" height="80%"
+              alt="" style="border-radius: 15px;">
           </div>
           <div class="rounded-right col-md-6 detail bg-dange pb-5">
-            <div class="logo text-black text-center pt-2 mt-5">
+            <div class="logo text-black text-center">
               <h1>{{producto.nombre}}</h1>
+              {% if producto.categoria.nombre == "Verdura" %}
               <span class="text-success h4">{{producto.categoria.nombre}}</span>
+              {% endif %}
+              {% if producto.categoria.nombre == "Fruta" %}
+              <span class="text-warning h4">{{producto.categoria.nombre}}</span>
+              {% endif %}
             </div>
             <div class="py-4 px-4">
+              {% if producto.estadoPago == "PENDIENTE" %}
+              <h5>Estado: <span class="text-warning">{{producto.estadoPago}}</span></h5>
+              {% endif %}
+              {% if producto.estadoPago == "PAGADO" %}
+              <h5>Estado: <span class="text-success">{{producto.estadoPago}}</span></h5>
+              {% endif %}
+              {% if producto.estadoPago == "EXPIRADO" %}
+              <h5>Estado: <span class="text-danger">{{producto.estadoPago}}</span></h5>
+              <span class="text-secondary mb-2">Este producto al estar en estado "EXPIRADO" se rematará en los siguente días.</span>
+              {% endif %}
+              <br>
+              <h5>Nombre Cliente: <span class="text-primary">{{producto.idCliente.nombres}}
+                  {{producto.idCliente.apellidos}}</span></h5>
+              <br>
               <h5>Descripción:</h5>
               <br>
               <p class="text-justify">{{producto.descripcion}}</p>
             </div>
             <div class="text-center price">
-              <h2 class="list-inline-item">${{producto.precioKilo}}</h2><span class="text-warning h4 list-inline-item">x
+              <h2 class="list-inline-item">${{producto.precioKilo}}</h2><span class="text-info h4 list-inline-item">x
                 kilo</span>
-              <p>Cantidad: <span class="text-warning">{{producto.cantidadKG}}</span> kg</p>
+              <p>Cantidad: <span class="text-info">{{producto.cantidadKG}}</span> kg</p>
             </div>
-            {% if user.is_staff %} 
+            {% if user.is_staff %}
             <div class="text-center pt-15 mt-4">
               <a class="btn btn-warning text-center" href="{% url 'producto_update' pk=producto.pk %}">Editar<span
                   class="glyphicon glyphicon-pencil"></span></a>
               <a class="btn btn-danger text-center" href="{% url 'producto_delete' pk=producto.pk %}">Eliminar<span
                   class="glyphicon glyphicon-trash"></span></a>
             </div>
-            {% endif  %}
+            {% endif %}
             <br>
+            {% if producto.estadoPago != "PAGADO" and producto.estadoPago != "EXPIRADO" or user.is_staff %}
             <div class="text-center">
-              <a class="btn btn-success text-center" href="#">Comprar<span
-                class="glyphicon glyphicon-trash"></span></a>
+              <a class="btn btn-success text-center" href="#">Comprar<span class="glyphicon glyphicon-trash"></span></a>
             </div>
+            {%else%}
+            <h5 class="text-center text-danger">PRODUCTO YA NO DISPONIBLE!.</h5>
+            {% endif %}
             <i class="fa fa-share-square-o" aria-hidden="true"></i>
           </div>
         </div>

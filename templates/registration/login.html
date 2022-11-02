@@ -9,13 +9,17 @@
 <div class="container">
   <br>
   <br>
+  <div class="section-title">
+    <div class="section-icon wow zoomIn" data-wow-delay=".4s">
+      <i class="lni lni-user"></i>
+    </div>
+    <h2 class="mt-4 wow fadeInUp data-wow-delay=.4s">Inicio de Sesión</h2>
+  </div>
   <div class = "row">
     <div class="col-12 col-md-6 offset-md-3">
 
       <div class="card">
         <div class="card-body">
-          <h3>Ingresa tus Credenciales</h3>
-          <br>
           <form method="POST" action="{% url 'login' %}">
             {% if form.errors %}
             <p style="color: red; font-size: 10px;">Usuario y/o contraseña incorrecto. Inténtalo de nuevo.</p>
@@ -23,7 +27,7 @@
             {% csrf_token %}
             <td>{{ form | crispy}}</td>
             <br>
-            <div>
+            <div class="button text-center">
               <button class="btn btn-primary" type="submit" value="login" > Ingresar</button>
               <input type="hidden" name="next" value="{{ next }}" />
             

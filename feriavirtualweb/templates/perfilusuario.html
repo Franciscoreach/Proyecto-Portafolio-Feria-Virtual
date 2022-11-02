@@ -40,259 +40,404 @@
       background-color: #10dc8c;
       color: white;
     }
+
+    .gradient-custom {
+      background: #10dc8c;
+    }
+
+    .let p {
+      text-transform: lowercase;
+    }
+
+    .let p:first-letter {
+      text-transform: uppercase;
+    }
+
+    .let h3 {
+      text-transform: lowercase;
+    }
+
+    .let h3:first-letter {
+      text-transform: uppercase;
+    }
+
+    img.pequeña {
+      justify-content: center;
+      max-width: 60%;
+    }
+
+    .mayus {
+      text-transform: uppercase;
+    }
   </style>
 
 </head>
 
 <body>
 
-  <div class="container">
-    <div class="main-body">
-      <br>
-      <!-- ========================= Perfil de Usuario ========================= -->
-      <div class="row gutters-sm">
-        <div class="col-md-4 mb-3">
-          <div class="card">
-            <div class="card-body">
-              <div class="d-flex flex-column align-items-center text-center">
-                <img src="{% static 'images/profile/avatar.png' %}" alt="Admin" class="rounded-circle" width="150">
-                <div class="mt-3">
-                  <h4>{{ user.username }}</h4>
-                  <p class="text-secondary mb-1">{{ user.tipo_usuario }}</p>
-                </div>
-              </div>
-
-              {% if "SI" == user.rol_consultor or user.is_staff %}
-
-              <form action="#" method="post" target="_blank">
-                {% csrf_token %}
-                <input name="mail_pago" placeholder="Dirección Correo Electrónico" class="common-input"
-                  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Dirección Correo Electrónico'" required=""
-                  type="mail_pago">
-                <div class="button">
-                  <button class="btn">Enviar Aviso de Pago</button>
-                </div>
-              </form>
-
-              {% endif %}
-
-              <br>
-              
-              <!-- ========================= Botones Acceder a PDF ========================= -->
-              <a href="{% url 'solicitud_all' %}" class="btn btn-primary" style="float: right;"> PDF Solicitudes</a>
-              <a href="{% url 'subasta_all' %}" class="btn btn-primary" style="float: right;"> PDF Subastas</a>
-              <a href="{% url 'producto_all' %}" class="btn btn-primary" style="float: right;"> PDF Productos</a>
-              <a href="{% url 'usuario_all' %}" class="btn btn-primary" style="float: right;"> PDF Usuarios</a>
-              <!-- =========================== Fin Botones ================================= -->
-
-
-            </div>
-          </div>
-
-
-          <!-- ========================= Estadisticas de Consultor (Usuarios) ========================= -->
-
-          <div class="card mt-3">
-            <div class="col-md-12">
-              <div class="card mb">
-                <img class="card-img-top" src="{% static 'images/profile/usuariosinfo.png' %}" alt="Card image cap">
-                <div class="card-body mb">
-                  <h4 class="card-title" style="text-align:center">Usuarios Registrados Actualmente</h4>
-                  <p class="card-text" style="text-align:center">
-                  <h2 style="text-align:center; color: #f82b2b;">{{ total_usuarios }}</h2>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- ========================= Fin Estadisticas de Consultor ==================================== -->
-
-        <div class="col-md-8">
-          <div class="card mb-3">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-sm-3">
-                  <h6 class="mb-0">Nombres</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                  {{ user.nombres }}
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <h6 class="mb-0">Apellidos</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                  {{ user.apellidos }}
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <h6 class="mb-0">País Residencia</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                  {{ user.pais_usuario }}
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <h6 class="mb-0">Contrato</h6>
-                </div>
-                {% if "SI" == user.con_contrato %}
-                <div class="col-sm-9 text-secondary">
-                  Actualmente con contrato.
-                </div>
-                {% endif %}
-                {% if "NO" == user.con_contrato %}
-                <div class="col-sm-9 text-secondary">
-                  No hay vinculación con contrato.
-                </div>
-                {% endif %}
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <h6 class="mb-0">Correo Electrónico</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                  {{ user.email }}
-                </div>
-              </div>
-              <hr>
-            </div>
-          </div>
-
-          <!-- ========================= Estadisticas de Consultor ========================= -->
-
-
-
-          <div class="col-md-12">
-            <div class="card mb-3">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="card mb">
-                      <img class="card-img-top" src="{% static 'images/profile/solicitud.png' %}" alt="Card image cap">
-                      <div class="card-body mb">
-                        <h4 class="card-title" style="text-align:center">Total de Solicitudes para Productos</h4>
-                        <p class="card-text" style="text-align:center">
-                        <h2 style="text-align:center; color: #fffb26;">{{ total_solicitudes }}</h2>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card mb">
-                      <img class="card-img-top" src="{% static 'images/profile/solicitudsubastainfo.png' %}"
-                        alt="Card image cap">
-                      <div class="card-body mb">
-                        <h4 class="card-title" style="text-align:center">Total de Solicitudes de Subastas</h4>
-                        <p class="card-text" style="text-align:center">
-                        <h2 style="text-align:center; color: #365afc;">{{ total_subastas }}</h2>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card mb">
-                      <img class="card-img-top" src="{% static 'images/profile/productosinfo.png' %}"
-                        alt="Card image cap">
-                      <div class="card-body mb">
-                        <h4 class="card-title" style="text-align:center">Total de Productos Disponibles</h4>
-                        <p class="card-text" style="text-align:center">
-                        <h2 style="text-align:center; color: #10dc8c;">{{ total_productos }}</h2>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-              <div class="col-md-12">
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <div class="container">
-                      <div>
-                        <canvas id="myChart1" height="100"></canvas>
-                        <script>
-                          var ctx = document.getElementById("myChart1").getContext('2d');
-                          var myChart = new Chart(ctx, {
-                            type: 'pie',
-                            data: {
-                              labels: ["Solicitudes", "Subastas", "Productos"],
-                              datasets: [{
-                                backgroundColor: [
-                                  "#fffb26",
-                                  "#365afc",
-                                  "#10dc8c"
-                                ],
-                                data: ["{{ total_solicitudes }}", "{{ total_subastas }}", "{{ total_productos }}"]
-                              }]
-                            }
-                          });
-                        </script>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-
-
-
-
-          <!-- ========================= Fin Estadisticas de Consultor ========================= -->
-
-          <div class="row gutters-sm">
-            <div class="col-sm-12 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-
-                  {% for solicitud in num_solicitudes %}
-                  {% if solicitud.user.idUsuario == user.idUsuario %}
-                  <p>{{ solicitud.nombreProducto }} - {{ solicitud.categoria.nombre }} - {{ solicitud.cantidadKG }}KG
-                    - {{ solicitud.fechaSolicitud}} - {{ solicitud.estadoSolicitud}}</p>
-                  <a href="{% url 'solicitud-detail' solicitud.pk %}" class="btn btn-primary" style="float: right;">
-                    Ver más
-                  </a>
-                  {% endif %}
-                  {% endfor %}
-
-                  {% for subasta in num_subastas %}
-                  {% if subasta.user.idUsuario == user.idUsuario %}
-                  <p>{{ subasta.nombreProducto }} - {{ subasta.categoria.nombre }} - {{ subasta.cantidadKG }}KG - {{
-                    subasta.precioSubasta}} - {{ subasta.fechaSubasta}} - {{ subasta.estadoSubasta}}</p>
-                  <a href="{% url 'subasta-detail' subasta.pk %}" class="btn btn-primary" style="float: right;">
-                    Ver más
-                  </a>
-                  {% endif %}
-                  {% endfor %}
-
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-
-
-        </div>
-      </div>
-
+  <div class="section-title">
+    <div class="section-icon wow zoomIn" data-wow-delay=".4s">
+      <i class="lni lni-licencse"></i>
     </div>
+    <h2 class="mt-4 mb-5 wow fadeInUp data-wow-delay=.4s">Perfil</h2>
   </div>
 
+  <section>
+    <div class="h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-lg-6 mb-4 mb-lg-0">
+          <div class="card mb-3" style="border-radius: .5rem;">
+            <div class="row g-0">
+              <div class="col-md-4 gradient-custom text-center text-white let"
+                style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                {% if user.is_staff %}
+                <img src="/media/images/admin.png" alt="Avatar" class="img-fluid mt-85 pb-2" style="width: 80px;" />
+                {% endif %}
+                {% if user.tipo_usuario == "CLIENTE" %}
+                <img src="/media/images/user.png" alt="Avatar" class="img-fluid mt-85" style="width: 80px;" />
+                {% endif %}
+                {% if user.tipo_usuario == "PRODUCTOR" %}
+                <img src="/media/images/2354266.png" alt="Avatar" class="img-fluid mt-85" style="width: 80px;" />
+                {% endif %}
+                {% if user.tipo_usuario == "TRANSPORTISTA" %}
+                <img src="/media/images/pngwing.com.png" alt="Avatar" class="img-fluid mt-85" style="width: 80px;" />
+                {% endif %}
+                <h3>{{ user.username }}</h3>
+                <p class="h5">{{ user.tipo_usuario }}</p>
+                {% if "SI" == user.rol_consultor %}
+                <p class="h5">Consultor</p>
+                {% endif %}
+                <i class="far fa-edit mb-5"></i>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body p-4">
+                  <h6>Información</h6>
+                  <hr class="mt-0 mb-4">
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Nombre</h6>
+                      <p class="text-muted">{{ user.nombres }}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Apellido</h6>
+                      <p class="text-muted">{{ user.apellidos }}</p>
+                    </div>
+                    <div class="col-6 mb-3 let">
+                      <h6>País Residencia</h6>
+                      <p class="text-muted">{{ user.pais_usuario }}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Correo Electrónico</h6>
+                      <p class="text-muted">{{ user.email }}</p>
+                    </div>
+                  </div>
+                  <h6>Información de Contrato</h6>
+                  <hr class="mt-0 mb-4">
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Contrato</h6>
+                      {% if "SI" == user.con_contrato %}
+                      <p class="text-success">Actualmente con contrato.</p>
+                      {% endif %}
+                      {% if "NO" == user.con_contrato %}
+                      <p class="text-danger text-bold">Actualmente sin contrato.</p>
+                      {% endif %}
+                    </div>
+                    <div class="col-6 mb-3 let">
+                      <h6>Tipo de Usuario</h6>
+                      <p class="text-muted">{{ user.tipo_usuario }}</p>
+                    </div>
+                  </div>
+                  {% if "SI" == user.rol_consultor or user.is_staff %}
+                  <h6>Descargar Documentos</h6>
+                  <hr class="mt-0">
+                  <div class="row pt-1 mb-3 ">
+                    <div class="col-12 text-center">
+                      <a href="{% url 'solicitud_all' %}" class="btn-sm btn-primary my-2 mx-1"> PDF Solicitudes</a>
+                      <a href="{% url 'subasta_all' %}" class="btn-sm btn-primary my-2 mx-1"> PDF Subastas</a>
+                      <a href="{% url 'producto_all' %}" class="btn-sm btn-primary my-2 mx-1"> PDF Productos</a>
+                      <a href="{% url 'usuario_all' %}" class="btn-sm btn-primary my-2 mx-1"> PDF Usuarios</a>
+                    </div>
+                  </div>
+                  <h6>Enviar Aviso</h6>
+                  <hr class="mt-0 mb-4">
+                  <div class="row pt-1">
+                    <div class="col-12 mb-3 text-center">
+                      <form action="#" method="post" target="_blank">
+                        {% csrf_token %}
+                        <input name="mail_pago" placeholder="Dirección Correo Electrónico" class="common-input"
+                          onfocus="this.placeholder = ''" onblur="this.placeholder = 'Dirección Correo Electrónico'"
+                          required="" type="mail_pago" style="padding: 13px 30px">
+                          <div class="button mt-3">
+                            <button class="btn">Enviar Aviso de Pago</button>
+                          </div>
+                      </form>
+                    </div>
+                    <div class="col-6 text-center">
+                      
+                    </div>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  {% if "SI" == user.rol_consultor or user.is_staff %}
+  <section>
+
+    <div class="text-center container py-2">
+      <div class="section-title">
+        <h2 class="mt-4  wow fadeInUp">Estadísticas</h2>
+      </div>
+      <div class="row wow fadeInUp" data-wow-delay=".5s" >
+        <div class="col-lg-3 col-md-12 mb-4">
+          <div class="card" style="border-color: #10dc8c;">
+            <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
+              <img src="{% static 'images/profile/usuariosinfo.png' %}" width="100" height="100"
+                style="margin-top: 20px;" />
+            </div>
+            <div class="card-body">
+              <h5 class="card-title mb-3">Usuarios Registrados Actualmente</h5>
+              <h4 style="color: #f82b2b;">{{ total_usuarios }}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12 mb-4">
+          <div class="card" style="border-color: #10dc8c;">
+            <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
+              <img src="{% static 'images/profile/solicitud.png' %}" width="100" height="100"
+                style="margin-top: 20px;" />
+            </div>
+            <div class="card-body">
+              <h5 class="card-title mb-3">Total de Solicitudes para Productos</h5>
+              <h4 style="color: #fffb26;">{{ total_solicitudes }}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12 mb-4">
+          <div class="card" style="border-color: #10dc8c;">
+            <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
+              <img src="{% static 'images/profile/solicitudsubastainfo.png' %}" width="100" height="100"
+                style="margin-top: 20px;" />
+            </div>
+            <div class="card-body">
+              <h5 class="card-title mb-3">Total de Solicitudes de Subastas</h5>
+              <h4 style="color: #365afc;">{{ total_subastas }}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12 mb-4">
+          <div class="card" style="border-color: #10dc8c;">
+            <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
+              <img src="{% static 'images/profile/productosinfo.png' %}" width="100" height="100"
+                style="margin-top: 20px;" />
+            </div>
+            <div class="card-body">
+              <h5 class="card-title mb-3">Total de Productos Disponibles</h5>
+              <h4 style="color: #10dc8c;">{{ total_productos }}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card mb-3 wow fadeInUp" data-wow-delay=".5s" style="border-color: #10dc8c;">
+          <div class="card-body">
+            <div class="container">
+              <div>
+                <canvas id="myChart1" height="100"></canvas>
+                <script>
+                  var ctx = document.getElementById("myChart1").getContext('2d');
+                  var myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                      labels: ["Solicitudes", "Subastas", "Productos"],
+                      datasets: [{
+                        backgroundColor: [
+                          "#fffb26",
+                          "#365afc",
+                          "#10dc8c"
+                        ],
+                        data: ["{{ total_solicitudes }}", "{{ total_subastas }}", "{{ total_productos }}"]
+                      }]
+                    }
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>}
+  {% endif %}
+
+  <div class="section-title">
+    <h2 class="mt-4 wow fadeInUp data-wow-delay=.4s">Historial</h2>
+  </div>
+
+  <!-- solicitudes por usuario -->
+  <section>
+    {% for solicitud in num_solicitudes %}
+    {% if solicitud.user.idUsuario == user.idUsuario %}
+    <div class="card" style="width: 50%; margin: 50px; margin-left: 25%; border-radius: 8px;">
+      <div class="row no-gutters text-center">
+        <div class="col-md-6 ">
+          {% if solicitud.categoria.nombre == "Verdura" %}
+          <img src="/media/images/verdura.png" class="card-img pequeña" alt="...">
+          {% endif %}
+          {% if solicitud.categoria.nombre == "Fruta" %}
+          <img src="/media/images/frutaschi.png" class="card-img pequeña" alt="...">
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <h4 style="color: #10dc8c;" class="card-title mt-3">{{ solicitud.nombreProducto }}</h4>
+            {% if solicitud.estadoSolicitud == "EN PROCESO" %}
+            <h6 class="m-2">Estado solicitud: <span class="text-warning">{{ solicitud.estadoSolicitud}}</span></h6>
+            {% endif %}
+            {% if solicitud.estadoSolicitud == "ACEPTADA" %}
+            <h6 class="m-2">Estado solicitud: <span class="text-success">{{ solicitud.estadoSolicitud}}</span></h6>
+            {% endif %}
+            {% if solicitud.estadoSolicitud == "RECHAZADA" %}
+            <h6 class="m-2">Estado solicitud: <span class="text-danger">{{ solicitud.estadoSolicitud}}</span></h6>
+            {% endif %}
+            <div class="button text-center">
+              <a class="btn my-4 button " href="{% url 'solicitud-detail' solicitud.pk %}">Ver detalle</a>
+            </div>
+            <p class="card-text text-center"><small class="text-muted">{{ solicitud.fechaSolicitud }}</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </section>
+
+  <!-- subastas por usuario -->
+
+  <section>
+    {% for subasta in num_subastas %}
+    {% if subasta.user.idUsuario == user.idUsuario %}
+    <div class="card" style="width: 50%; margin: 50px; margin-left: 25%; border-radius: 8px;">
+      <div class="row no-gutters text-center">
+        <div class="col-md-6 ">
+          {% if subasta.categoria.nombre == "Verdura" %}
+          <img src="/media/images/verdura.png" class="card-img pequeña" alt="...">
+          {% endif %}
+          {% if subasta.categoria.nombre == "Fruta" %}
+          <img src="/media/images/frutaschi.png" class="card-img pequeña" alt="...">
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <h4 style="color: #10dc8c;" class="card-title mt-3">{{ subasta.nombreProducto }}</h4>
+            {% if subasta.estadoSubasta == "EN PROCESO" %}
+            <h6 class="m-2">Estado subasta: <span class="text-warning mayus">{{ subasta.estadoSubasta}}</span></h6>
+            {% endif %}
+            {% if subasta.estadoSubasta == "ACEPTADA" %}
+            <h6 class="m-2">Estado subasta: <span class="text-success">{{ subasta.estadoSubasta}}</span></h6>
+            {% endif %}
+            {% if subasta.estadoSubasta == "RECHAZADA" %}
+            <h6 class="m-2">Estado subasta: <span class="text-danger">{{ subasta.estadoSubasta}}</span></h6>
+            {% endif %}
+            <div class="button text-center">
+              <a class="btn my-4 button " href="{% url 'subasta-detail' subasta.pk %}">Ver detalle</a>
+            </div>
+            <p class="card-text text-center"><small class="text-muted">{{ subasta.fechaSubasta }}</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </section>
+
+  <!-- todas las solicitudes para admin -->
+  {% if "SI" == user.rol_consultor or user.is_staff %}
+  <section>
+    <div class="card" style="width: 50%; margin: 50px; margin-left: 25%; border-radius: 8px;">
+      <div class="card-header text-center text-dark" style="background-color:#10dc8c;">
+        <strong>Solicitudes</strong>
+      </div>
+      {% for solicitud in num_solicitudes %}
+      <div class="card flex-row no-gutters text-center">
+        <div class="col-md-6 ">
+          {% if solicitud.categoria.nombre == "Verdura" %}
+          <img src="/media/images/verdura.png" class="card-img pequeña" alt="...">
+          {% endif %}
+          {% if solicitud.categoria.nombre == "Fruta" %}
+          <img src="/media/images/frutaschi.png" class="card-img pequeña" alt="...">
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <h4 style="color: #10dc8c;" class="card-title mt-3">{{ solicitud.nombreProducto }}</h4>
+            {% if solicitud.estadoSolicitud == "EN PROCESO" %}
+            <h6 class="m-2">Estado solicitud: <span class="text-warning">{{ solicitud.estadoSolicitud}}</span></h6>
+            {% endif %}
+            {% if solicitud.estadoSolicitud == "ACEPTADA" %}
+            <h6 class="m-2">Estado solicitud: <span class="text-success">{{ solicitud.estadoSolicitud}}</span></h6>
+            {% endif %}
+            {% if solicitud.estadoSolicitud == "RECHAZADA" %}
+            <h6 class="m-2">Estado solicitud: <span class="text-danger">{{ solicitud.estadoSolicitud}}</span></h6>
+            {% endif %}
+            <div class="button text-center">
+              <a class="btn my-4 button " href="{% url 'solicitud-detail' solicitud.pk %}">Ver detalle</a>
+            </div>
+            <p class="card-text text-center"><small class="text-muted">{{ solicitud.fechaSolicitud }}</small></p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- todas las subastas para admin -->
+  {% if "SI" == user.rol_consultor or user.is_staff %}
+  <section>
+    <div class="card" style="width: 50%; margin: 50px; margin-left: 25%; border-radius: 8px;">
+      <div class="card-header text-center text-dark" style="background-color:#10dc8c;">
+        <strong>Subastas</strong>
+      </div>
+      {% for subasta in num_subastas %}
+      <div class="card flex-row no-gutters text-center">
+        <div class="col-md-6 ">
+          {% if subasta.categoria.nombre == "Verdura" %}
+          <img src="/media/images/verdura.png" class="card-img pequeña" alt="...">
+          {% endif %}
+          {% if subasta.categoria.nombre == "Fruta" %}
+          <img src="/media/images/frutaschi.png" class="card-img pequeña" alt="...">
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <h4 style="color: #10dc8c;" class="card-title mt-3">{{ subasta.nombreProducto }}</h4>
+            {% if subasta.estadoSubasta == "En Proceso" %}
+            <h6 class="m-2">Estado solicitud: <span class="text-warning mayus">{{ subasta.estadoSubasta}}</span></h6>
+            {% endif %}
+            {% if subasta.estadoSubasta == "ACEPTADA" %}
+            <h6 class="m-2">Estado solicitud: <span class="text-success">{{ subasta.estadoSubasta}}</span></h6>
+            {% endif %}
+            {% if subasta.estadoSubasta == "RECHAZADA" %}
+            <h6 class="m-2">Estado solicitud: <span class="text-danger">{{ subasta.estadoSubasta}}</span></h6>
+            {% endif %}
+            <div class="button text-center">
+              <a class="btn my-4 button " href="{% url 'subasta-detail' subasta.pk %}">Ver detalle</a>
+            </div>
+            <p class="card-text text-center"><small class="text-muted">{{ subasta.fechaSubasta }}</small></p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
 
   <!-- ========================= JS here ========================= -->
   <script src="{% static 'js/bootstrap.min.js' %}"></script>

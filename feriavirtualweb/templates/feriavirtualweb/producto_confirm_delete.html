@@ -28,31 +28,10 @@
     </div>
     <p></p>
     <br>
-    <!-- <center>
-      <h3>¿Estás seguro de borrar este Producto?</h3>
-
-      <br>
-      <h4>Producto: {{ producto.nombre }}</h4>
-      <br>
-      <form action="" method="POST">
-        {% csrf_token %}
-        <div style="width: 50%;">
-          <a href="{% url 'producto-detail' producto.pk %}" class="btn btn-primary btn-xl">Atras</a>
-          <button type="submit" class="save btn btn-primary btn-xl">Borrar</button>
-        </div>
-
-      </form>
-      <br>
-      <br>
-      <div style="height: 300px; width: 500px;">
-        <img class="card-img-top card mb-2" src="{{ producto.image.url}}">
-      </div>
-
-    </center> -->
 
     <center>
       <div class="card mb-3 wow fadeInUp data-wow-delay=.4s" style="max-width: 1240px;">
-        <div class="card-header wow fadeInUp data-wow-delay=.4s">
+        <div class="card-header wow fadeInUp data-wow-delay=.4s text-dark fw-bold" style="background-color: #10dc8c;">
           ¿Estás seguro de borrar este Producto?
         </div>
         <div class="row g-0">
