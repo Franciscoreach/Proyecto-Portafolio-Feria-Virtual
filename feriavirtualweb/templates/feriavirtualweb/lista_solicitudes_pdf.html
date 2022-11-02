@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    {% block title %}<title>FeriaVirtual - La Red de los Agricultores</title>{% endblock %}
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% load static %}
+    <link href="{% static 'images/logo/verduras.png' %}" rel="icon" type="image/x-icon" />
+    
+</head>
+<body>
+    <h3>Listado de Solicitudes de Productos</h3>
+    <table border="1">
+        <thead>
+            <th class="align-middle text-center" scope="col">Nombre del Producto</th>
+            <th class="align-middle text-center" scope="col">Categoria del Producto</th>
+            <th class="align-middle text-center" scope="col">Cantidad del Producto (Kilos)</th>
+            <th class="align-middle text-center" scope="col">Propietario Solicitud</th>
+            <th class="align-middle text-center" scope="col">Fecha Solicitud</th>
+            <th class="align-middle text-center" scope="col">Estado Solicitud</th>
+        </thead>
+        <tbody>
+            {% for solicitud in solicitudes %}
+            <tr>
+            <td  style="text-align:center">{{ solicitud.nombreProducto }}</td>
+            <td  style="text-align:center">{{ solicitud.categoria }}</td>
+            <td  style="text-align:center">{{ solicitud.cantidadKG }}</td>
+            <td  style="text-align:center">{{ solicitud.user.nombres }} {{ solicitud.user.apellidos }}
+            <td  style="text-align:center">{{ solicitud.fechaSolicitud }}</td>
+            <td  style="text-align:center">{{ solicitud.estadoSolicitud }} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+</body>
+</html>

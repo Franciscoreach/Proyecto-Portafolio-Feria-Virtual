@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    {% block title %}<title>FeriaVirtual - La Red de los Agricultores</title>{% endblock %}
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% load static %}
+    <link href="{% static 'images/logo/verduras.png' %}" rel="icon" type="image/x-icon" />
+
+</head>
+
+<body>
+    <h3>Listado de Productos para los Cliente</h3>
+    <table border="1">
+        <thead>
+            <th class="align-middle text-center" scope="col">Nombre del Producto</th>
+            <th class="align-middle text-center" scope="col">Categoria del Producto</th>
+            <th class="align-middle text-center" scope="col">Cantidad del Producto</th>
+            <th class="align-middle text-center" scope="col">Precio del Producto (Dolares)</th>
+            <th class="align-middle text-center" scope="col">Nombre Propietario del Producto</th>
+            <th class="align-middle text-center" scope="col">Nombre Cliente del Producto</th>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td  style="text-align:center">{{ producto.nombre }}</td>
+                <td  style="text-align:center">{{ producto.categoria }}</td>
+                <td  style="text-align:center">{{ producto.cantidadKG }} KG</td>
+                <td  style="text-align:center">${{ producto.precioKilo }}</td>
+                <td  style="text-align:center">{{ producto.idProductor.nombres }} {{producto.idProductor.apellidos }}</td>
+                <td  style="text-align:center">{{ producto.idCliente.nombres }} {{ producto.idCliente.apellidos }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+</body>
+
+</html>

@@ -5,6 +5,7 @@ from django.db.models import Q, query
 from . forms import ProductoForm, CustomUserCreationForm,SolicitudForm,SubastaForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, JsonResponse
+from . utils import render_to_pdf
 #Importación de Mensajes
 from django.contrib import messages
 #Importaciones Correo
@@ -177,7 +178,7 @@ def registro(request):
 
     
 
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, View
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -197,37 +198,6 @@ class ProductoListView(generic.ListView):
     queryset = Producto.objects.all()
 
     paginate_by = 10
-
-#-------------------Compra de Productos/ Working ----------------------
-
-# class ListadoProductoDisponible(generic.ListView):
-#     model = Producto
-#     paginate_by = 9
-#     template_name = 'disponible_producto_list.html'
-    
-
-#     def get_queryset(self):
-#         queryset = self.model.objects.filter(stock__gte = 1)
-#         return queryset
-
-# class DetalleProductoDisponible(generic.DetailView):
-#     model = Producto
-#     template_name = 'detalle_disponible_producto.html'
-
-
-# class RegistrarCompra(CreateView):
-#     model = Reserva
-#     success_url = reverse_lazy('producto:listar_productos_disponibles')
-    
-#     #ERROR EN REQUEST AJAX
-
-#     def post (self, request, *args, **kwargs):
-#         if request.is_ajax():
-#             print(request.POST)
-#         return HttpResponse('')
-
-
-#-------------------Fin Compra de Productos -----------------------------
 
 #Crear y Listar Solicitudes
 class SolicitudDetailView(generic.DetailView):
@@ -255,6 +225,7 @@ def solicitud_new(request):
     else:
         form = SolicitudForm()
         return render(request, 'feriavirtualweb/solicitud_form.html', {'form': form})
+
 
 #Crear y Listar Subastas
 
@@ -313,3 +284,47 @@ def producto_edit(request, pk):
         form = ProductoForm(instance=post)
     return render(request, 'feriavirtualweb/producto_form.html', {'form': form})
 
+
+
+# Listado de Distintas Tablas/Modelos para ser Descargados/Visualizados en Formato PDF
+
+class SolicitudListPDF(generic.View):
+    
+    def get(self, request, *args, **kwargs):
+        solicitudes = SolicitudProducto.objects.all()
+        data = {
+            'solicitudes' : solicitudes
+        }
+        pdf = render_to_pdf('feriavirtualweb/lista_solicitudes_pdf.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
+
+class SubastaListPDF(generic.View):
+    
+    def get(self, request, *args, **kwargs):
+        subastas = SubastaProducto.objects.all()
+        data = {
+            'subastas' : subastas
+        }
+        pdf = render_to_pdf('feriavirtualweb/lista_subastas_pdf.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
+
+
+class ProductoListPDF(generic.View):
+    
+    def get(self, request, *args, **kwargs):
+        productos = Producto.objects.all()
+        data = {
+            'productos' : productos
+        }
+        pdf = render_to_pdf('feriavirtualweb/lista_productos_pdf.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
+
+class UsuarioListPDF(generic.View):
+    
+    def get(self, request, *args, **kwargs):
+        usuarios = User.objects.all()
+        data = {
+            'usuarios' : usuarios
+        }
+        pdf = render_to_pdf('feriavirtualweb/lista_usuarios_pdf.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')

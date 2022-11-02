@@ -87,7 +87,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': 'orcl',
-        'USER': 'FeriaVirtualTest13',
+        'USER': 'FeriaVirtual_1_1',
         'PASSWORD': '1234',
         'HOST': '127.0.0.1',
         'PORT': '1521',

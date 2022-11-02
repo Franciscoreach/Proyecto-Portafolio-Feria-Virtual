@@ -32,6 +32,14 @@ PAIS_USUARIO = (
     ("PORTUGAL", "Portugal"),
 )
 
+ROL_ESPECIAL = (
+    ("NO", "No"),
+    ("SI", "Si"),
+) 
+
+#Rol_consultor // Solo puede ser otorgado por algún administrador en el panel de administrador
+
+
 class User(AbstractUser):
     idUsuario = models.AutoField(primary_key=True)
     username = models.CharField('Nombre de Usuario',unique= True, max_length=100)
@@ -41,9 +49,11 @@ class User(AbstractUser):
     pais_usuario = models.CharField(max_length=15,choices=PAIS_USUARIO,default=" ")
     tipo_usuario = models.CharField(max_length=15,choices=ROL_USUARIO,default=" ")
     con_contrato = models.CharField(max_length=2,choices=CONTRATO_USUARIO,default=" ")
+    rol_consultor = models.CharField(max_length=2,choices=ROL_ESPECIAL,default="NO")
+
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
+    REQUIRED_FIELDS = ['nombres',"apellidos",'email']
 
     def __str__(self):
         return f'{self.nombres} {self.apellidos}'

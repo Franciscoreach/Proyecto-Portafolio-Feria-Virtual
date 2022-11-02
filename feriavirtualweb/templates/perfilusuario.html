@@ -72,12 +72,20 @@
                 </div>
               </form>
 
+              <br>
+              <!-- ========================= Botones Acceder a PDF ========================= -->
+              <a href="{% url 'solicitud_all' %}" class="btn btn-primary" style="float: right;"> PDF Solicitudes</a>
+              <a href="{% url 'subasta_all' %}" class="btn btn-primary" style="float: right;"> PDF Subastas</a>
+              <a href="{% url 'producto_all' %}" class="btn btn-primary" style="float: right;"> PDF Productos</a>
+              <a href="{% url 'usuario_all' %}" class="btn btn-primary" style="float: right;"> PDF Usuarios</a>
+              <!-- =========================== Fin Botones ================================= -->
+
+
             </div>
           </div>
 
-          <!-- ========================= Fin mini Perfil ========================= -->
 
-          <!-- ========================= Estadisticas de Consultor ========================= -->
+          <!-- ========================= Estadisticas de Consultor (Usuarios) ========================= -->
 
           <div class="card mt-3">
             <div class="col-md-12">
@@ -95,7 +103,7 @@
           </div>
         </div>
 
-        <!-- ========================= Fin Estadisticas de Consultor ========================= -->
+        <!-- ========================= Fin Estadisticas de Consultor ==================================== -->
 
         <div class="col-md-8">
           <div class="card mb-3">

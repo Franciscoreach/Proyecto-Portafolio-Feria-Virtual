@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    {% block title %}<title>FeriaVirtual - La Red de los Agricultores</title>{% endblock %}
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% load static %}
+    <link href="{% static 'images/logo/verduras.png' %}" rel="icon" type="image/x-icon" />
+
+</head>
+<body>
+    <h3>Listado de Subastas para Productos</h3>
+    <table border="1">
+        <thead>
+            <th class="align-middle text-center" scope="col">Nombre del Producto</th>
+            <th class="align-middle text-center" scope="col">Categoria del Producto</th>
+            <th class="align-middle text-center" scope="col">Cantidad Ofrecida</th>
+            <th class="align-middle text-center" scope="col">Precio a Ofrecer (Dolares)</th>
+            <th class="align-middle text-center" scope="col">Propietario Solicitud</th>
+            <th class="align-middle text-center" scope="col">Estado Solicitud</th>
+        </thead>
+        <tbody>
+            {% for subasta in subastas %}
+            <tr>
+                <td  style="text-align:center">{{ subasta.nombreProducto }} </td>
+                <td  style="text-align:center">{{ subasta.categoria }}</td>
+                <td  style="text-align:center">{{ subasta.cantidadKG }} Kilos</td>
+                <td  style="text-align:center">${{ subasta.precioSubasta }}</td>
+                <td  style="text-align:center">{{ subasta.user.nombres }} {{ subasta.user.apellidos }}</td>
+                <td  style="text-align:center">{{ subasta.estadoSubasta }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+</body>
+</html>
