@@ -5,10 +5,10 @@ from . models import Producto,Categoria,User,SubastaProducto,SolicitudProducto
 # Register your models here.
 
 class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ["idUsuario","nombres","apellidos","email","username","pais_usuario","tipo_usuario","con_contrato"]
-    search_fields = ["idUsuario","nombres","apellidos","email","username","pais_usuario","tipo_usuario","con_contrato"]
-    list_filter = ["pais_usuario","tipo_usuario","con_contrato"]
-    list_editable = ["pais_usuario","tipo_usuario","con_contrato"]
+    list_display = ["idUsuario","nombres","apellidos","email","username","pais_usuario","tipo_usuario","con_contrato","rol_consultor"]
+    search_fields = ["idUsuario","nombres","apellidos","email","username","pais_usuario","tipo_usuario","con_contrato","rol_consultor"]
+    list_filter = ["pais_usuario","tipo_usuario","con_contrato","rol_consultor"]
+    list_editable = ["pais_usuario","tipo_usuario","con_contrato","rol_consultor"]
 
 
 class SolicitudProductoAdmin(admin.ModelAdmin):

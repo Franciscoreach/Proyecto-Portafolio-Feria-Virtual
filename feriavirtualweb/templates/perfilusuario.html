@@ -62,6 +62,8 @@
                 </div>
               </div>
 
+              {% if "SI" == user.rol_consultor or user.is_staff %}
+
               <form action="#" method="post" target="_blank">
                 {% csrf_token %}
                 <input name="mail_pago" placeholder="Dirección Correo Electrónico" class="common-input"
@@ -72,7 +74,10 @@
                 </div>
               </form>
 
+              {% endif %}
+
               <br>
+              
               <!-- ========================= Botones Acceder a PDF ========================= -->
               <a href="{% url 'solicitud_all' %}" class="btn btn-primary" style="float: right;"> PDF Solicitudes</a>
               <a href="{% url 'subasta_all' %}" class="btn btn-primary" style="float: right;"> PDF Subastas</a>
