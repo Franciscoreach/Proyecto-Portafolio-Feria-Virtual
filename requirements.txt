@@ -6,3 +6,4 @@ python-decouple
 python-dotenv
 cx_oracle
 xhtml2pdf
+stripe
