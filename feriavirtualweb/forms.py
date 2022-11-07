@@ -56,10 +56,16 @@ class ProductoForm(forms.ModelForm):
             'class':'form-control'
         }
     ))
+    stripe_product_id = forms.CharField(label='Ingresa el ID del Pago del Producto', widget=forms.TextInput(
+        attrs={
+            'class':'form-control'
+        }
+    ))
+
 
     class Meta:
         model = Producto
-        fields = ('nombre','idProductor','idCliente','categoria','precioKilo','descripcion', 'image','cantidadKG')
+        fields = ('nombre','idProductor','idCliente','categoria','precioKilo','descripcion', 'image','cantidadKG','stripe_product_id')
 
 
 class SolicitudForm(forms.ModelForm):

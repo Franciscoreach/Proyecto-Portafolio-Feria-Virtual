@@ -3,6 +3,8 @@
 {% block content %}
 {% load static %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+<script src="https://js.stripe.com/v3/"></script>
 
 <section>
   <div class="section-title">
@@ -20,6 +22,10 @@
               alt="" style="border-radius: 15px;">
           </div>
           <div class="rounded-right col-md-6 detail bg-dange pb-5">
+
+            
+
+
             <div class="logo text-black text-center">
               <h1>{{producto.nombre}}</h1>
               {% if producto.categoria.nombre == "Verdura" %}
@@ -63,9 +69,12 @@
             {% endif %}
             <br>
             {% if producto.estadoPago != "PAGADO" and producto.estadoPago != "EXPIRADO" or user.is_staff %}
-            <div class="text-center">
-              <a class="btn btn-success text-center" href="#">Comprar<span class="glyphicon glyphicon-trash"></span></a>
-            </div>
+            <form action="{% url 'create-checkout-session' pk=producto.pk%}" method="POST">
+              {% csrf_token %}
+              <div class="text-center">
+                <button type="submit" class="btn btn-success text-center" id="checkout-button">Comprar<span class="glyphicon glyphicon-trash"></span></button>
+              </div>
+            </form>
             {%else%}
             <h5 class="text-center text-danger">PRODUCTO YA NO DISPONIBLE!.</h5>
             {% endif %}

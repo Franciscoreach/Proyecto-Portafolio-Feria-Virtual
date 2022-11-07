@@ -87,7 +87,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': 'orcl',
-        'USER': 'FeriaVirtual_1_1',
+        'USER': 'FeriaVirtualTest17',
         'PASSWORD': '1234',
         'HOST': '127.0.0.1',
         'PORT': '1521',
@@ -148,3 +148,8 @@ EMAIL_HOST_USER = 'virtual.feria.empresa@gmail.com'
 EMAIL_HOST_PASSWORD = 'pkfzmfmvsxsgblwi'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+#STRIPE
+BASE_URL = "http://127.0.0.1:8000"
+STRIPE_PUBLIC_KEY = "pk_test_51M1WjGJ1GWHoVyS7FeEdklQsimELqPHBzzsHcldo2HjGNG1R7AYJcydHH3LBUjakEfGNIaN3CFadU6871GEJAJ91008FePi2VM"
+STRIPE_SECRET_KEY = "sk_test_51M1WjGJ1GWHoVyS7dNooKviSrZXtUxEOjOEub1XLgiSQfsU15H7zH82O6SiFeQB0TkJzI6A7uI7TQXDInezqddWE00XlleNFp1"

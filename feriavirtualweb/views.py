@@ -1,6 +1,6 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from . models import Producto,Categoria,User,SolicitudProducto,SubastaProducto
+from . models import Producto,Categoria,User,SolicitudProducto,SubastaProducto,Pago
 from django.db.models import Q, query
 from . forms import ProductoForm, CustomUserCreationForm,SolicitudForm,SubastaForm
 from django.contrib.auth import authenticate, login
@@ -13,6 +13,11 @@ from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 import json
+
+#Importanciones Stripe
+import stripe
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 # Create your views here.
 def index(request):
@@ -189,8 +194,7 @@ class ProductoDelete(DeleteView):
     model = Producto
     success_url = reverse_lazy('index')
     
-class ProductoDetailView(generic.DetailView):
-    model = Producto
+
 
 class ProductoListView(generic.ListView):
     model = Producto
@@ -328,3 +332,71 @@ class UsuarioListPDF(generic.View):
         }
         pdf = render_to_pdf('feriavirtualweb/lista_usuarios_pdf.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
+
+
+
+#Vista Creada para Avisar Pago de Producto
+def send_email_pagado(mail_pagado):
+        context = {'mail_pagado': mail_pagado}
+        template = get_template('correo_pagado.html')
+        content = template.render(context)
+
+        email = EmailMultiAlternatives(
+            '[FeriaVirtual] ¡Producto ya pagado! .',
+            'CodigoFacilito',
+            settings.EMAIL_HOST_USER,
+            [mail_pagado]
+            # , cc = ['virtual.feria.empresa@gmail.com']
+
+        )
+        email.attach_alternative(content, 'text/html')
+        email.send() 
+
+#STRIPE
+
+class CreateCheckoutSessionView(generic.View):
+
+    
+
+    def post(self, request, *args, **kwargs):
+        producto = Producto.objects.get(idProducto=self.kwargs["pk"])
+
+        pago = Pago.objects.create(idUsuario=request.user,idProducto = producto, pagado = True)
+        producto.estadoPago = "PAGADO"
+        pago.save()
+        producto.save()
+        #Aviso del Producto ya Pagado por Correo
+        
+        mail_pagado = User.objects.get(idUsuario = request.user.idUsuario).email
+
+        send_email_pagado(mail_pagado)
+        messages.success(request, "¡Pago realizado correctamente!")
+
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[
+                {
+                    'price': producto.stripe_product_id,
+                    'quantity': 1,
+                },
+            ],
+            mode='payment',
+            success_url=settings.BASE_URL + '/feriavirtualweb/success/',
+            cancel_url=settings.BASE_URL + '/feriavirtualweb/cancel/',
+        )
+
+
+        return redirect(checkout_session.url)
+
+class ProductoDetailView(generic.DetailView):
+    model = Producto
+    
+def success_view(request):
+
+        return render(request, "feriavirtualweb/success.html")
+
+def cancel_view(request):
+
+        return render(request, "feriavirtualweb/cancel.html")
+
+

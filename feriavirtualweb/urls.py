@@ -29,6 +29,10 @@ urlpatterns = [
     path('subasta/<str:pk>', views.SubastaDetailView.as_view(), name='subasta-detail'),
     path('subastalista/', views.SubastaListView.as_view(), name='subastalista'),
     path('listar-subastas/', views.SubastaListPDF.as_view(), name='subasta_all'),
+    #Stripe
+    path('create-checkout-session/<pk>/', views.CreateCheckoutSessionView.as_view(), name='create-checkout-session'),
+    path('success/', views.success_view, name='success'),
+    path('cancel/', views.cancel_view, name='cancel'),
 ]
 
 urlpatterns += [

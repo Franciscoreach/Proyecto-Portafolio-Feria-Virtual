@@ -159,6 +159,7 @@ class Producto(models.Model):
     cantidadKG = models.IntegerField(default=0,verbose_name = 'Cantidad de Kilos')
     fechaPublicacion = models.DateField('Fecha Publicacion', auto_now= True, auto_now_add= False)
     estadoPago = models.CharField(max_length=15,choices=ESTADO_PAGO,default="PENDIENTE")
+    stripe_product_id = models.CharField(max_length=100, null=True, blank=True)
 
     class Meta:
         ordering=['nombre']
@@ -172,3 +173,9 @@ class Producto(models.Model):
         return reverse('producto-detail', args=[str(self.idProducto)])    
 
 
+
+class Pago(models.Model):
+    idUsuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default="1")
+    idProducto = models.ForeignKey('Producto', on_delete=models.SET_NULL, null=True, blank=False)
+    fechaPago = models.DateField('Fecha Pago Producto', auto_now= True, auto_now_add= False)
+    pagado = models.BooleanField(default=False)
