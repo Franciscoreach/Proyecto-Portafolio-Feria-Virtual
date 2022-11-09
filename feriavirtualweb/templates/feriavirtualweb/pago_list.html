@@ -1,0 +1,118 @@
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+
+{% load static %}
+
+<head>
+  <style>
+    .container1 {
+      text-align: center;
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: #101c2c;
+      color: white;
+    }
+
+    .thead-green {
+      background-color: #10dc8c;
+      color: white;
+    }
+  </style>
+</head>
+
+
+
+<body id="page-top">
+
+  <!-- Start Courses Area -->
+  <section class="courses section">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="section-title">
+            <div class="section-icon wow zoomIn" data-wow-delay=".4s">
+              <i class="lni lni-plus"></i>
+            </div>
+            <h2 class="wow fadeInUp" data-wow-delay=".4s">Tabla de Solicitudes para Subastar</h2>
+            <p class="wow fadeInUp" data-wow-delay=".6s">En esta sección podras encontrar una amplia variedad de
+              subastas que los distintos Agricultores y/o Empresas hayan publicado para tí.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="masthead container d-flex align-items-center flex-column table-responsive">
+    <!-- Icon Divider -->
+    <!-- <div class="divider-custom">
+      <div class="divider-custom-line"></div>
+      <div class="divider-custom-icon">
+        <i class="fas fa-book-open"></i>
+      </div>
+      <div class="divider-custom-line"></div>
+    </div> -->
+
+    {% if pago_list %}
+    <div class="container1" style="width: 90%;">
+      <table class="table table-bordered table-hover table-responsive table-striped wow fadeInUp data-wow-delay=.4s">
+        <thead class="thead-green">
+          <tr>
+            <th class="align-middle text-center" scope="col">Nombre del Producto</th>
+            <th class="align-middle text-center" scope="col">Categoria del Producto</th>
+            <th class="align-middle text-center" scope="col">Cantidad del Producto</th>
+            <th class="align-middle text-center" scope="col">Propietario Solicitud</th>
+            <th class="align-middle text-center" scope="col">Estado Solicitud</th>
+          </tr>
+        </thead>
+
+        {% for pago in pago_list %}
+
+        <tr>
+          <td>{{ pago.idProducto.nombre }} </td>
+          <td>{{ pago.idProducto.categoria }}</td>
+          <td>{{ pago.idProducto.cantidadKG }} Kilos</td>
+          <td>{{ pago.idUsuario.nombres }} {{ pago.idUsuario.apellidos }}</td>
+          {% if pago.pagado == 1 %}
+          <td>Pagado</td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+
+      </table>
+
+      <br>
+
+      {% if is_paginated %}
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+
+        {% for i in paginator.page_range %}
+        {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+      </ul>
+      {% endif %}
+
+    </div>
+    {% else %}
+    <p class="my-5">No hay Solicitudes para Subastar Actualmente</p>
+
+    {% endif %}
+  </div>
+</body>
+{% endblock %}

@@ -140,6 +140,65 @@ class SubastaProducto(models.Model):
 #Adición Campos idProductor/idCliente/fechaPublicacion/cantidadKG
 # 
 
+#Creación de Modelo para la Despachar los Productos por los Transportistas
+# 
+
+REFRIGERACION = (
+    ("SI", "Si"),
+    ("NO", "No"),
+)
+
+DIMENSION_TRANSPORTE = (
+    ("GRANDE", "Grande"),
+    ("MEDIANO", "Mediano"),
+    ("PEQUEÑO", "Pequeño"),
+)
+
+TIPO_TRANSPORTE = (
+    ("AVION", "Avion"),
+    ("CAMION", "Camion"),
+    ("BARCO", "Barco"),
+    ("OTRO", "Otro"),
+)
+
+
+ESTADO_TRANSPORTE = (
+    ("PENDIENTE", "Pendiente"),
+    ("ACEPTADO", "Aceptado"),
+    ("RECHAZADO", "Rechazado"),
+    ("EN PROCESO", "En Proceso"),
+    ("DESPACHADO", "Despachado"),
+    ("FINALIZADO", "Finalizado"),
+)
+
+
+
+class TransporteProducto(models.Model):
+    idTransporte = models.AutoField(primary_key= True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default="1")
+    nombreProducto = models.CharField(max_length=50)
+    categoria = models.ForeignKey('Categoria', on_delete=models.SET_NULL, null=True, blank=False)
+    nombreEmpresa = models.CharField(max_length=50)
+    tipoTransporte = models.CharField(max_length=15,choices=TIPO_TRANSPORTE,default="OTRO")
+    dimensionTransporte = models.CharField(max_length=15,choices=DIMENSION_TRANSPORTE,default="MEDIANO")
+    refrigeracionTransporte = models.CharField(max_length=15,choices=REFRIGERACION,default="NO")
+    capacidadCarga = models.IntegerField(default=0,verbose_name = 'Capacidad de Carga')
+    precioTransporte = models.DecimalField(max_digits = 6, decimal_places = 2)
+    estadoTransporte = models.CharField(max_length=15,choices=ESTADO_TRANSPORTE,default="PENDIENTE")
+    fechaTransporte = models.DateField('Fecha Publicacion', auto_now= True, auto_now_add= False) 
+    fechaEstimada = models.DateField('Fecha Estimada de Entrega',null=True, blank=False) 
+    
+    class Meta:
+        
+        verbose_name = 'TransporteProducto'
+        verbose_name_plural = 'TransporteProductos'
+        
+        
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.nombreProducto
+
+
 
 ESTADO_PAGO = (
     ("PENDIENTE", "Pendiente"),
@@ -149,8 +208,9 @@ ESTADO_PAGO = (
 
 class Producto(models.Model):
     idProducto = models.AutoField(primary_key=True)
-    idProductor = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, blank=False,related_name='ID_Productor')
     idCliente = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, blank=False,related_name='ID_Cliente')
+    idProductor = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, blank=False,related_name='ID_Productor')
+    idTransportista = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, blank=False,related_name='ID_Transportista')
     nombre = models.CharField(max_length=50)
     categoria = models.ForeignKey('Categoria', on_delete=models.SET_NULL, null=True, blank=False)
     precioKilo = models.DecimalField(max_digits = 6, decimal_places = 2)
@@ -160,6 +220,7 @@ class Producto(models.Model):
     fechaPublicacion = models.DateField('Fecha Publicacion', auto_now= True, auto_now_add= False)
     estadoPago = models.CharField(max_length=15,choices=ESTADO_PAGO,default="PENDIENTE")
     stripe_product_id = models.CharField(max_length=100, null=True, blank=True)
+    precioTransporte = models.DecimalField(max_digits = 6, decimal_places = 2, null=True, blank=False)
 
     class Meta:
         ordering=['nombre']
@@ -179,3 +240,6 @@ class Pago(models.Model):
     idProducto = models.ForeignKey('Producto', on_delete=models.SET_NULL, null=True, blank=False)
     fechaPago = models.DateField('Fecha Pago Producto', auto_now= True, auto_now_add= False)
     pagado = models.BooleanField(default=False)
+
+
+

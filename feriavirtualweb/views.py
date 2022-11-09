@@ -1,8 +1,8 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from . models import Producto,Categoria,User,SolicitudProducto,SubastaProducto,Pago
+from . models import Producto,Categoria,User,SolicitudProducto,SubastaProducto,Pago,TransporteProducto
 from django.db.models import Q, query
-from . forms import ProductoForm, CustomUserCreationForm,SolicitudForm,SubastaForm
+from . forms import ProductoForm, CustomUserCreationForm,SolicitudForm,SubastaForm,TransporteSubastaForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, JsonResponse
 from . utils import render_to_pdf
@@ -252,7 +252,7 @@ def subasta_new(request):
             post.user = request.user
             post.save()
             #form.save_m2m()
-            messages.success(request, "¡Tú solicitud para Subar un Producto se ha ingresado correctamente!")
+            messages.success(request, "¡Tú solicitud para Subastar un Producto se ha ingresado correctamente!")
             #Redirigir al detalle de la Subasta
             return redirect('subasta-detail', pk=post.pk)
     else:
@@ -335,7 +335,7 @@ class UsuarioListPDF(generic.View):
 
 
 
-#Vista Creada para Avisar Pago de Producto
+#Vista Creada para Notificar que el producto ya se encuentrado Pagado
 def send_email_pagado(mail_pagado):
         context = {'mail_pagado': mail_pagado}
         template = get_template('correo_pagado.html')
@@ -390,6 +390,7 @@ class CreateCheckoutSessionView(generic.View):
 
 class ProductoDetailView(generic.DetailView):
     model = Producto
+
     
 def success_view(request):
 
@@ -400,3 +401,62 @@ def cancel_view(request):
         return render(request, "feriavirtualweb/cancel.html")
 
 
+
+#Procesos para Transportistas
+
+
+def transportes(request):
+    num_transportes=TransporteProducto.objects.all()
+    return render(
+        request,
+        'transportes.html',
+        context={'num_transportes':num_transportes},
+    )
+
+def transporteproductos_lista(request):
+    num_productos=SubastaProducto.objects.all()
+    return render(
+        request,
+        'feriavirtualweb/productotransportista_list.html',
+        context={'num_productos':num_productos},
+    )
+
+
+class TransporteDetailView(generic.DetailView):
+    model = TransporteProducto
+
+class TransporteListView(generic.ListView):
+    model = TransporteProducto
+    template_name = 'feriavirtualweb/subastatransporte_list.html'
+    queryset = TransporteProducto.objects.all()
+
+    paginate_by = 10
+
+def transporte_new(request):
+    if request.method == "POST":
+        form = TransporteSubastaForm(request.POST,request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            #Conseguir ID Usuario Logeado
+            post.user = request.user
+            post.save()
+            #form.save_m2m()
+            messages.success(request, "¡Tú solicitud para Transportar un Producto se ha ingresado correctamente!")
+            #Redirigir al detalle de la Subasta
+            return redirect('transportesubasta-detail', pk=post.pk)
+    else:
+        form = TransporteSubastaForm()
+        return render(request, 'feriavirtualweb/transportesubasta_form.html', {'form': form})
+
+
+
+#Detalle de Pago
+class PagoDetailView(generic.DetailView):
+    model = Pago
+    
+class PagoListView(generic.ListView):
+    model = Pago
+    template_name = 'templates/feriavirtualweb/pago_list.html'
+    queryset = Pago.objects.all()
+
+    paginate_by = 10

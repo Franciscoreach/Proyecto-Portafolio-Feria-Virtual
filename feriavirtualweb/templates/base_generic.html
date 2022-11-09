@@ -108,6 +108,7 @@
                                         <li class="nav-item"><a href="{% url 'productoslista' %}">Tabla de Productos</a></li>
                                         <li class="nav-item"><a href="{% url 'solicitudlista' %}">Solicitudes de Compra</a></li>
                                         <li class="nav-item"><a href="{% url 'subastalista' %}">Solicitudes para Subasta</a></li>
+                                        <li class="nav-item"><a href="{% url 'transportelista' %}">Solicitudes Transportes</a></li>
                                         {% endif %}
                                         {% if "CLIENTE" == user.tipo_usuario  %}
                                         <li class="nav-item"><a href="{% url 'solicitudes' %}">Crear Solicitud</a></li>
@@ -116,6 +117,10 @@
                                         {% if "PRODUCTOR" == user.tipo_usuario  %}
                                         <li class="nav-item"><a href="{% url 'subastas' %}">Crear Solicitud para Subasta</a></li>
                                         <li class="nav-item"><a href="{% url 'solicitudlista' %}">Tabla de Solicitudes</a></li>
+                                        {% endif %}
+                                        {% if "TRANSPORTISTA" == user.tipo_usuario  %}
+                                        <li class="nav-item"><a href="{% url 'transportes' %}">Crear Solicitud para Subasta</a></li>
+                                        <li class="nav-item"><a href="{% url 'transporteproductos-lista' %}">Tabla de Solicitudes</a></li>
                                         {% endif %}                       
                                     </ul>                    
                                 </li>

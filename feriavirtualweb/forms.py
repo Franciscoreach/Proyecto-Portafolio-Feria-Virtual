@@ -1,5 +1,5 @@
 from django import forms
-from . models import Producto,Categoria,User,SolicitudProducto,SubastaProducto
+from . models import Producto,Categoria,User,SolicitudProducto,SubastaProducto,TransporteProducto
 
 from django.contrib.auth.forms import UserCreationForm
 
@@ -17,13 +17,19 @@ class ProductoForm(forms.ModelForm):
             'class':'form-control'
         }
     ))
-    idProductor = forms.ModelChoiceField(queryset=User.objects.all(), label='Nombre Productor',
+    idCliente = forms.ModelChoiceField(queryset=User.objects.all(), label='Nombre del Cliente',
             widget=forms.Select(
             attrs={
                 'class':'form-control' 
             }
     ))
-    idCliente = forms.ModelChoiceField(queryset=User.objects.all(), label='Nombre Cliente',
+    idProductor = forms.ModelChoiceField(queryset=User.objects.all(), label='Nombre del Productor',
+            widget=forms.Select(
+            attrs={
+                'class':'form-control' 
+            }
+    ))
+    idTransportista = forms.ModelChoiceField(queryset=User.objects.all(), label='Nombre del Transportista',
             widget=forms.Select(
             attrs={
                 'class':'form-control' 
@@ -61,11 +67,16 @@ class ProductoForm(forms.ModelForm):
             'class':'form-control'
         }
     ))
+    precioTransporte = forms.IntegerField(label='Precio del Transporte del Producto', widget=forms.TextInput(
+        attrs={
+            'class':'form-control'
+        }
+    ))
 
 
     class Meta:
         model = Producto
-        fields = ('nombre','idProductor','idCliente','categoria','precioKilo','descripcion', 'image','cantidadKG','stripe_product_id')
+        fields = ('nombre','idCliente','idProductor','idTransportista','categoria','precioKilo','descripcion', 'image','cantidadKG','stripe_product_id','precioTransporte')
 
 
 class SolicitudForm(forms.ModelForm):
@@ -117,3 +128,91 @@ class SubastaForm(forms.ModelForm):
     class Meta:
         model = SubastaProducto
         fields = ('nombreProducto','categoria','cantidadKG','precioSubasta')
+
+
+REFRIGERACION = (
+    ("SI", "Si"),
+    ("NO", "No"),
+)
+
+DIMENSION_TRANSPORTE = (
+    ("GRANDE", "Grande"),
+    ("MEDIANO", "Mediano"),
+    ("PEQUEÑO", "Pequeño"),
+)
+
+TIPO_TRANSPORTE = (
+    ("AVION", "Avion"),
+    ("CAMION", "Camion"),
+    ("BARCO", "Barco"),
+    ("OTRO", "Otro"),
+)
+
+
+ESTADO_TRANSPORTE = (
+    ("PENDIENTE", "Pendiente"),
+    ("ACEPTADO", "Aceptado"),
+    ("RECHAZADO", "Rechazado"),
+    ("EN PROCESO", "En Proceso"),
+    ("DESPACHADO", "Despachado"),
+    ("FINALIZADO", "Finalizado"),
+)
+
+
+class TransporteSubastaForm(forms.ModelForm):
+    nombreProducto = forms.CharField(label='Nombre del Producto',max_length=200, widget=forms.TextInput(
+        attrs={
+            'class':'form-control'
+        }
+    ))
+    categoria = forms.ModelChoiceField(queryset=Categoria.objects.all(), label='Categoria',
+            widget=forms.Select(
+            attrs={
+                'class':'form-control' 
+            }
+    ))
+    nombreEmpresa = forms.CharField(label='Nombre de la Empresa a Cargo',max_length=200, widget=forms.TextInput(
+        attrs={
+            'class':'form-control'
+        }
+    ))
+    tipoTransporte = forms.ChoiceField(label='Tipo de Transporte',choices=TIPO_TRANSPORTE,
+            widget=forms.Select(
+            attrs={
+            'class':'form-control'
+        }        
+    ))
+    dimensionTransporte = forms.ChoiceField(label='Dimension del Transporte',choices=DIMENSION_TRANSPORTE,
+            widget=forms.Select(
+            attrs={
+            'class':'form-control'
+        }        
+    ))
+    refrigeracionTransporte = forms.ChoiceField(label='Refrigeración del Transporte',choices=REFRIGERACION,
+            widget=forms.Select(
+            attrs={
+            'class':'form-control'
+        }        
+    ))
+    capacidadCarga = forms.IntegerField(label='Capacidad de Carga del Transporte (KG)', widget=forms.TextInput(
+        attrs={
+            'class':'form-control'
+        }
+    ))
+    precioTransporte = forms.IntegerField(label='Precio a Ofrecer para el Transporte del Producto (Dolares)', widget=forms.TextInput(
+        attrs={
+            'class':'form-control'
+        }
+    ))
+    fechaEstimada = forms.DateField(label='Fecha Estimada de Entrega del Producto (Dia/Mes/Año)', widget=forms.DateInput(format='%d/%m/%Y',
+        attrs={
+            'placeholder': '__/__/____',
+            'class':'form-control'
+        }
+    ))
+    
+
+    class Meta:
+        model = TransporteProducto
+        fields = ('nombreProducto','categoria','nombreEmpresa','tipoTransporte','dimensionTransporte','refrigeracionTransporte','capacidadCarga',
+        'precioTransporte','fechaEstimada')

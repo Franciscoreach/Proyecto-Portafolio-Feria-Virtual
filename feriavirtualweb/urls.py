@@ -33,6 +33,16 @@ urlpatterns = [
     path('create-checkout-session/<pk>/', views.CreateCheckoutSessionView.as_view(), name='create-checkout-session'),
     path('success/', views.success_view, name='success'),
     path('cancel/', views.cancel_view, name='cancel'),
+    #Pagos
+    path('pagoslista/', views.PagoListView.as_view(), name='pagoslista'),
+    path('pago/<str:pk>', views.PagoDetailView.as_view(), name='pago-detail'),
+    #Transportista
+    path('transporteproductos-lista/', views.transporteproductos_lista, name='transporteproductos-lista'),
+    path('transportes/', views.transportes, name='transportes'),
+    path('transporte/<str:pk>', views.TransporteDetailView.as_view(), name='transportesubasta-detail'),
+    path('transportelista/', views.TransporteListView.as_view(), name='transportelista'),
+
+
 ]
 
 urlpatterns += [
@@ -44,4 +54,6 @@ urlpatterns += [
     path('solicitud/create/', views.solicitud_new,name='solicitud_create'),
     #Subasta Create
     path('subasta/create/', views.subasta_new,name='subasta_create'),
+    #Transporte Create
+    path('transporte/create/', views.transporte_new,name='transporte_create'),
 ]

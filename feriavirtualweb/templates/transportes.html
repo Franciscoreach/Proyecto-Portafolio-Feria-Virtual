@@ -28,49 +28,29 @@
 
 <body>
 
-    <!-- Start Agregar Producto Area -->
-
-    <section style="background-color: #eee;">
-        <div class="text-center container py-5">
-            <div class="section-title">
-                <div class="section-icon wow zoomIn" data-wow-delay=".4s">
-                    <i class="lni lni-tag"></i>
-                  </div>
-                <h2 class="mt-4 mb-5 wow fadeInUp data-wow-delay=.4s">Productos</h2>
-            </div>
-            {% if num_productos %}
-            <div class="row wow fadeInUp data-wow-delay=.4s">
-                {% for producto in num_productos %}
-                <div class="col-lg-4 col-md-12 mb-4">
-                    <div class="card">
-                        <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
-                            data-mdb-ripple-color="light">
-                            <img src="{{ producto.image.url}}" width="100%" height="250" />
+     <!-- Start Agregar Solicitud para Subasta de Producto Area -->
+     <section class="courses section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <div class="section-icon wow zoomIn" data-wow-delay=".4s">
+                            <i class="lni lni-plus"></i>
                         </div>
-                        <div class="card-body">
-                            <a href="" class="text-reset">
-                                <h5 class="card-title mb-3">{{ producto.nombre }}</h5>
-                            </a>
-                            <a href="" class="text-reset">
-                                <p>{{producto.categoria.nombre}}</p>
-                            </a>
-                            <h6 class="mb-3">${{producto.precioKilo|add:producto.precioTransporte}}(+ Envio)</h6>
-                            <div class="button">
-                                <a class="btn" href="{% url 'producto-detail' producto.pk %}">Ver Producto</a>
-                            </div>
-
-                        </div>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Crear Solicitud para Transportar Producto</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">Acá podras agregar nuevas ofertas de productos para la comunidad(Te recordamos que esta opción esta disponible solamente con tu cuenta ingresada).</p>
+                        <br>
+                        <!--===============================================================================================-->
+                        {% if user.is_authenticated %}
+                        <a class="btn btn-primary" href="{% url 'transporte_create' %}">Ingresar Solicitud de Transporte</a>
+                        {% endif %}
+                        <!--===============================================================================================--> 
                     </div>
                 </div>
-                {% endfor %}
             </div>
-            {% else %}
-            <p>No hay Productos Actualmente</p>
-            {% endif %}
         </div>
     </section>
-
-
+    
 
 
     <!-- ========================= JS here ========================= -->
@@ -131,6 +111,5 @@
         });
     </script>
 </body>
-
 </html>
 {% endblock %}

@@ -55,7 +55,7 @@
               <p class="text-justify">{{producto.descripcion}}</p>
             </div>
             <div class="text-center price">
-              <h2 class="list-inline-item">${{producto.precioKilo}}</h2><span class="text-info h4 list-inline-item">x
+              <h2 class="list-inline-item">${{producto.precioKilo|add:producto.precioTransporte}}</h2><span class="text-info h4 list-inline-item">x
                 kilo</span>
               <p>Cantidad: <span class="text-info">{{producto.cantidadKG}}</span> kg</p>
             </div>
