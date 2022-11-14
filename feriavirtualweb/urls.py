@@ -36,11 +36,13 @@ urlpatterns = [
     #Pagos
     path('pagoslista/', views.PagoListView.as_view(), name='pagoslista'),
     path('pago/<str:pk>', views.PagoDetailView.as_view(), name='pago-detail'),
+    path('listar-pagos/', views.PagoListPDF.as_view(), name='pago_all'),
     #Transportista
     path('transporteproductos-lista/', views.transporteproductos_lista, name='transporteproductos-lista'),
     path('transportes/', views.transportes, name='transportes'),
     path('transporte/<str:pk>', views.TransporteDetailView.as_view(), name='transportesubasta-detail'),
     path('transportelista/', views.TransporteListView.as_view(), name='transportelista'),
+    path('listar-transportistas/', views.TrasnportistaListPDF.as_view(), name='transportista_all'),
 
 
 ]

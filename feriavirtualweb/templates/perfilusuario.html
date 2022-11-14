@@ -157,6 +157,8 @@
                       <a href="{% url 'subasta_all' %}" class="btn-sm btn-primary my-2 mx-1"> PDF Subastas</a>
                       <a href="{% url 'producto_all' %}" class="btn-sm btn-primary my-2 mx-1"> PDF Productos</a>
                       <a href="{% url 'usuario_all' %}" class="btn-sm btn-primary my-2 mx-1"> PDF Usuarios</a>
+                      <a href="{% url 'transportista_all' %}" class="btn-sm btn-primary my-2 mx-1"> PDF Transportistas</a>
+                      <a href="{% url 'pago_all' %}" class="btn-sm btn-primary my-2 mx-1"> PDF Pagos</a>
                     </div>
                   </div>
                   <h6>Enviar Aviso</h6>
@@ -165,8 +167,8 @@
                     <div class="col-12 mb-3 text-center">
                       <form action="#" method="post" target="_blank">
                         {% csrf_token %}
-                        <input name="mail_pago" placeholder="Dirección Correo Electrónico" class="common-input"
-                          onfocus="this.placeholder = ''" onblur="this.placeholder = 'Dirección Correo Electrónico'"
+                        <input name="mail_pago" placeholder="Correo Electrónico" class="common-input"
+                          onfocus="this.placeholder = ''" onblur="this.placeholder = 'Correo Electrónico'"
                           required="" type="mail_pago" style="padding: 13px 30px">
                           <div class="button mt-3">
                             <button class="btn">Enviar Aviso de Pago</button>

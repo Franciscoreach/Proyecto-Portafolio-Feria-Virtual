@@ -94,7 +94,7 @@ def send_email_pago(mail_pago):
 
     email = EmailMultiAlternatives(
         '[FeriaVirtual] Pago de producto solicitado ya disponible.',
-        'CodigoFacilito',
+        'FeriaVirtual',
         settings.EMAIL_HOST_USER,
         [mail_pago]
         # , cc = ['virtual.feria.empresa@gmail.com']
@@ -142,7 +142,7 @@ def send_email(mail):
 
     email = EmailMultiAlternatives(
         '[Feria Virtual] Solicitud de Contacto Soporte.',
-        'CodigoFacilito',
+        'FeriaVirtual',
         settings.EMAIL_HOST_USER,
         [mail]
         # , cc = ['virtual.feria.empresa@gmail.com']
@@ -228,7 +228,7 @@ def solicitud_new(request):
             return redirect('solicitud-detail', pk=post.pk)
     else:
         form = SolicitudForm()
-        return render(request, 'feriavirtualweb/solicitud_form.html', {'form': form})
+        return render(request, 'feriavirtualweb/formularios/solicitud_form.html', {'form': form})
 
 
 #Crear y Listar Subastas
@@ -257,7 +257,7 @@ def subasta_new(request):
             return redirect('subasta-detail', pk=post.pk)
     else:
         form = SubastaForm()
-        return render(request, 'feriavirtualweb/subasta_form.html', {'form': form})
+        return render(request, 'feriavirtualweb/formularios/subasta_form.html', {'form': form})
 
 
 
@@ -274,7 +274,7 @@ def producto_new(request):
             return redirect('producto-detail', pk=post.pk)
     else:
         form = ProductoForm()
-        return render(request, 'feriavirtualweb/producto_form.html', {'form': form})
+        return render(request, 'feriavirtualweb/formularios/producto_form.html', {'form': form})
 
 def producto_edit(request, pk):
     post = get_object_or_404(Producto, pk=pk)
@@ -286,7 +286,7 @@ def producto_edit(request, pk):
             return redirect('producto-detail', pk=post.pk)
     else:
         form = ProductoForm(instance=post)
-    return render(request, 'feriavirtualweb/producto_form.html', {'form': form})
+    return render(request, 'feriavirtualweb/formularios/producto_form.html', {'form': form})
 
 
 
@@ -299,7 +299,7 @@ class SolicitudListPDF(generic.View):
         data = {
             'solicitudes' : solicitudes
         }
-        pdf = render_to_pdf('feriavirtualweb/lista_solicitudes_pdf.html', data)
+        pdf = render_to_pdf('feriavirtualweb/informes/lista_solicitudes_pdf.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
 
 class SubastaListPDF(generic.View):
@@ -309,7 +309,7 @@ class SubastaListPDF(generic.View):
         data = {
             'subastas' : subastas
         }
-        pdf = render_to_pdf('feriavirtualweb/lista_subastas_pdf.html', data)
+        pdf = render_to_pdf('feriavirtualweb/informes/lista_subastas_pdf.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
 
 
@@ -320,7 +320,7 @@ class ProductoListPDF(generic.View):
         data = {
             'productos' : productos
         }
-        pdf = render_to_pdf('feriavirtualweb/lista_productos_pdf.html', data)
+        pdf = render_to_pdf('feriavirtualweb/informes/lista_productos_pdf.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
 
 class UsuarioListPDF(generic.View):
@@ -330,8 +330,29 @@ class UsuarioListPDF(generic.View):
         data = {
             'usuarios' : usuarios
         }
-        pdf = render_to_pdf('feriavirtualweb/lista_usuarios_pdf.html', data)
+        pdf = render_to_pdf('feriavirtualweb/informes/lista_usuarios_pdf.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
+
+class PagoListPDF(generic.View):
+    
+    def get(self, request, *args, **kwargs):
+        pagos = Pago.objects.all()
+        data = {
+            'pagos' : pagos
+        }
+        pdf = render_to_pdf('feriavirtualweb/informes/lista_pagos_pdf.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
+
+class TrasnportistaListPDF(generic.View):
+    
+    def get(self, request, *args, **kwargs):
+        transportistas = TransporteProducto.objects.all()
+        data = {
+            'transportistas' : transportistas
+        }
+        pdf = render_to_pdf('feriavirtualweb/informes/lista_transportistas_pdf.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
+
 
 
 
@@ -342,8 +363,8 @@ def send_email_pagado(mail_pagado):
         content = template.render(context)
 
         email = EmailMultiAlternatives(
-            '[FeriaVirtual] ¡Producto ya pagado! .',
-            'CodigoFacilito',
+            '[FeriaVirtual] ¡Tú Producto ya se encuentra pagado! .',
+            'FeriaVirtual',
             settings.EMAIL_HOST_USER,
             [mail_pagado]
             # , cc = ['virtual.feria.empresa@gmail.com']
@@ -446,7 +467,7 @@ def transporte_new(request):
             return redirect('transportesubasta-detail', pk=post.pk)
     else:
         form = TransporteSubastaForm()
-        return render(request, 'feriavirtualweb/transportesubasta_form.html', {'form': form})
+        return render(request, 'feriavirtualweb/formularios/transportesubasta_form.html', {'form': form})
 
 
 
