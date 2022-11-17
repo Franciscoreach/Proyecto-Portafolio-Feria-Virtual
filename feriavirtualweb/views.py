@@ -107,6 +107,8 @@ def send_email_pago(mail_pago):
 def perfilUsuario(request):
     num_subastas=SubastaProducto.objects.all()
     num_solicitudes=SolicitudProducto.objects.all()
+    num_pagos = Pago.objects.all()
+    num_transportes = TransporteProducto.objects.all()
     total_solicitudes = SolicitudProducto.objects.count()
     total_subastas = SubastaProducto.objects.count()
     total_productos = Producto.objects.count()
@@ -129,7 +131,9 @@ def perfilUsuario(request):
         'total_solicitudes':total_solicitudes,
         'total_subastas':total_subastas,
         'total_productos':total_productos,
-        'total_usuarios':total_usuarios},
+        'total_usuarios':total_usuarios,
+        'num_pagos':num_pagos,
+        'num_transportes':num_transportes},
     )    
 
 #Vista Creada para Correo de Contacto
@@ -448,7 +452,7 @@ class TransporteDetailView(generic.DetailView):
 
 class TransporteListView(generic.ListView):
     model = TransporteProducto
-    template_name = 'feriavirtualweb/subastatransporte_list.html'
+    template_name = 'templates/feriavirtualweb/transporteproducto_list.html'
     queryset = TransporteProducto.objects.all()
 
     paginate_by = 10

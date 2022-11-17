@@ -54,29 +54,20 @@
       <div class="divider-custom-line"></div>
     </div> -->
 
-    {% if subastatransporte_list %}
+    {% if transporteproducto_list %}
     <div class="container1" style="width: 90%;">
       <table class="table table-bordered table-hover table-responsive table-striped wow fadeInUp data-wow-delay=.4s">
         <thead class="thead-green">
           <tr>
             <th class="align-middle text-center" scope="col">Nombre del Producto</th>
-            <th class="align-middle text-center" scope="col">Categoria del Producto</th>
-            <th class="align-middle text-center" scope="col">Cantidad Ofrecida</th>
-            <th class="align-middle text-center" scope="col">Precio a Ofrecer (Dolares)</th>
-            <th class="align-middle text-center" scope="col">Propietario Solicitud</th>
-            <th class="align-middle text-center" scope="col">Estado Solicitud</th>
+            
           </tr>
         </thead>
 
-        {% for subasta in subastatransporte_list %}
+        {% for transporte in transporteproducto_list %}
 
         <tr>
-          <td>{{ subasta.nombreProducto }} </td>
-          <td>{{ subasta.categoria }}</td>
-          <td>{{ subasta.cantidadKG }} Kilos</td>
-          <td>${{ subasta.precioSubasta }}</td>
-          <td>{{ subasta.user.nombres }} {{ subasta.user.apellidos }}</td>
-          <td>{{ subasta.estadoSubasta }}</td>
+          <td>{{ transporte.nombreEmpresa }} </td>
         </tr>
         {% endfor %}
 

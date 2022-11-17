@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import Producto,Categoria,User,SubastaProducto,SolicitudProducto
+from . models import Producto,Categoria,User,SubastaProducto,SolicitudProducto,TransporteProducto,Pago
 
 
 # Register your models here.
@@ -33,6 +33,18 @@ class ProductoAdmin(admin.ModelAdmin):
     list_editable = ["idProductor","idCliente","estadoPago"]
     
 
+class TransporteProductoAdmin(admin.ModelAdmin):
+    list_display = ["user","nombreProducto","categoria","nombreEmpresa","tipoTransporte","dimensionTransporte","refrigeracionTransporte",
+    "capacidadCarga","precioTransporte","estadoTransporte","fechaTransporte","fechaEstimada"]
+    search_fields = ["user__nombres","user__apellidos","nombreProducto","categoria__nombre","nombreEmpresa","tipoTransporte","precioTransporte"]
+    list_filter = ["categoria","tipoTransporte","dimensionTransporte","refrigeracionTransporte","capacidadCarga","precioTransporte","estadoTransporte"]
+    list_editable = ["precioTransporte","fechaEstimada","estadoTransporte"]
+    
+class PagoAdmin(admin.ModelAdmin):
+    list_display = ["idUsuario","idProducto","fechaPago","pagado"]
+    search_fields = ["idUsuario__nombres","idUsuario__apellidos","idProducto__nombre","fechaPago","pagado"]
+    list_filter = ["idUsuario__nombres","idUsuario__apellidos","idProducto__nombre","fechaPago","pagado"]
+    list_editable = []
 
 
 admin.site.register(Producto,ProductoAdmin)
@@ -40,3 +52,5 @@ admin.site.register(User,UsuarioAdmin)
 admin.site.register(Categoria)
 admin.site.register(SubastaProducto,SubastaProductoAdmin)
 admin.site.register(SolicitudProducto,SolicitudProductoAdmin)
+admin.site.register(TransporteProducto,TransporteProductoAdmin)
+admin.site.register(Pago,PagoAdmin)
