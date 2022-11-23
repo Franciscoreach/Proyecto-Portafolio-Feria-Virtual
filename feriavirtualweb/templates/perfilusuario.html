@@ -162,6 +162,7 @@
                       <a href="{% url 'pago_all' %}" class="btn-sm btn-primary my-2 mx-1"> PDF Pagos</a>
                     </div>
                   </div>
+                  {% if user.is_staff %}
                   <h6>Enviar Aviso</h6>
                   <hr class="mt-0 mb-4">
                   <div class="row pt-1">
@@ -180,6 +181,7 @@
 
                     </div>
                   </div>
+                  {% endif %}
                   {% endif %}
                 </div>
               </div>
@@ -334,7 +336,7 @@
           <td class="align-middle text-center"><a class="btn btn-primary btn-sm"
               href="{% url 'pago-detail' pago.pk %}">Ver Pago</a></td>
         </tr>
-        {% elif user.is_staff %}
+        {% elif user.is_staff or "SI" == user.rol_consultor %}
         <tr>
           <td class="align-middle text-center">{{pago.idProducto}} </td>
           <td class="align-middle text-center">{{pago.idUsuario.nombres|add:" "|add:pago.idUsuario.apellidos|add:" "}}</td>
@@ -480,6 +482,12 @@
             <div class="button text-center">
               <a class="btn my-4 button " href="{% url 'transportesubasta-detail' transportes.pk %}">Ver detalle</a>
             </div>
+            {% if transportes.estadoTransporte != "RECHAZADO" %}
+            <div class="button text-center">
+              <a class="btn my-4 button " href="{% url 'transporteEstadoFinalizado' transportes.pk %}">Producto Finalizado</a>
+              <a class="btn my-4 button " href="{% url 'transporteEstadoDespachado' transportes.pk %}">Producto Despachado</a>
+            </div>
+            {% endif %}
             <br>
             <h6 class="card-text text-center"><small class="text-muted">{{ transportes.fechaTransporte }}</small></h6>
           </div>

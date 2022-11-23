@@ -452,8 +452,32 @@ def transporteproductos_lista(request):
     )
 
 
+
+
 class TransporteDetailView(generic.DetailView):
     model = TransporteProducto
+
+
+class transporteEstadoF(generic.View):
+  
+    def get(self, request, *args, **kwargs):
+
+            transporte = TransporteProducto.objects.get(idTransporte=self.kwargs["pk"])
+            transporte.estadoTransporte = "FINALIZADO"
+            transporte.save()
+
+            return redirect(to="miperfil")
+
+class transporteEstadoD(generic.View):
+  
+    def get(self, request, *args, **kwargs):
+
+            transporte = TransporteProducto.objects.get(idTransporte=self.kwargs["pk"])
+            transporte.estadoTransporte = "DESPACHADO"
+            transporte.save()
+
+            return redirect(to="miperfil")
+
 
 class TransporteListView(generic.ListView):
     model = TransporteProducto

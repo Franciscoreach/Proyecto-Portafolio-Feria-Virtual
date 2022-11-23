@@ -44,8 +44,9 @@ urlpatterns = [
     path('transporte/<str:pk>', login_required(views.TransporteDetailView.as_view()), name='transportesubasta-detail'),
     path('transportelista/', login_required(views.TransporteListView.as_view()), name='transportelista'),
     path('listar-transportistas/', views.TrasnportistaListPDF.as_view(), name='transportista_all'),
-
-
+    #Estados Producto Transportista
+    path('transporteEstadoF/<str:pk>', views.transporteEstadoF.as_view(), name='transporteEstadoFinalizado'),
+    path('transporteEstadoD/<str:pk>', views.transporteEstadoD.as_view(), name='transporteEstadoDespachado'),
 ]
 
 urlpatterns += [
