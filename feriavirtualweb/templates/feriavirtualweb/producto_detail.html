@@ -50,13 +50,18 @@
               <h5>Nombre Cliente: <span class="text-primary">{{producto.idCliente.nombres}}
                   {{producto.idCliente.apellidos}}</span></h5>
               <br>
+              <h5>Nombre Transportista: <span class="text-primary">{{producto.idTransportista.nombres}}
+                {{producto.idTransportista.apellidos}}</span></h5>
+              <br>
               <h5>Descripción:</h5>
               <br>
               <p class="text-justify">{{producto.descripcion}}</p>
             </div>
             <div class="text-center price">
-              <h2 class="list-inline-item">${{producto.precioKilo|add:producto.precioTransporte}}</h2><span class="text-info h4 list-inline-item">x
-                kilo</span>
+              <h5>Valor producto: <span class="text-primary">${{producto.precioKilo}}</span></h5>
+              <p>Valor Despacho: ${{producto.precioTransporte}}</p>
+              <br>
+              <h2 class="list-inline-item">${{producto.precioKilo|add:producto.precioTransporte}}</h2><span class="text-info h4 list-inline-item">Precio Total</span>
               <p>Cantidad: <span class="text-info">{{producto.cantidadKG}}</span> kg</p>
             </div>
             {% if user.is_staff %}

@@ -18,31 +18,61 @@
         <div class="card-header text-center">Transporte </div>
         <div class="card-body text-primary">
           <h5 class="text-center">Nombre Producto</h5>
-          <h3 class="text-center text-primary">{{ pago.idProducto.nombre }} </h3>
+          <h3 class="text-center text-primary">{{ transporteproducto.nombreProducto }} </h3>
           <br>
           <h6>Categoria del producto:</h6>
-          {% if pago.idProducto.categoria %}
-          <span class="h4">{{pago.idProducto.categoria.nombre}} </span>
+          {% if transporteproducto.categoria %}
+          <span class="h4">{{transporteproducto.categoria}} </span>
           {% else %}
           <span class="h4">No hay Categorias asociadas a este Producto</span>
           {% endif %}
           <br>
-          <h6>Cliente:</h6>
-          <span class="h4">{{ pago.idUsuario.nombres }} {{ pago.idUsuario.apellidos }}</span>
+          <h6>Nombre Transportista:</h6>
+          <span class="h4">{{ transporteproducto.user }}</span>
+          <br>
+          <h6>Nombre Empresa:</h6>
+          <span class="h4">{{ transporteproducto.nombreEmpresa }}</span>
+          <br>
+          <h6>Tipo transporte:</h6>
+          <span class="h4">{{ transporteproducto.tipoTransporte }}</span>
+          <br>
+          <h6>Tamaño transporte:</h6>
+          <span class="h4">{{ transporteproducto.dimensionTransporte }}</span>
+          <br>
+          <h6>¿Tiene Refrigeración?</h6>
+          <span class="h4">{{ transporteproducto.refrigeracionTransporte }}</span>
+          <br>
+          <h6>Capacidad Máxima de Carga:</h6>
+          <span class="h4">{{transporteproducto.capacidadCarga}} kg</span>
           <br>
           <h6>Monto Pagado:</h6>
-          <span class="h4">$ {{pago.idProducto.precioKilo}}</span>
+          <span class="h4">$ {{transporteproducto.precioTransporte}}</span>
           <br>
-          <h6>Cantidad de Kilos Comprados:</h6>
-          <span class="h4">{{pago.idProducto.cantidadKG}} kg</span>
+          <h6>Estado de Solicitud:</h6>
+            {% if transporteproducto.estadoTransporte == "PENDIENTE" %}
+            <span class="h4 text-warning">{{transporteproducto.estadoTransporte}}</span>
+            {% endif %}
+            {% if transporteproducto.estadoTransporte == "ACEPTADO" %}
+            <span class="h4 text-success">{{transporteproducto.estadoTransporte}}</span>
+            {% endif %}
+            {% if transporteproducto.estadoTransporte == "RECHAZADO" %}
+            <span class="h4 text-danger">{{transporteproducto.estadoTransporte}}</span>
+            {% endif %}
+            {% if transporteproducto.estadoTransporte == "EN PROCESO" %}
+            <span class="h4 text-warning">{{transporteproducto.estadoTransporte}}</span>
+            {% endif %}
+            {% if transporteproducto.estadoTransporte == "DESPACHADO" %}
+            <span class="h4 text-info">{{transporteproducto.estadoTransporte}}</span>
+            {% endif %}
+            {% if transporteproducto.estadoTransporte == "FINALIZADO" %}
+            <span class="h4 text-success">{{transporteproducto.estadoTransporte}}</span>
+            {% endif %}
           <br>
-          <h6>Estado de Pago:</h6>
-          {% if pago.pagado == 1 %}
-          <span class="h4">Transacción Totalmente Pagada</span>
-          {% endif %}
-          <br>     
+          <h6>Fecha Estimada de Entrega:</h6>
+          <span class="h4">{{transporteproducto.fechaEstimada}}</span>
+          <br>
           <hr>
-          <h6 class="text-center">{{ pago.fechaPago }}</h6>
+          <h6 class="text-center">{{ transporteproducto.fechaTransporte }}</h6>
         </div>
       </div>
     </div>

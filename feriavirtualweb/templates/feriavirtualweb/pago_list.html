@@ -34,11 +34,10 @@
         <div class="col-12">
           <div class="section-title">
             <div class="section-icon wow zoomIn" data-wow-delay=".4s">
-              <i class="lni lni-plus"></i>
+              <i class="lni lni-dollar"></i>
             </div>
-            <h2 class="wow fadeInUp" data-wow-delay=".4s">Tabla de Solicitudes para Subastar</h2>
-            <p class="wow fadeInUp" data-wow-delay=".6s">En esta sección podras encontrar una amplia variedad de
-              subastas que los distintos Agricultores y/o Empresas hayan publicado para tí.</p>
+            <h2 class="wow fadeInUp" data-wow-delay=".4s">Tabla de Pagos Realizados</h2>
+            <p class="wow fadeInUp" data-wow-delay=".6s">En esta sección podras encontrar la lista completa de todos los pagos realizados por nuestros distintos Agricultores y/o Empresas que confiaron en nosotros.</p>
           </div>
         </div>
       </div>
@@ -53,7 +52,6 @@
       </div>
       <div class="divider-custom-line"></div>
     </div> -->
-
     {% if pago_list %}
     <div class="container1" style="width: 90%;">
       <table class="table table-bordered table-hover table-responsive table-striped wow fadeInUp data-wow-delay=.4s">
@@ -62,21 +60,26 @@
             <th class="align-middle text-center" scope="col">Nombre del Producto</th>
             <th class="align-middle text-center" scope="col">Categoria del Producto</th>
             <th class="align-middle text-center" scope="col">Cantidad del Producto</th>
-            <th class="align-middle text-center" scope="col">Propietario Solicitud</th>
+            <th class="align-middle text-center" scope="col">Nombre Cliente</th>
+            <th class="align-middle text-center" scope="col">Valor Producto + Envio</th>
             <th class="align-middle text-center" scope="col">Estado Solicitud</th>
+            <th class="align-middle text-center" scope="col">Pago</th>
           </tr>
         </thead>
 
         {% for pago in pago_list %}
 
         <tr>
-          <td>{{ pago.idProducto.nombre }} </td>
-          <td>{{ pago.idProducto.categoria }}</td>
-          <td>{{ pago.idProducto.cantidadKG }} Kilos</td>
-          <td>{{ pago.idUsuario.nombres }} {{ pago.idUsuario.apellidos }}</td>
+          <td class="align-middle text-center">{{ pago.idProducto.nombre }} </td>
+          <td class="align-middle text-center">{{ pago.idProducto.categoria }}</td>
+          <td class="align-middle text-center">{{ pago.idProducto.cantidadKG }} Kg</td>
+          <td class="align-middle text-center">{{ pago.idUsuario.nombres }} {{ pago.idUsuario.apellidos }}</td>
+          <td class="align-middle text-center">${{pago.idProducto.precioKilo|add:pago.idProducto.precioTransporte}}</td>
           {% if pago.pagado == 1 %}
-          <td>Pagado</td>
+          <td class="align-middle text-center">Pagado</td>
           {% endif %}
+          <td class="align-middle text-center"><a class="btn btn-primary btn-sm"
+            href="{% url 'pago-detail' pago.pk %}">Ver Pago</a></td>
         </tr>
         {% endfor %}
 

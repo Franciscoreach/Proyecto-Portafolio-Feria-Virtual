@@ -113,6 +113,8 @@ def perfilUsuario(request):
     total_subastas = SubastaProducto.objects.count()
     total_productos = Producto.objects.count()
     total_usuarios = User.objects.count()
+    total_transportes = TransporteProducto.objects.count()
+    total_pagos = Pago.objects.count()
 
     #Aviso Pago de Producto por Correo
     if request.method == 'POST':
@@ -133,7 +135,10 @@ def perfilUsuario(request):
         'total_productos':total_productos,
         'total_usuarios':total_usuarios,
         'num_pagos':num_pagos,
-        'num_transportes':num_transportes},
+        'num_transportes':num_transportes,
+        'total_transportes':total_transportes,
+        'total_pagos':total_pagos
+        },
     )    
 
 #Vista Creada para Correo de Contacto

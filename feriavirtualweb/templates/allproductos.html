@@ -35,12 +35,13 @@
             <div class="section-title">
                 <div class="section-icon wow zoomIn" data-wow-delay=".4s">
                     <i class="lni lni-tag"></i>
-                  </div>
+                </div>
                 <h2 class="mt-4 mb-5 wow fadeInUp data-wow-delay=.4s">Productos</h2>
             </div>
-            {% if num_productos %}
+            
             <div class="row wow fadeInUp data-wow-delay=.4s">
                 {% for producto in num_productos %}
+                {% if user.nombres|add:user.apellidos == producto.idCliente.nombres|add:producto.idCliente.apellidos %}
                 <div class="col-lg-4 col-md-12 mb-4">
                     <div class="card">
                         <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
@@ -54,7 +55,8 @@
                             <a href="" class="text-reset">
                                 <p>{{producto.categoria.nombre}}</p>
                             </a>
-                            <h6 class="mb-3">${{producto.precioKilo|add:producto.precioTransporte}}(+ Envio)</h6>
+                            <h6>${{producto.precioKilo|add:producto.precioTransporte}}</h6>
+                            <p class="mb-3">(Envío Incluido)</p>
                             <div class="button">
                                 <a class="btn" href="{% url 'producto-detail' producto.pk %}">Ver Producto</a>
                             </div>
@@ -62,11 +64,11 @@
                         </div>
                     </div>
                 </div>
+                {% else %}
+                <!-- <p>No hay Productos Actualmente</p> -->
+                {% endif %}
                 {% endfor %}
             </div>
-            {% else %}
-            <p>No hay Productos Actualmente</p>
-            {% endif %}
         </div>
     </section>
 

@@ -34,11 +34,10 @@
         <div class="col-12">
           <div class="section-title">
             <div class="section-icon wow zoomIn" data-wow-delay=".4s">
-              <i class="lni lni-plus"></i>
+              <i class="lni lni-package"></i>
             </div>
-            <h2 class="wow fadeInUp" data-wow-delay=".4s">Tabla de Solicitudes para Transportar</h2>
-            <p class="wow fadeInUp" data-wow-delay=".6s">En esta sección podras encontrar una amplia variedad de
-              subastas que los distintos Agricultores y/o Empresas hayan publicado para tí.</p>
+            <h2 class="wow fadeInUp" data-wow-delay=".4s">Tabla de Productos para su Transporte</h2>
+            <p class="wow fadeInUp" data-wow-delay=".6s">En esta sección podras encontrar todos los productos que estan listos para ser transportados para los distintos Agricultores y/o Empresas que lo hayan solicitado.</p>
           </div>
         </div>
       </div>
@@ -59,26 +58,26 @@
       <table class="table table-bordered table-hover table-responsive table-striped wow fadeInUp data-wow-delay=.4s">
         <thead class="thead-green">
           <tr>
-            <th class="align-middle text-center" scope="col">Nombre del Producto</th>
-            <th class="align-middle text-center" scope="col">Categoria del Producto</th>
-            <th class="align-middle text-center" scope="col">Cantidad Ofrecida</th>
-            <th class="align-middle text-center" scope="col">Precio a Ofrecer (Dolares)</th>
-            <th class="align-middle text-center" scope="col">Propietario Solicitud</th>
+            <th class="align-middle text-center" scope="col">Nombre Cliente</th>
+            <th class="align-middle text-center" scope="col">Producto</th>
+            <th class="align-middle text-center" scope="col">Categoria</th>
+            <th class="align-middle text-center" scope="col">Cantidad</th>
             <th class="align-middle text-center" scope="col">Estado Solicitud</th>
           </tr>
         </thead>
-
-        {% for transporte in num_productos %}
-
+        {% if "TRANSPORTISTA" == user.tipo_usuario%}
+        {% for subasta in num_productos %}
+          {% if "ACEPTADA" == subasta.estadoSubasta %}
         <tr>
-          <td>{{ subasta.nombreProducto }} </td>
+          <td>{{ subasta.user.nombres }} {{ subasta.user.apellidos }} </td>
+          <td>{{ subasta.nombreProducto }}</td>
           <td>{{ subasta.categoria }}</td>
-          <td>{{ subasta.cantidadKG }} Kilos</td>
-          <td>${{ subasta.precioSubasta }}</td>
-          <td>{{ subasta.user.nombres }} {{ subasta.user.apellidos }}</td>
+          <td>{{ subasta.cantidadKG }} Kg</td>
           <td>{{ subasta.estadoSubasta }}</td>
         </tr>
+          {% endif %}
         {% endfor %}
+        {% endif %}
 
       </table>
 

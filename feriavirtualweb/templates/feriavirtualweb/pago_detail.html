@@ -15,7 +15,7 @@
     </div>
     <div class="row">
       <div class="card border-success mb-3" style="max-width:120rem;">
-        <div class="card-header text-center">Pago Stripe - Transacción: {{ pago.idProducto.stripe_product_id }} </div>
+        <div class="card-header text-center">Número de Transacción: {{ pago.idProducto.stripe_product_id }} </div>
         <div class="card-body text-primary">
           <h5 class="text-center">Nombre Producto</h5>
           <h3 class="text-center text-primary">{{ pago.idProducto.nombre }} </h3>
@@ -31,14 +31,17 @@
           <span class="h4">{{ pago.idUsuario.nombres }} {{ pago.idUsuario.apellidos }}</span>
           <br>
           <h6>Monto Pagado:</h6>
-          <span class="h4">$ {{pago.idProducto.precioKilo}}</span>
+          <span class="h4">$ {{pago.idProducto.precioKilo|add:pago.idProducto.precioTransporte}}</span>
           <br>
           <h6>Cantidad de Kilos Comprados:</h6>
           <span class="h4">{{pago.idProducto.cantidadKG}} kg</span>
           <br>
           <h6>Estado de Pago:</h6>
           {% if pago.pagado == 1 %}
-          <span class="h4">Transacción Totalmente Pagada</span>
+          <span class="h4 text-success">Transacción Pagada</span>
+          {% endif %}
+          {% if pago.pagado == 0 %}
+          <span class="h4 text-danger">Transacción Cancelada</span>
           {% endif %}
           <br>     
           <hr>

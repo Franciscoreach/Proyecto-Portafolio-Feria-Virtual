@@ -157,7 +157,8 @@
                       <a href="{% url 'subasta_all' %}" class="btn-sm btn-primary my-2 mx-1"> PDF Subastas</a>
                       <a href="{% url 'producto_all' %}" class="btn-sm btn-primary my-2 mx-1"> PDF Productos</a>
                       <a href="{% url 'usuario_all' %}" class="btn-sm btn-primary my-2 mx-1"> PDF Usuarios</a>
-                      <a href="{% url 'transportista_all' %}" class="btn-sm btn-primary my-2 mx-1"> PDF Transportistas</a>
+                      <a href="{% url 'transportista_all' %}" class="btn-sm btn-primary my-2 mx-1"> PDF
+                        Transportistas</a>
                       <a href="{% url 'pago_all' %}" class="btn-sm btn-primary my-2 mx-1"> PDF Pagos</a>
                     </div>
                   </div>
@@ -168,15 +169,15 @@
                       <form action="#" method="post" target="_blank">
                         {% csrf_token %}
                         <input name="mail_pago" placeholder="Correo Electrónico" class="common-input"
-                          onfocus="this.placeholder = ''" onblur="this.placeholder = 'Correo Electrónico'"
-                          required="" type="mail_pago" style="padding: 13px 30px">
-                          <div class="button mt-3">
-                            <button class="btn">Enviar Aviso de Pago</button>
-                          </div>
+                          onfocus="this.placeholder = ''" onblur="this.placeholder = 'Correo Electrónico'" required=""
+                          type="mail_pago" style="padding: 13px 30px">
+                        <div class="button mt-3">
+                          <button class="btn">Enviar Aviso de Pago</button>
+                        </div>
                       </form>
                     </div>
                     <div class="col-6 text-center">
-                      
+
                     </div>
                   </div>
                   {% endif %}
@@ -196,7 +197,7 @@
       <div class="section-title">
         <h2 class="mt-4  wow fadeInUp">Estadísticas</h2>
       </div>
-      <div class="row wow fadeInUp" data-wow-delay=".5s" >
+      <div class="row wow fadeInUp" data-wow-delay=".5s">
         <div class="col-lg-3 col-md-12 mb-4">
           <div class="card" style="border-color: #10dc8c;">
             <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
@@ -245,6 +246,30 @@
             </div>
           </div>
         </div>
+        <div class="col-lg-6 col-md-12 mb-4">
+          <div class="card" style="border-color: #10dc8c;">
+            <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
+              <img src="{% static 'images/profile/pagos.png' %}" width="100" height="100"
+                style="margin-top: 20px;" />
+            </div>
+            <div class="card-body">
+              <h5 class="card-title mb-3">Total de Pagos Realizados</h5>
+              <h4 style="color: #f37500;">{{ total_pagos }}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 mb-4">
+          <div class="card" style="border-color: #10dc8c;">
+            <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
+              <img src="{% static 'images/profile/transporte.png' %}" width="100" height="100"
+                style="margin-top: 20px;" />
+            </div>
+            <div class="card-body">
+              <h5 class="card-title mb-3">Total de Transportes</h5>
+              <h4 style="color: #fd0ec1;">{{ total_transportes }}</h4>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="col-md-12">
         <div class="card mb-3 wow fadeInUp" data-wow-delay=".5s" style="border-color: #10dc8c;">
@@ -257,14 +282,16 @@
                   var myChart = new Chart(ctx, {
                     type: 'pie',
                     data: {
-                      labels: ["Solicitudes", "Subastas", "Productos"],
+                      labels: ["Solicitudes", "Subastas", "Productos", "Pagos","Transportes"],
                       datasets: [{
                         backgroundColor: [
                           "#fffb26",
                           "#365afc",
-                          "#10dc8c"
+                          "#10dc8c",
+                          "#f37500",
+                          "#fd0ec1"
                         ],
-                        data: ["{{ total_solicitudes }}", "{{ total_subastas }}", "{{ total_productos }}"]
+                        data: ["{{ total_solicitudes }}", "{{ total_subastas }}", "{{ total_productos }}", "{{ total_pagos }}", "{{ total_transportes }}"]
                       }]
                     }
                   });
@@ -278,10 +305,57 @@
   </section>}
   {% endif %}
 
+  {% if user.tipo_usuario == "CLIENTE" or user.is_staff %}
+  <div class="section-title">
+    <h2 class="mt-4 wow fadeInUp data-wow-delay=.4s">Historial de Pagos</h2>
+  </div>
+
+  <!-- PAGOS POR USUARIOS Y ADMIN -->
+  <div class="masthead container d-flex align-items-center flex-column table-responsive">
+    {% if num_pagos %}
+    <div class="container1" style="width: 73%;">
+      <table class="table table-bordered table-hover table-responsive table-striped wow fadeInUp data-wow-delay=.4s">
+        <thead class="thead-green">
+          <tr>
+            <th class="align-middle text-center" scope="col">Producto</th>
+            <th class="align-middle text-center" scope="col">Nombre Cliente</th>
+            <th class="align-middle text-center" scope="col">Total Pagado</th>
+            <th class="align-middle text-center" scope="col">Kg comprados</th>
+            <th class="align-middle text-center" scope="col">Ver Detalle de Pago</th>
+          </tr>
+        </thead>
+        {% for pago in num_pagos %}
+        {% if pago.idUsuario.nombres|add:pago.idUsuario.apellidos == user.nombres|add:user.apellidos %}
+        <tr>
+          <td class="align-middle text-center">{{pago.idProducto}} </td>
+          <td class="align-middle text-center">{{pago.idUsuario.nombres|add:" "|add:pago.idUsuario.apellidos|add:" "}}</td>
+          <td class="align-middle text-center">${{pago.idProducto.precioKilo|add:pago.idProducto.precioTransporte}}</td>
+          <td class="align-middle text-center">{{pago.idProducto.cantidadKG}} kg</td>
+          <td class="align-middle text-center"><a class="btn btn-primary btn-sm"
+              href="{% url 'pago-detail' pago.pk %}">Ver Pago</a></td>
+        </tr>
+        {% elif user.is_staff %}
+        <tr>
+          <td class="align-middle text-center">{{pago.idProducto}} </td>
+          <td class="align-middle text-center">{{pago.idUsuario.nombres|add:" "|add:pago.idUsuario.apellidos|add:" "}}</td>
+          <td class="align-middle text-center">${{pago.idProducto.precioKilo|add:pago.idProducto.precioTransporte}}</td>
+          <td class="align-middle text-center">{{pago.idProducto.cantidadKG}} kg</td>
+          <td class="align-middle text-center"><a class="btn btn-primary btn-sm"
+              href="{% url 'pago-detail' pago.pk %}">Ver Pago</a></td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </table>
+    </div>
+    {% else %}
+    <p class="my-5">No hay Solicitudes para Subastar Actualmente</p>
+    {% endif %}
+  </div>
+  {% endif %}
+
   <div class="section-title">
     <h2 class="mt-4 wow fadeInUp data-wow-delay=.4s">Historial</h2>
   </div>
-
   <!-- solicitudes por usuario -->
   <section>
     {% for solicitud in num_solicitudes %}
@@ -311,7 +385,7 @@
             <div class="button text-center">
               <a class="btn my-4 button " href="{% url 'solicitud-detail' solicitud.pk %}">Ver detalle</a>
             </div>
-            <p class="card-text text-center"><small class="text-muted">{{ solicitud.fechaSolicitud }}</small></p>
+            <h6 class="card-text text-center"><small class="text-muted">{{ solicitud.fechaSolicitud }}</small></h6>
           </div>
         </div>
       </div>
@@ -350,7 +424,64 @@
             <div class="button text-center">
               <a class="btn my-4 button " href="{% url 'subasta-detail' subasta.pk %}">Ver detalle</a>
             </div>
-            <p class="card-text text-center"><small class="text-muted">{{ subasta.fechaSubasta }}</small></p>
+            <h6 class="card-text text-center"><small class="text-muted">{{ subasta.fechaSubasta }}</small></h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </section>
+
+  <!-- solicitudes transportes por usuario-->
+  <section>
+    {% for transportes in num_transportes %}
+    {% if transportes.user.idUsuario == user.idUsuario %}
+    <div class="card" style="width: 50%; margin: 50px; margin-left: 25%; border-radius: 8px;">
+      <div class="row no-gutters text-center">
+        <div class="col-md-6 ">
+          {% if transportes.tipoTransporte == "AVION" %}
+          <img src="/media/images/avion.png" class="card-img pequeña" style="margin-top: 25px;" alt="...">
+          {% endif %}
+          {% if transportes.tipoTransporte == "CAMION" %}
+          <img src="/media/images/camion.png" class="card-img pequeña" style="margin-top: 80px;"alt="...">
+          {% endif %}
+          {% if transportes.tipoTransporte == "BARCO" %}
+          <img src="/media/images/barco.png" class="card-img pequeña" style="margin-top: 10px;" alt="...">
+          {% endif %}
+          {% if transportes.tipoTransporte == "OTRO" %}
+          <img src="/media/images/otros.png" class="card-img pequeña" style="margin-top: 30px;" alt="...">
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <h4 style="color: #10dc8c;" class="card-title mt-3">{{ transportes.nombreProducto }}</h4>
+            <h4 class="card-title mt-3 text-info">{{ transportes.nombreEmpresa }}</h4>
+            {% if transportes.estadoTransporte == "PENDIENTE" %}
+            <h6 class="m-2">Estado Envio: <span class="text-warning">{{ transportes.estadoTransporte}}</span></h6>
+            {% endif %}
+            {% if transportes.estadoTransporte == "ACEPTADO" %}
+            <h6 class="m-2">Estado Envio: <span class="text-success">{{ transportes.estadoTransporte}}</span></h6>
+            {% endif %}
+            {% if transportes.estadoTransporte == "RECHAZADO" %}
+            <h6 class="m-2">Estado Envio: <span class="text-danger">{{ transportes.estadoTransporte}}</span></h6>
+            {% endif %}
+            {% if transportes.estadoTransporte == "EN PROCESO" %}
+            <h6 class="m-2">Estado solicitud: <span class="text-warning">{{ transportes.estadoTransporte}}</span></h6>
+            {% endif %}
+            {% if transportes.estadoTransporte == "DESPACHADO" %}
+            <h6 class="m-2">Estado solicitud: <span class="text-info">{{ transportes.estadoTransporte}}</span></h6>
+            {% endif %}
+            {% if transportes.estadoTransporte == "FINALIZADO" %}
+            <h6 class="m-2">Estado Envio: <span class="text-success">{{ transportes.estadoTransporte}}</span></h6>
+            {% endif %}
+            
+            <h6 class="card-text text-center">Fecha de entrega: <small class="text-muted">{{ transportes.fechaEstimada }}</small></h6>
+            <div class="button text-center">
+              <a class="btn my-4 button " href="{% url 'transportesubasta-detail' transportes.pk %}">Ver detalle</a>
+            </div>
+            <br>
+            <h6 class="card-text text-center"><small class="text-muted">{{ transportes.fechaTransporte }}</small></h6>
           </div>
         </div>
       </div>
@@ -391,7 +522,7 @@
             <div class="button text-center">
               <a class="btn my-4 button " href="{% url 'solicitud-detail' solicitud.pk %}">Ver detalle</a>
             </div>
-            <p class="card-text text-center"><small class="text-muted">{{ solicitud.fechaSolicitud }}</small></p>
+            <h6 class="card-text text-center"><small class="text-muted">{{ solicitud.fechaSolicitud }}</small></h6>
           </div>
         </div>
       </div>
@@ -432,7 +563,67 @@
             <div class="button text-center">
               <a class="btn my-4 button " href="{% url 'subasta-detail' subasta.pk %}">Ver detalle</a>
             </div>
-            <p class="card-text text-center"><small class="text-muted">{{ subasta.fechaSubasta }}</small></p>
+            <h6 class="card-text text-center"><small class="text-muted">{{ subasta.fechaSubasta }}</small></h6>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- solicitudes transportes admin-->
+  {% if "SI" == user.rol_consultor or user.is_staff %}
+  <section>  
+    <div class="card" style="width: 50%; margin: 50px; margin-left: 25%; border-radius: 8px;">
+      <div class="card-header text-center text-dark" style="background-color:#10dc8c;">
+        <strong>Transportes</strong>
+      </div>
+      {% for transportes in num_transportes %}
+      <div class="card flex-row no-gutters text-center">
+        <div class="col-md-6 ">
+          {% if transportes.tipoTransporte == "AVION" %}
+          <img src="/media/images/avion.png" class="card-img pequeña" style="margin-top: 25px;" alt="...">
+          {% endif %}
+          {% if transportes.tipoTransporte == "CAMION" %}
+          <img src="/media/images/camion.png" class="card-img pequeña" style="margin-top: 80px;"alt="...">
+          {% endif %}
+          {% if transportes.tipoTransporte == "BARCO" %}
+          <img src="/media/images/barco.png" class="card-img pequeña" style="margin-top: 10px;" alt="...">
+          {% endif %}
+          {% if transportes.tipoTransporte == "OTRO" %}
+          <img src="/media/images/otros.png" class="card-img pequeña" style="margin-top: 30px;" alt="...">
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <h4 style="color: #10dc8c;" class="card-title mt-3">{{ transportes.nombreProducto }}</h4>
+            <h4 class="card-title mt-3 text-info">{{ transportes.nombreEmpresa }}</h4>
+            {% if transportes.estadoTransporte == "PENDIENTE" %}
+            <h6 class="m-2">Estado Envio: <span class="text-warning">{{ transportes.estadoTransporte}}</span></h6>
+            {% endif %}
+            {% if transportes.estadoTransporte == "ACEPTADO" %}
+            <h6 class="m-2">Estado Envio: <span class="text-success">{{ transportes.estadoTransporte}}</span></h6>
+            {% endif %}
+            {% if transportes.estadoTransporte == "RECHAZADO" %}
+            <h6 class="m-2">Estado Envio: <span class="text-danger">{{ transportes.estadoTransporte}}</span></h6>
+            {% endif %}
+            {% if transportes.estadoTransporte == "EN PROCESO" %}
+            <h6 class="m-2">Estado solicitud: <span class="text-warning">{{ transportes.estadoTransporte}}</span></h6>
+            {% endif %}
+            {% if transportes.estadoTransporte == "DESPACHADO" %}
+            <h6 class="m-2">Estado solicitud: <span class="text-info">{{ transportes.estadoTransporte}}</span></h6>
+            {% endif %}
+            {% if transportes.estadoTransporte == "FINALIZADO" %}
+            <h6 class="m-2">Estado Envio: <span class="text-success">{{ transportes.estadoTransporte}}</span></h6>
+            {% endif %}
+            
+            <h6 class="card-text text-center">Fecha de entrega: <small class="text-muted">{{ transportes.fechaEstimada }}</small></h6>
+            <div class="button text-center">
+              <a class="btn my-4 button " href="{% url 'transportesubasta-detail' transportes.pk %}">Ver detalle</a>
+            </div>
+            <br>
+            <h6 class="card-text text-center"><small class="text-muted">{{ transportes.fechaTransporte }}</small></h6>
           </div>
         </div>
       </div>

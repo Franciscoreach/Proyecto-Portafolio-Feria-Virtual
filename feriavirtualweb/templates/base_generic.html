@@ -103,9 +103,9 @@
                                         aria-label="Toggle navigation">Productos</a>
                                     <ul class="sub-menu collapse" id="submenu-1-4">
                                         {% if user.is_staff %}             
-                                        <li class="nav-item"><a href="{% url 'productos' %}">Agregar Productos</a></li>
-                                        <li class="nav-item"><a href="{% url 'todolosproductos' %}">Todos los Productos</a></li>
+                                        <li class="nav-item"><a href="{% url 'productos' %}">Agregar Productos</a></li>                       
                                         <li class="nav-item"><a href="{% url 'productoslista' %}">Tabla de Productos</a></li>
+                                        <li class="nav-item"><a href="{% url 'pagoslista' %}">Tabla de Pagos</a></li>
                                         <li class="nav-item"><a href="{% url 'solicitudlista' %}">Solicitudes de Compra</a></li>
                                         <li class="nav-item"><a href="{% url 'subastalista' %}">Solicitudes para Subasta</a></li>
                                         <li class="nav-item"><a href="{% url 'transportelista' %}">Solicitudes Transportes</a></li>
