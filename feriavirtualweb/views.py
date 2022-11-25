@@ -387,7 +387,6 @@ def send_email_pagado(mail_pagado):
 class CreateCheckoutSessionView(generic.View):
 
     
-
     def post(self, request, *args, **kwargs):
         producto = Producto.objects.get(idProducto=self.kwargs["pk"])
 
@@ -395,13 +394,7 @@ class CreateCheckoutSessionView(generic.View):
         producto.estadoPago = "PAGADO"
         pago.save()
         producto.save()
-        #Aviso del Producto ya Pagado por Correo
         
-        mail_pagado = User.objects.get(idUsuario = request.user.idUsuario).email
-
-        send_email_pagado(mail_pagado)
-        messages.success(request, "¡Pago realizado correctamente!")
-
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=[
@@ -423,11 +416,16 @@ class ProductoDetailView(generic.DetailView):
 
     
 def success_view(request):
+        #Aviso del Producto ya Pagado por Correo
+        
+        mail_pagado = User.objects.get(idUsuario = request.user.idUsuario).email
 
+        send_email_pagado(mail_pagado)
+        messages.success(request, "¡Pago realizado correctamente!")
         return render(request, "feriavirtualweb/success.html")
 
 def cancel_view(request):
-
+        messages.success(request, "¡Hubo un error con su pago!")
         return render(request, "feriavirtualweb/cancel.html")
 
 
