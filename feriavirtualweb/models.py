@@ -48,7 +48,7 @@ class User(AbstractUser):
     apellidos = models.CharField('Apellidos', max_length= 200, blank = True, null = True)
     pais_usuario = models.CharField(max_length=15,choices=PAIS_USUARIO,default=" ")
     tipo_usuario = models.CharField(max_length=15,choices=ROL_USUARIO,default=" ")
-    con_contrato = models.CharField(max_length=2,choices=CONTRATO_USUARIO,default=" ")
+    con_contrato = models.CharField('Con contrato (en caso de ser cliente, favor seleccionar "no")',max_length=2,choices=CONTRATO_USUARIO,default=" ")
     rol_consultor = models.CharField(max_length=2,choices=ROL_ESPECIAL,default="NO")
 
 
